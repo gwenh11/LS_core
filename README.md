@@ -1,1 +1,1 @@
-# Launch School
+Launch School assignments and notes.
