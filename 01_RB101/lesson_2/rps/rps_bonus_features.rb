@@ -90,7 +90,7 @@ loop do
   if round < MAX_ROUNDS
     prompt("Press any key for next round.")
     pause = Kernel.gets().chomp()
-    print "\e[2J\e[f"
+    system("clear")
   else
     prompt("The match is over!")
   end

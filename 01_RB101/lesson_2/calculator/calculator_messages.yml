@@ -1,0 +1,45 @@
+en:
+  welcome: "Welcome to Calculator! Enter your name:"
+  greeting: "Hi %{sub}"
+  valid_name: "Make sure to enter a valid name."
+  number1: "What's the first number?"
+  number2: "What's the second number?"
+  invalid_number: "Hmm... that doesn't look like a valid number."
+  operator_prompt: >
+    What operation would you like to perform?
+      1) add
+      2) subtract
+      3) multiply
+      4) dividing
+  operator_option: "Please choose 1, 2, 3, 4"
+  adding: "Adding"
+  subtracting: "Subtracting"
+  multiplying: "Multiplying"
+  dividing: "Dividing"
+  operation_message: "%{sub} the two numbers..."
+  result: "The result is %{sub}"
+  restart: "Do you want to perform another calculation? (Y to calculate again)"
+  goodbye: "Thanks for using the calculator. Good bye!"
+
+vi:
+  welcome: "Chào mừng bạn đến với Máy tính! Điền tên của bạn:"
+  greeting: "Chào %{sub}"
+  valid_name: "Đảm bảo nhập tên hợp lệ."
+  number1: "Số đầu tiên là gì?"
+  number2: "Số thứ hai là gì?"
+  invalid_number: Hmm ... có vẻ không phải là số hợp lệ."
+  operator_prompt: >
+    Bạn muốn thực hiện thao tác nào?
+      1) Tính cộng
+      2) Tính trừ
+      3) Tính nhân
+      4) Tính chia
+  operator_option: "Vui lòng chọn 1, 2, 3, 4"
+  adding: "Tính cộng"
+  subtracting: "Tính trừ"
+  multiplying: "Tính nhân"
+  dividing: "Tính chia"
+  operation_message: "%{sub} hai số..."
+  result: "Kết quả là %{sub}"
+  restart: "Bạn có muốn thực hiện một phép tính khác không? (Y để tính toán lại)"
+  goodbye: "Cảm ơn bạn đã sử dụng máy tính. Tạm biệt!"
