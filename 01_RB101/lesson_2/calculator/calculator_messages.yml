@@ -19,7 +19,7 @@ en:
   operation_message: "%{sub} the two numbers..."
   result: "The result is %{sub}"
   restart: "Do you want to perform another calculation? (Y to calculate again)"
-  goodbye: "Thanks for using the calculator. Good bye!"
+  goodbye: "Thanks for using the calculator. Goodbye!"
 
 vi:
   welcome: "Chào mừng bạn đến với Máy tính! Điền tên của bạn:"

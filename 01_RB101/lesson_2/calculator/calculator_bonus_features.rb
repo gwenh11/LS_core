@@ -111,7 +111,11 @@ loop do
 
   prompt('restart')
   answer = Kernel.gets().chomp()
-  break unless answer.downcase().start_with?('y')
+  if answer.downcase().start_with?('y')
+    Kernel.system("clear")
+  else
+    break
+  end
 end
 
 prompt('goodbye')
