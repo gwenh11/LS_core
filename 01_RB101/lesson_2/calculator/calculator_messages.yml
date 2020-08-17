@@ -1,7 +1,15 @@
+language_option: |
+  Press '1' for English. 
+  => Nhấn '2' cho Tiếng Việt.
+invalid_language: |
+  Make sure to enter a valid language. 
+  => Đảm bảo nhập một ngôn ngữ hợp lệ.
+
 en:
   welcome: "Welcome to Calculator! Enter your name:"
   greeting: "Hi %{sub}"
   valid_name: "Make sure to enter a valid name."
+  instruction: "Enter two numbers and select a calculation to perform with them."
   number1: "What's the first number?"
   number2: "What's the second number?"
   invalid_number: "Hmm... that doesn't look like a valid number."
@@ -18,13 +26,14 @@ en:
   dividing: "Dividing"
   operation_message: "%{sub} the two numbers..."
   result: "The result is %{sub}"
-  restart: "Do you want to perform another calculation? (Y to calculate again)"
+  restart: "Do you want to perform another calculation? (Type 'Y' or 'Yes' to calculate again)"
   goodbye: "Thanks for using the calculator. Goodbye!"
 
 vi:
   welcome: "Chào mừng bạn đến với Máy tính! Điền tên của bạn:"
   greeting: "Chào %{sub}"
   valid_name: "Đảm bảo nhập tên hợp lệ."
+  instruction: "Nhập hai số và chọn một phép tính để thực hiện với chúng."
   number1: "Số đầu tiên là gì?"
   number2: "Số thứ hai là gì?"
   invalid_number: Hmm ... có vẻ không phải là số hợp lệ."
@@ -41,5 +50,5 @@ vi:
   dividing: "Tính chia"
   operation_message: "%{sub} hai số..."
   result: "Kết quả là %{sub}"
-  restart: "Bạn có muốn thực hiện một phép tính khác không? (Y để tính toán lại)"
+  restart: "Bạn có muốn thực hiện một phép tính khác không? (Nhập 'Y' or 'Yes' để tính toán lại)"
   goodbye: "Cảm ơn bạn đã sử dụng máy tính. Tạm biệt!"

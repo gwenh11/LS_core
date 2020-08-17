@@ -1,19 +1,75 @@
+# Obtain external messages
 require 'yaml'
 MESSAGES = YAML.load_file('calculator_messages.yml')
-LANGUAGE = 'en'
 
-def messages(message, lang='en')
-  MESSAGES[lang][message]
+# Constant
+LANGUAGE = {
+  '1' => 'en',
+  '2' => 'vi'
+}
+
+# Methods
+def clear_screen
+  Kernel.system('clear')
 end
 
-def prompt(key, sub_data=nil)
-  message = messages(key, LANGUAGE)
+def prompt_dual_language(key)
+  Kernel.puts("=> #{MESSAGES[key]}")
+end
+
+def valid_language?(lang_option)
+  LANGUAGE.keys.include?(lang_option)
+end
+
+def display_language_option
+  prompt_dual_language('language_option')
+end
+
+def get_language
+  lang_option = ''
+  loop do
+    lang_option = Kernel.gets().chomp()
+
+    if valid_language?(lang_option)
+      break
+    else
+      prompt_dual_language('invalid_language')
+    end
+  end
+  LANGUAGE[lang_option]
+end
+
+def prompt(key, lang, sub_data='')
+  message = MESSAGES[lang][key]
   if sub_data
     message_with_sub = format(message, sub: sub_data)
     Kernel.puts("=> #{message_with_sub}")
   else
     Kernel.puts("=> #{message}")
   end
+end
+
+def get_name(lang)
+  prompt('welcome', lang)
+  name = ''
+  loop do
+    name = Kernel.gets().chomp()
+
+    if name.empty?()
+      prompt('valid_name', lang)
+    else
+      break
+    end
+  end
+  name
+end
+
+def display_greeting(name, lang)
+  prompt('greeting', lang, name)
+end
+
+def display_instruction(lang)
+  prompt('instruction', lang)
 end
 
 def integer?(num)
@@ -28,75 +84,63 @@ def valid_number?(num)
   integer?(num) || float?(num)
 end
 
-def operation_to_message(op)
+def get_number(key, lang)
+  prompt(key, lang)
+  num = ''
+  loop do
+    num = Kernel.gets().chomp()
+
+    if valid_number?(num)
+      break
+    else
+      prompt('invalid_number', lang)
+    end
+  end
+  num
+end
+
+def display_operation_option(lang)
+  prompt('operator_prompt', lang)
+end
+
+def valid_operator?(op)
+  %w(1 2 3 4).include?(op)
+end
+
+def get_operation(lang)
+  op = ''
+  loop do
+    op = Kernel.gets().chomp()
+
+    if valid_operator?(op)
+      break
+    else
+      prompt('operator_option', lang)
+    end
+  end
+  op
+end
+
+def operation_to_message(op, lang)
   word = case op
          when '1'
-           MESSAGES[LANGUAGE]['adding']
+           MESSAGES[lang]['adding']
          when '2'
-           MESSAGES[LANGUAGE]['subtracting']
+           MESSAGES[lang]['subtracting']
          when '3'
-           MESSAGES[LANGUAGE]['multiplying']
+           MESSAGES[lang]['multiplying']
          when '4'
-           MESSAGES[LANGUAGE]['dividing']
+           MESSAGES[lang]['dividing']
          end
   word
 end
 
-prompt('welcome')
-
-name = ''
-loop do
-  name = Kernel.gets().chomp()
-
-  if name.empty?()
-    prompt('valid_name')
-  else
-    break
-  end
+def display_operation_choice(op_message, lang)
+  prompt('operation_message', lang, op_message)
 end
 
-prompt('greeting', name)
-
-loop do
-  number1 = ''
-  loop do
-    prompt('number1')
-    number1 = Kernel.gets().chomp()
-
-    if valid_number?(number1)
-      break
-    else
-      prompt('invalid_number')
-    end
-  end
-
-  number2 = ''
-  loop do
-    prompt('number2')
-    number2 = Kernel.gets().chomp()
-
-    if valid_number?(number2)
-      break
-    else
-      prompt('invalid_number')
-    end
-  end
-
-  prompt('operator_prompt')
-  operator = ''
-  loop do
-    operator = Kernel.gets().chomp()
-
-    if %w(1 2 3 4).include?(operator)
-      break
-    else
-      prompt('operator_option')
-    end
-  end
-
-  op_process = operation_to_message(operator)
-  prompt('operation_message', op_process)
-  result = case operator
+def get_calculation(op, number1, number2)
+  result = case op
            when '1'
              number1.to_i() + number2.to_i()
            when '2'
@@ -106,16 +150,55 @@ loop do
            when '4'
              number1.to_f() / number2.to_f()
            end
-
-  prompt('result', result)
-
-  prompt('restart')
-  answer = Kernel.gets().chomp()
-  if answer.downcase().start_with?('y')
-    Kernel.system("clear")
-  else
-    break
-  end
+  result
 end
 
-prompt('goodbye')
+def display_result(result, lang)
+  prompt('result', lang, result)
+end
+
+def restart?(option)
+  %w(y yes).include?(option.downcase())
+end
+
+def restart(lang)
+  prompt('restart', lang)
+  Kernel.gets().chomp()
+end
+
+def display_goodbye(lang)
+  prompt('goodbye', lang)
+end
+
+# Main Program
+clear_screen
+display_language_option
+
+lang = get_language
+name = get_name(lang)
+
+display_greeting(name, lang)
+display_instruction(lang)
+
+loop do
+  number1 = get_number('number1', lang)
+  number2 = get_number('number2', lang)
+
+  display_operation_option(lang)
+
+  op = get_operation(lang)
+  op_message = operation_to_message(op, lang)
+
+  display_operation_choice(op_message, lang)
+
+  result = get_calculation(op, number1, number2)
+
+  display_result(result, lang)
+
+  restart_choice = restart(lang)
+
+  break unless restart?(restart_choice)
+  clear_screen
+end
+
+display_goodbye(lang)
