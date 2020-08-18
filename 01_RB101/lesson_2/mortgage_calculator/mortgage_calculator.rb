@@ -58,7 +58,7 @@ end
 def get_loan
   prompt('loan')
   loan = ''
-  loop do 
+  loop do
     loan = Kernel.gets().chomp()
 
     loan.delete!('$') if loan.start_with?('$')
@@ -115,32 +115,32 @@ def calculate_term(term_years, term_months)
 end
 
 def valid_apr?(num)
-  integer?(num) && (0..100).include?(num.to_i) || float?(num) && (0..100).include?(num.to_f)
+  integer?(num) && (0..100).include?(num.to_i) ||
+    float?(num) && (0..100).include?(num.to_f)
 end
 
-def get_monthly_apr
+def get_apr
   prompt('apr')
   apr = ''
   loop do
     apr = Kernel.gets().chomp()
 
     apr.delete!('%') if apr.end_with?('%')
-    
     if valid_apr?(apr)
       break
     else
       prompt('valid_apr')
     end
   end
-  
-  apr_float = apr.to_f
-  monthly_apr = case
-                when apr_float > 1.0
-                  apr_float / (MONTHS_IN_YEAR * 100)
-                else
-                  apr_float / MONTHS_IN_YEAR
-                end
-  monthly_apr
+  apr.to_f
+end
+
+def calculate_monthly_apr(apr)
+  if apr > 1.0
+    apr / (MONTHS_IN_YEAR * 100)
+  else
+    apr / MONTHS_IN_YEAR
+  end
 end
 
 def prompt_calculation
@@ -176,7 +176,7 @@ def get_restart_choice
 
     if valid_restart_choice?(choice)
       break
-    else 
+    else
       prompt('valid_restart')
     end
   end
@@ -201,19 +201,20 @@ loop do
   term_years = get_term_years
   term_months = get_term_months
   term = calculate_term(term_years, term_months)
-  monthly_apr = get_monthly_apr
-  
+  apr = get_apr
+  monthly_apr = calculate_monthly_apr(apr)
+
   prompt_calculation
   pause_to_read
 
   payment = calculate_payment(loan, term, monthly_apr)
   formated_payment = format_payment(payment)
-  
+
   display_payment(formated_payment)
   pause_to_read
 
   choice = get_restart_choice
-  
+
   break unless restart_yes?(choice)
   clear_screen
 end
