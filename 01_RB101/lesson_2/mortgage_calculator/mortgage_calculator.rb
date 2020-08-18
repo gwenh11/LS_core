@@ -1,122 +1,221 @@
-=begin
+require 'yaml'
+MESSAGES = YAML.load_file('mortgage_calculator_messages.yml')
+MONTHS_IN_YEAR = 12
 
-Build a mortgage calculator
-- Ask the user for the loan amount, APR and loan duration (in years)
-- Calculate monthly interest based on APR
-- Calculate loan duration in months
-- Calculate monthly payment
-- Output the result 
-
-**********************************************************************
-
-FORMAL PSEUDO-CODE
-
-START
-
-Ask user for three inputs:
-    1) loan_amount
-    2) apr
-    3) duration_years
-
-SET MONTHS = 12 
-SET monthly_interest = apr / MONTHS
-SET duration_months = duration_years * MONTHS
-SET payment = p * (j / (1 - (1 + j)**(-n)))
-
-PRINT payment
-
-END
-
-**********************************************************************
-
-REFACTOR
-
-- Build a loop to repeat the calculation unless user says no
-- Ask user for name and include a loop to check for valid name
-- Build a method to check for valid input 
-- Build a loop to get vavlid input from user
-
-=end
-
-MONTHS = 12
-
-def prompt(message)
-  puts "=> #{message}"
+def clear_screen
+  system('clear') || system('cls')
 end
 
-def valid_input?(input)
-  input.to_f.to_s == input && input.to_f > 0.0
+def pause_to_read
+  sleep(2)
 end
 
-prompt("Welcome to Mortgage Calculator! Enter your name:")
-
-name = ''
-loop do
-  name = Kernel.gets().chomp()
-  
-  if name.empty?()
-    prompt("Make sure you enter a valid name")
+def prompt(key, sub_data='')
+  message = MESSAGES[key]
+  if sub_data
+    message_with_sub = format(message, sub: sub_data)
+    puts("\n=> #{message_with_sub}")
   else
-    break
+    puts("\n=> #{message}")
   end
 end
 
-prompt("Hi #{name}")
-
-loop do
-
-  loan_amount = ''
+def get_name
+  prompt('welcome')
+  name = ''
   loop do
-    prompt("Enter a number for the loan amount:")
-    loan_amount = Kernel.gets().chomp()
+    name = Kernel.gets().chomp()
 
-    if valid_input?(loan_amount)
+    if name.empty?()
+      prompt('valid_name')
+    else
       break
-    else 
-      prompt("Hmm...that doesn't look a valid loan ammount.")
     end
   end
+  name
+end
 
+def display_greeting(name)
+  prompt('greeting', name)
+end
+
+def display_instruction
+  prompt('instruction')
+end
+
+def integer?(num)
+  num.to_i().to_s() == num
+end
+
+def float?(num)
+  num.to_f().to_s() == num
+end
+
+def valid_loan?(num)
+  integer?(num) && num.to_i > 0 || float?(num) && num.to_f > 0
+end
+
+def get_loan
+  prompt('loan')
+  loan = ''
+  loop do 
+    loan = Kernel.gets().chomp()
+
+    loan.delete!('$') if loan.start_with?('$')
+
+    if valid_loan?(loan)
+      break
+    else
+      prompt('valid_loan')
+    end
+  end
+  loan.to_f
+end
+
+def valid_term_years?(num)
+  integer?(num) && num.to_i >= 0
+end
+
+def get_term_years
+  prompt('term_years')
+  term_years = ''
+  loop do
+    term_years = Kernel.gets().chomp()
+
+    if valid_term_years?(term_years)
+      break
+    else
+      prompt('valid_term_years')
+    end
+  end
+  term_years.to_i
+end
+
+def valid_term_months?(num)
+  integer?(num) && num.to_i >= 0
+end
+
+def get_term_months
+  prompt('term_months')
+  term_months = ''
+  loop do
+    term_months = Kernel.gets().chomp()
+
+    if valid_term_months?(term_months)
+      break
+    else
+      prompt('valid_term_months')
+    end
+  end
+  term_months.to_i
+end
+
+def calculate_term(term_years, term_months)
+  term_years * MONTHS_IN_YEAR + term_months
+end
+
+def valid_apr?(num)
+  integer?(num) && (0..100).include?(num.to_i) || float?(num) && (0..100).include?(num.to_f)
+end
+
+def get_monthly_apr
+  prompt('apr')
   apr = ''
   loop do
-    prompt("Enter the annual percentage rate (APR):")
     apr = Kernel.gets().chomp()
 
-    if valid_input?(apr)
+    apr.delete!('%') if apr.end_with?('%')
+    
+    if valid_apr?(apr)
       break
     else
-      prompt("Hmm...that doesn't look like a valid annual percentage rate.")
+      prompt('valid_apr')
     end
   end
-
-  duration_years = ''
-  loop do
-    prompt("Enter the loan duration (in years):")
-    duration_years = Kernel.gets().chomp()
-
-    if valid_input?(duration_years)
-      break
-    else
-      prompt("Hmm...that doesn't look like a valid number for year(s).")
-    end
-  end
-
-  if apr.to_f < 1
-    monthly_interest_rate = apr / MONTHS
-  else
-    monthly_interest_rate = apr / (100 * MONTHS)
-  end
-
-  duration_months = duration_years * MONTHS
-  monthly_payment = loan_amount * (monthly_interest_rate / (1 - (1 + monthly_interest_rate)**(-duration_months)))
-
-  prompt("Calculating monthly payment...")
-
-  prompt("The monthly mortgage payment is: #{monthly_payment}")
-
-  prompt("Do you want to calculate another monthly mortgage payment (Y to calculate again)?")
-  answer = Kernel.gets().chomp()
-  break unless answer.downcase().start_with('y')
+  
+  apr_float = apr.to_f
+  monthly_apr = case
+                when apr_float > 1.0
+                  apr_float / (MONTHS_IN_YEAR * 100)
+                else
+                  apr_float / MONTHS_IN_YEAR
+                end
+  monthly_apr
 end
 
-prompt("Thank you for using Mortgage Calculator!")
+def prompt_calculation
+  prompt('calculate_payment')
+end
+
+def calculate_payment(loan, term, monthly_apr)
+  loan * (monthly_apr / (1 - (1 + monthly_apr)**(-term)))
+end
+
+def format_payment(num)
+  format('%.2f', num)
+end
+
+def display_payment(payment)
+  prompt('payment', payment)
+end
+
+def restart_yes?(answer)
+  %w(y yes).include?(answer.downcase)
+end
+
+def valid_restart_choice?(answer)
+  %w(y yes n no).include?(answer.downcase)
+end
+
+def get_restart_choice
+  prompt('restart')
+  choice = ''
+
+  loop do
+    choice = Kernel.gets().chomp()
+
+    if valid_restart_choice?(choice)
+      break
+    else 
+      prompt('valid_restart')
+    end
+  end
+  choice
+end
+
+def display_goodbye
+  prompt('goodbye')
+end
+
+# Main Program
+clear_screen
+
+name = get_name
+
+display_greeting(name)
+display_instruction
+pause_to_read
+
+loop do
+  loan = get_loan
+  term_years = get_term_years
+  term_months = get_term_months
+  term = calculate_term(term_years, term_months)
+  monthly_apr = get_monthly_apr
+  
+  prompt_calculation
+  pause_to_read
+
+  payment = calculate_payment(loan, term, monthly_apr)
+  formated_payment = format_payment(payment)
+  
+  display_payment(formated_payment)
+  pause_to_read
+
+  choice = get_restart_choice
+  
+  break unless restart_yes?(choice)
+  clear_screen
+end
+
+display_goodbye

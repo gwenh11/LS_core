@@ -1,0 +1,27 @@
+welcome: "Welcome to Mortgate Calculator! Enter your name:"
+greeting: "Hi %{sub}!"
+valid_name: "Make sure to enter a valid name."
+instruction: > 
+  Monthly payment is calculated using:
+    - Loan amount
+    - Loan term
+    - Annual percentage rate.
+loan: "What is the loan amount?"
+valid_loan: "Please enter a number greater than '0' for loan amount."
+term_years: |
+  What is the term of the loan in years? 
+  => If you only know the months, you can enter '0'.
+valid_term_years: "Please enter a non-negative whole number for years."
+term_months: |
+  What is the term of the loan in months? 
+  => If you only know the years, you can enter '0'.
+valid_term_months: "Please enter a non-negative whole number for months."
+apr: "What is the annual percentage rate?"
+valid_apr: "Please enter a positive number less than '100' for the annual percentage rate."
+calculate_payment: "Calculating monthly payment..."
+payment: "The monthly mortgage payment is: $%{sub}"
+restart: |
+  Do you want to perform another calculation? 
+  => Enter 'y' or 'yes' (case insensitive) to calculate again. 
+valid_restart: "Please enter 'y', 'yes', 'n' or 'no' (case insensitive)."
+goodbye: "Thank you for using Mortgate Calculator!"
