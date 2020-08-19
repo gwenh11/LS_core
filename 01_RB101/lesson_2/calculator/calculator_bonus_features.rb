@@ -1,14 +1,44 @@
-# Obtain external messages
+=begin 
+Calculator Bonus Features
+Gwen Hoang
+
+***v1 2020.08.17 - reviewed by Srđan Ćorić
+Rubocop
+  No offenses. Excellent work!
+
+Gameplay
+  The program allowed me to enter my name as several spaces which made the
+  prompt look odd.
+
+  When I chose 0 as the second number and chose divide I got Infinity. As it is
+  not possible to divide numbers with 0, the program should display some error
+  message, or you can handle this in some other way.
+
+  I entered yada after I was prompted to perform another calculation and the
+  game finished. For better user experience you should only allow certain
+  inputs as valid like y, yes, n and no case insensitive and treat all other
+  inputs as invalid.
+
+Source code
+  Your methods are short, well-named and they do only one thing. Your code was
+  very easy to read. I don't have anything to add here.
+
+Overall
+  Great work Gwen! Review my feedback and try to fix the gameplay issues
+  mentioned above before moving forward.
+
+***v2 2020.08.18 - fixed game play issues
+=end
+
+# --constants and dependencies--------------------------------------------------
 require 'yaml'
 MESSAGES = YAML.load_file('calculator_messages.yml')
-
-# Constant
 LANGUAGE = {
   '1' => 'en',
   '2' => 'vi'
 }
 
-# Methods
+# --methods---------------------------------------------------------------------
 def clear_screen
   Kernel.system('clear')
 end
@@ -192,7 +222,7 @@ def display_goodbye(lang)
   prompt('goodbye', lang)
 end
 
-# Main Program
+# --main program----------------------------------------------------------------
 clear_screen
 display_language_option
 
