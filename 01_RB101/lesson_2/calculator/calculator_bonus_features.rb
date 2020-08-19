@@ -1,8 +1,8 @@
-=begin 
+=begin
 Calculator Bonus Features
 Gwen Hoang
 
-***v1 2020.08.17 - reviewed by Srđan Ćorić
+***v1 2020.08.17 - reviewed by Srdjan Coric
 Rubocop
   No offenses. Excellent work!
 
@@ -48,7 +48,7 @@ def prompt_dual_language(key)
 end
 
 def valid_language?(lang_option)
-  LANGUAGE.has_key?(lang_option)
+  LANGUAGE.key?(lang_option)
 end
 
 def display_language_option
