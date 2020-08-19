@@ -49,14 +49,18 @@ def prompt(key, lang, sub_data='')
   end
 end
 
+def valid_name?(name)
+  name.empty?() || name == ' ' * name.length()
+end
+
 def get_name(lang)
   prompt('welcome', lang)
   name = ''
   loop do
     name = Kernel.gets().chomp()
 
-    if name.empty?()
-      prompt('valid_name', lang)
+    if valid_name?(name)
+      prompt('invalid_name', lang)
     else
       break
     end
@@ -154,16 +158,34 @@ def get_calculation(op, number1, number2)
 end
 
 def display_result(result, lang)
-  prompt('result', lang, result)
+  if result.infinite?()
+    prompt('invalid_result', lang, result)
+  else
+    prompt('result', lang, result)
+  end
 end
 
-def restart?(option)
-  %w(y yes).include?(option.downcase())
+def valid_restart_choice?(choice)
+  %w(y yes n no).include?(choice.downcase())
 end
 
-def restart(lang)
-  prompt('restart', lang)
-  Kernel.gets().chomp()
+def get_restart_choice(lang)
+  prompt('restart_choice', lang)
+  choice = ''
+  loop do
+    choice = Kernel.gets().chomp()
+
+    if valid_restart_choice?(choice)
+      break
+    else
+      prompt('invalid_restart_choice', lang)
+    end
+  end
+  choice
+end
+
+def restart?(choice)
+  %w(y yes).include?(choice.downcase())
 end
 
 def display_goodbye(lang)
@@ -195,7 +217,7 @@ loop do
 
   display_result(result, lang)
 
-  restart_choice = restart(lang)
+  restart_choice = get_restart_choice(lang)
 
   break unless restart?(restart_choice)
   clear_screen

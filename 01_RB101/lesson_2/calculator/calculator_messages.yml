@@ -8,7 +8,7 @@ invalid_language: |
 en:
   welcome: "Welcome to Calculator! Enter your name:"
   greeting: "Hi %{sub}"
-  valid_name: "Make sure to enter a valid name."
+  invalid_name: "Make sure to enter a valid name."
   instruction: "Enter two numbers and select a calculation to perform with them."
   number1: "What's the first number?"
   number2: "What's the second number?"
@@ -26,13 +26,17 @@ en:
   dividing: "Dividing"
   operation_message: "%{sub} the two numbers..."
   result: "The result is %{sub}"
-  restart: "Do you want to perform another calculation? (Type 'Y' or 'Yes' to calculate again)"
+  invalid_result: "No result. Division by zero error."
+  restart_choice: |
+    Do you want to perform another calculation? 
+    => Enter 'y' or 'yes' (case insensitive) to calculate again.
+  invalid_restart_choice: "Enter 'y', 'yes', 'n' or 'no' (case insensitive)."
   goodbye: "Thanks for using the calculator. Goodbye!"
 
 vi:
   welcome: "Chào mừng bạn đến với Máy tính! Điền tên của bạn:"
   greeting: "Chào %{sub}"
-  valid_name: "Đảm bảo nhập tên hợp lệ."
+  invalid_name: "Đảm bảo nhập tên hợp lệ."
   instruction: "Nhập hai số và chọn một phép tính để thực hiện với chúng."
   number1: "Số đầu tiên là gì?"
   number2: "Số thứ hai là gì?"
@@ -50,5 +54,9 @@ vi:
   dividing: "Tính chia"
   operation_message: "%{sub} hai số..."
   result: "Kết quả là %{sub}"
-  restart: "Bạn có muốn thực hiện một phép tính khác không? (Nhập 'Y' or 'Yes' để tính toán lại)"
+  invalid_result: "Không kết quả. Lỗi phép chia với số không."
+  restart_choice: |
+    Bạn có muốn thực hiện một phép tính khác không? 
+    => Nhập 'y' hoặc 'yes' (không phân biệt chữ hoa chữ thường) để tính toán lại.
+  invalid_restart_choice: "Nhập 'y', 'yes', 'n' hoặc 'no' (không phân biệt chữ hoa chữ thường)."
   goodbye: "Cảm ơn bạn đã sử dụng máy tính. Tạm biệt!"
