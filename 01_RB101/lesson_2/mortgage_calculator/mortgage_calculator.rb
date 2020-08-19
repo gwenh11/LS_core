@@ -1,3 +1,10 @@
+=begin 
+Mortgage Calculator
+Gwen Hoang
+
+***v1 2020.08.19
+=end
+
 # --constants and dependencies--------------------------------------------------
 require 'yaml'
 MESSAGES = YAML.load_file('mortgage_calculator_messages.yml')
@@ -138,7 +145,7 @@ def get_restart_choice
   loop do
     choice = Kernel.gets().chomp()
     break if valid_restart_choice?(choice)
-    prompt('valid_restart')
+    prompt('invalid_restart')
   end
   choice
 end
