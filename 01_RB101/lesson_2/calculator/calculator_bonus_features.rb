@@ -18,7 +18,7 @@ def prompt_dual_language(key)
 end
 
 def valid_language?(lang_option)
-  LANGUAGE.keys.include?(lang_option)
+  LANGUAGE.has_key?(lang_option)
 end
 
 def display_language_option
@@ -49,7 +49,7 @@ def prompt(key, lang, sub_data='')
   end
 end
 
-def valid_name?(name)
+def invalid_name?(name)
   name.empty?() || name == ' ' * name.length()
 end
 
@@ -59,7 +59,7 @@ def get_name(lang)
   loop do
     name = Kernel.gets().chomp()
 
-    if valid_name?(name)
+    if invalid_name?(name)
       prompt('invalid_name', lang)
     else
       break
