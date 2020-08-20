@@ -65,8 +65,8 @@ end
 def valid_loan_data?(loan_data, data_type)
   case data_type
   when 'loan_amt' then valid_loan_amt?(loan_data)
-  when 'term_years' then valid_term_years?(loan_data)
-  when 'term_months' then valid_term_months?(loan_data)
+  when 'term_years' then valid_term?(loan_data)
+  when 'term_months' then valid_term?(loan_data)
   when 'apr' then valid_apr?(loan_data)
   end
 end
@@ -75,11 +75,7 @@ def valid_loan_amt?(num)
   integer?(num) && num.to_i >= 0 || float?(num) && num.to_f >= 0
 end
 
-def valid_term_years?(num)
-  integer?(num) && num.to_i >= 0
-end
-
-def valid_term_months?(num)
+def valid_term?(num)
   integer?(num) && num.to_i >= 0
 end
 
