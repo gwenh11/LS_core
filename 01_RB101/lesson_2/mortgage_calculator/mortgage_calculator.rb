@@ -1,4 +1,4 @@
-=begin 
+=begin
 Mortgage Calculator
 Gwen Hoang
 
@@ -9,6 +9,7 @@ Gwen Hoang
 require 'yaml'
 MESSAGES = YAML.load_file('mortgage_calculator_messages.yml')
 MONTHS_IN_YEAR = 12
+VALID_RESTART_CHOICES = %w(y yes n no)
 
 # --methods---------------------------------------------------------------------
 def clear_screen
@@ -65,8 +66,8 @@ end
 def valid_loan_data?(loan_data, data_type)
   case data_type
   when 'loan_amt' then valid_loan_amt?(loan_data)
-  when 'term_years' then valid_term?(loan_data)
-  when 'term_months' then valid_term?(loan_data)
+  when 'term_years' then valid_term_years?(loan_data)
+  when 'term_months' then valid_term_months?(loan_data)
   when 'apr' then valid_apr?(loan_data)
   end
 end
@@ -75,8 +76,12 @@ def valid_loan_amt?(num)
   integer?(num) && num.to_i >= 0 || float?(num) && num.to_f >= 0
 end
 
-def valid_term?(num)
+def valid_term_years?(num)
   integer?(num) && num.to_i >= 0
+end
+
+def valid_term_months?(num)
+  integer?(num) && num.to_i >= 0 && num.to_i <= 11
 end
 
 def valid_apr?(num)
@@ -130,11 +135,11 @@ def display_payment(payment)
 end
 
 def restart_yes?(choice)
-  %w(y yes).include?(choice.downcase)
+  VALID_RESTART_CHOICES[0..1].include?(choice.downcase)
 end
 
 def valid_restart_choice?(choice)
-  %w(y yes n no).include?(choice.downcase)
+  VALID_RESTART_CHOICES.include?(choice.downcase)
 end
 
 def get_restart_choice
