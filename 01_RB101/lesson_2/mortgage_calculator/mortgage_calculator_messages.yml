@@ -18,6 +18,7 @@ apr: "What is the apr? (Please only enter a numeric value)"
 invalid_apr: "Please only enter a positive number less than '100' for the apr."
 calculate_payment: "Calculating monthly payment..."
 payment: "The monthly mortgage payment is: $%{sub}"
+zero_payment: "No loan amount provided. Monthly payment is zero."
 invalid_payment: "No loan term provided. Cannot estimate payment."
 restart: |
   Do you want to perform another calculation? 

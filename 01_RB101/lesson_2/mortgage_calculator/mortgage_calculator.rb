@@ -72,7 +72,7 @@ def valid_loan_data?(loan_data, data_type)
 end
 
 def valid_loan_amt?(num)
-  integer?(num) && num.to_i > 0 || float?(num) && num.to_f > 0
+  integer?(num) && num.to_i >= 0 || float?(num) && num.to_f >= 0
 end
 
 def valid_term_years?(num)
@@ -126,6 +126,8 @@ end
 def display_payment(payment)
   if payment.nan?() || payment.infinite?()
     prompt('invalid_payment')
+  elsif payment == 0
+    prompt('zero_payment')
   else
     prompt('payment', format('%.2f', payment))
   end
