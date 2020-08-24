@@ -1,8 +1,12 @@
 =begin
 Mortgage Calculator
 Gwen Hoang
+v1 2020.08.19
+v2 2020.08.20
 
-***v1 2020.08.19
+Refactor:
+- Add less than or equal to 11 to validate input months (12 months = 1 year)
+- Make valid choices (y, yes, n, no) a constant
 =end
 
 # --constants and dependencies--------------------------------------------------
@@ -134,7 +138,7 @@ def display_payment(payment)
   end
 end
 
-def restart_yes?(choice)
+def restart?(choice)
   VALID_RESTART_CHOICES[0..1].include?(choice.downcase)
 end
 
@@ -143,12 +147,12 @@ def valid_restart_choice?(choice)
 end
 
 def get_restart_choice
-  prompt('restart')
+  prompt('restart_choice')
   choice = ''
   loop do
     choice = Kernel.gets().chomp()
     break if valid_restart_choice?(choice)
-    prompt('invalid_restart')
+    prompt('invalid_restart_choice')
   end
   choice
 end
@@ -181,7 +185,7 @@ loop do
 
   choice = get_restart_choice
 
-  break unless restart_yes?(choice)
+  break unless restart?(choice)
   clear_screen
 end
 

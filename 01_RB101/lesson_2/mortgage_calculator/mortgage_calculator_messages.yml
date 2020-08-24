@@ -20,8 +20,8 @@ calculate_payment: "Calculating monthly payment..."
 payment: "The monthly mortgage payment is: $%{sub}"
 zero_payment: "No loan amount provided. Monthly payment is zero."
 invalid_payment: "No loan term provided. Cannot estimate payment."
-restart: |
+restart_choice: |
   Do you want to perform another calculation? 
   => Enter 'y' or 'yes' (case insensitive) to calculate again. 
-invalid_restart: "Please enter 'y', 'yes', 'n' or 'no' (case insensitive)."
+invalid_restart_choice: "Please enter 'y', 'yes', 'n' or 'no' (case insensitive)."
 goodbye: "Thank you for using Mortgate Calculator!"
