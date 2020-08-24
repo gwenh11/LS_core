@@ -67,7 +67,7 @@ loop do
     if VALID_CHOICES.include?(choice)
       break
     else
-      prompt("That's not a valid coice.")
+      prompt("That's not a valid choice.")
     end
   end
 
