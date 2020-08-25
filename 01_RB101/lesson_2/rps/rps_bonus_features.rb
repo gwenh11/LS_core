@@ -2,6 +2,7 @@
 RPS Bonus Features
 Gwen Hoang
 v1 2020.08.23
+v2 2020.08.25
 =end
 
 # --constants and dependencies--------------------------------------------------
@@ -46,11 +47,14 @@ def prompt(key, sub_data='')
 end
 
 def display_instructions
+  clear_screen
   prompt('instructions')
   puts('')
+  get_user_input('start', 'invalid_start')
 end
 
 def display_round(round)
+  clear_screen
   prompt('round', round)
 end
 
@@ -67,13 +71,13 @@ end
 
 def valid_user_input?(message_key, input)
   case message_key
-  when 'game_start' then valid_game_start?(input)
+  when 'start' then valid_start?(input)
   when 'choice_letter' then valid_user_choice?(input)
   when 'replay_choice' then valid_replay_choice?(input)
   end
 end
 
-def valid_game_start?(choice)
+def valid_start?(choice)
   choice.empty?()
 end
 
@@ -90,11 +94,13 @@ def get_computer_choice
 end
 
 def display_choices(user_choice, computer_choice)
+  pace_interaction
   prompt('user_choice', user_choice)
   prompt('computer_choice', computer_choice)
 end
 
 def display_winner(user_choice, computer_choice)
+  pace_interaction
   if win?(user_choice, computer_choice)
     prompt('user_win')
   elsif win?(computer_choice, user_choice)
@@ -114,6 +120,7 @@ def calculate_score(total_score, user_choice, computer_choice)
 end
 
 def display_total_score(round, total_score)
+  pace_interaction
   puts('')
   prompt('total_score', round)
   prompt('user_total_score', total_score[:user])
@@ -122,6 +129,7 @@ def display_total_score(round, total_score)
 end
 
 def display_grand_winner(total_score)
+  clear_screen
   prompt('user_grand_winner') if total_score[:user] == WIN_SCORE
   prompt('computer_grand_winner') if total_score[:computer] == WIN_SCORE
 end
@@ -139,10 +147,7 @@ def display_goodbye
 end
 
 # --main program----------------------------------------------------------------
-clear_screen
 display_instructions
-get_user_input('game_start', 'invalid_game_start')
-clear_screen
 
 total_score = { user: 0, computer: 0 }
 round = 1
@@ -154,15 +159,12 @@ loop do
     user_choice = VALID_CHOICES[choice_letter.downcase]
     computer_choice = get_computer_choice
 
-    pace_interaction
     display_choices(user_choice, computer_choice)
-    pace_interaction
     display_winner(user_choice, computer_choice)
-    pace_interaction
     calculate_score(total_score, user_choice, computer_choice)
     display_total_score(round, total_score)
-    pace_interaction
-    clear_screen
+    get_user_input('start', 'invalid_start')
+
     break if grand_winner?(total_score)
     round += 1
   end

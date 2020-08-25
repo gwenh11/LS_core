@@ -16,8 +16,8 @@ instructions: |
         Spock vaporizes Rock
         ...and as it always has 
         Rock crushes Scissors
-game_start: "When you are ready to play, press the 'enter' key to continue."
-invalid_game_start: "Press the 'enter' key to start game."
+start: "When you are ready, press the 'enter' key to continue."
+invalid_start: "Press the 'enter' key to continue."
 round: "ROUND %{sub}"
 choice_letter: |
   Enter your choice using the following guide:
@@ -39,6 +39,7 @@ user_grand_winner: "You are the Grand Winner!"
 computer_grand_winner: "Computer is the Grand Winner!"
 replay_choice: |
   Do you want to play again? 
-  => Enter 'y' or 'yes' (case insensitive).
+  => Enter 'y' or 'yes' (case insensitive) to continue.
+  => Enter 'n' or 'no' (case insensitive) to quit.
 invalid_replay_choice: "Please enter 'y', 'yes', 'n' or 'no' (case insensitive)."
 goodbye: "Thank you for playing!"
