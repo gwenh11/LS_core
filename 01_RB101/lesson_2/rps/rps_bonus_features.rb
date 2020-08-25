@@ -3,6 +3,14 @@ RPS Bonus Features
 Gwen Hoang
 v1 2020.08.23
 v2 2020.08.25
+  - Invoke get_user_input('start', 'invalid_start') inside
+    display_instruction(round) and after display_total_score(round,total_score)
+    (except for display_total_score(round, total_score) after grand winner)
+    so that the screen will pause and the program proceeds after the user press
+    the 'enter' key (after reading the instruction and the score).
+  - Change replay instruction to include 'n' and 'no' as options to quit.
+  - Move clear_screen and pace_interaction inside other methods wherever
+    possible to shorten main program.
 =end
 
 # --constants and dependencies--------------------------------------------------
