@@ -3,10 +3,10 @@ Mortgage Calculator
 Gwen Hoang
 v1 2020.08.19
 v2 2020.08.20
-
-Refactor:
-- Add less than or equal to 11 to validate input months (12 months = 1 year)
-- Make valid choices (y, yes, n, no) a constant
+  - Add less than or equal to 11 to validate input months (12 months = 1 year).
+  - Make valid choices (y, yes, n, no) a constant.
+v3 2020.08.25
+  - Change restart instruction to include 'n' and 'no' to quit.
 =end
 
 # --constants and dependencies--------------------------------------------------

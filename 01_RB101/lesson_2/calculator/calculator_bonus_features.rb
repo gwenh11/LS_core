@@ -3,13 +3,11 @@ Calculator Bonus Features
 Gwen Hoang
 v1 2020.08.17
 v2 2020.08.18
-
-Refactor:
-- #invalid_name?(name) method: add validation for multiple blank spaces
-- #display_result(result,lang): add error message for division by 0
-- create #valid_restart_choice?(choice), get_restart_choice(lang), 
-  restart?(choice) to allow only inputs of y, yes, n and no; y or yes to 
-  restart calculation.
+  - #invalid_name?(name) method: add validation for multiple blank spaces
+  - #display_result(result,lang): add error message for division by 0
+  - create #valid_restart_choice?(choice), get_restart_choice(lang), 
+    restart?(choice) to allow only inputs of y, yes, n and no; y or yes to 
+    restart calculation.
 =end
 
 # --constants and dependencies--------------------------------------------------

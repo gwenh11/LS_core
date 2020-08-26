@@ -22,6 +22,7 @@ zero_payment: "No loan amount provided. Monthly payment is zero."
 invalid_payment: "No loan term provided. Cannot estimate payment."
 restart_choice: |
   Do you want to perform another calculation? 
-  => Enter 'y' or 'yes' (case insensitive) to calculate again. 
+  => Enter 'y' or 'yes' (case insensitive) to continue.
+  => Enter 'n' or 'yes' (case insensitive) to quit. 
 invalid_restart_choice: "Please enter 'y', 'yes', 'n' or 'no' (case insensitive)."
 goodbye: "Thank you for using Mortgate Calculator!"
