@@ -16,11 +16,12 @@ see if "Spot" is present.
 
 Solution 1
 
-To check if "Spot" is present: ages.include?("Spot")
+```ruby
+ages.include?("Spot")
+ages.member?("Spot")
+ages.key?("Spot")
 
-Two similar methods are: Hash#has_key? and Hash#key?
-
-LS solution shows Hash#member?, which is also a good method to use. 
+```
 
 ------
 
@@ -43,15 +44,15 @@ Convert the string in the following ways (code will be executed on original `mun
 
 Solution 2
 
-First example: capitalize all letters, then replace capital 'T' and 'M' with lower case letters. In other words, the case of 'T' and 'M' are flipped.
+First example: 
 
 LS solution.
 
-```
+```ruby
 munster_description.swapcase!
 ```
 
-The following code yields a similar result, but the return value is a new string. The original string isn't mutated. When it comes to conversion, it means to mutate the caller. 
+My interpretation: capitalize all letters, then replace capital 'T' and 'M' with lower case letters. In other words, the case of 'T' and 'M' are flipped. The following code yields a similar result, but the return value is a new string. The original string isn't mutated. When it comes to conversion, it means to mutate the caller. LS solution is more precise. 
 
 ```ruby
 munsters_description.upcase.gsub(/[TM]/) {|s| s.downcase}
@@ -59,19 +60,19 @@ munsters_description.upcase.gsub(/[TM]/) {|s| s.downcase}
 
 Second example: capitalize the first letter of the sentence.
 
-```
+```ruby
 munsters_description.capitalize!
 ```
 
 Third example: all letters are lowercase
 
-```
+```ruby
 munsters_description.downcase!
 ```
 
 Fourth example: all letters are uppercase
 
-```
+```ruby
 munsters_description.upcase!
 ```
 
@@ -111,6 +112,12 @@ advice = "Few things in life are as important as house training your pet dinosau
 
 Solution 4
 
+```ruby
+advice.match?("Dino") # also matches substrings, not standalone words
+```
+
+
+
 ------
 
 #### Question 5
@@ -123,6 +130,12 @@ flintstones = ["Fred", "Barney", "Wilma", "Betty", "BamBam", "Pebbles"]
 
 Solution 5
 
+```ruby
+flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+```
+
+
+
 ------
 
 #### Question 6
@@ -134,6 +147,12 @@ flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
 ```
 
 Solution 6
+
+```ruby
+flintsones << "Dino"
+```
+
+
 
 ------
 
@@ -151,6 +170,13 @@ We could have used either `Array#concat` or `Array#push` to add Dino to the fami
 How can we add multiple items to our array? (Dino and Hoppy)
 
 Solution 7
+
+```ruby
+flintstones.concat(%w(Dino Hoppy))
+flinstones.push("Dino").push("Hoppy")
+```
+
+
 
 ------
 
@@ -170,6 +196,14 @@ As a bonus, what happens if you use the [String#slice](http://ruby-doc.org/core/
 
 Solution 8
 
+```ruby
+advice.slice!(0,advlice.index("house")) #slice(start, length)
+#=> advice = "house training your pet dinosaur"
+# String#slice returns the deleted text "Few things in life are as important as "
+```
+
+
+
 ------
 
 #### Question 9
@@ -182,6 +216,12 @@ statement = "The Flintstones Rock!"
 
 Solution 9
 
+```ruby
+statement.count('t')
+```
+
+
+
 ------
 
 #### Question 10
@@ -193,3 +233,8 @@ title = "Flintstone Family Members"
 ```
 
 Solution 10
+
+```ruby
+title.center(40) 
+```
+
