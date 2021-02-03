@@ -1,196 +1,163 @@
-require 'pry-byebug'
-
-BOARD_SIZE = 3
-WINNING_SCORE = 2
+require 'pry'
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
-WINNING_COMBINATIONS = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + 
-                         [[1, 4, 7], [2, 5, 8], [3, 6, 9]] +
-                         [[1, 5, 9], [3, 5, 7]]
+PLAYER_WIN = 'You'
+COMPUTER_WIN = 'Computer'
+WINNING_COMBO = 3
+DANGER_COMBO = 2
+GRAND_WINNER_SCORE = 2
+WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] +
+                [[1, 4, 7], [2, 5, 8], [3, 6, 9]] +
+                [[1, 5, 9], [3, 5, 7]]
 
-def prompt(message)
-  puts "=> #{message}"
+def prompt(msg)
+  puts "=> #{msg}"
 end
 
-def display_board(round, markers)
-  # system('clear') || system('cls')
-  puts "Round ##{round}"
-  puts "You're a #{PLAYER_MARKER}. Computer is #{COMPUTER_MARKER}"
-
-  total_columns = BOARD_SIZE * 8
-  total_rows = BOARD_SIZE * 4
-  markers_key = 1
-  board = Array.new(13) {Array.new(25, ' ')}
-
-  for row in 0..total_rows
-    for column in 0..total_columns
-      if column % 8 == 0 && row % 4 == 0
-        board[row][column] = '+'
-      elsif column % 8 == 0
-        board[row][column] = '|'
-      elsif row % 4 == 0
-        board[row][column] = '-'
-      elsif column % 4 == 0 && row % 2 == 0
-        board[row][column] = markers[markers_key]
-        markers_key += 1
-      end
-    end
+def joinor(arr, delimiter1=', ', delimiter2='or')
+  if arr.size < 3
+    return arr.join(" #{delimiter2} ")
   end
-  board.each { |sub_arr| puts sub_arr.join }
+  arr[-1] = "#{delimiter2} #{arr.last}"
+  arr.join(delimiter1)
 end
 
+# rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+def display_board(brd, round_number)
+  system('clear') || system('cls')
+  puts "Round #{round_number}"
+  puts "You are '#{PLAYER_MARKER}'"
+  puts "Computer is '#{COMPUTER_MARKER}'"
+  puts ""
+  puts "     |     |"
+  puts "  #{brd[1]}  |  #{brd[2]}  |  #{brd[3]}"
+  puts "     |     |"
+  puts "-----+-----+-----"
+  puts "     |     |"
+  puts "  #{brd[4]}  |  #{brd[5]}  |  #{brd[6]}"
+  puts "     |     |"
+  puts "-----+-----+-----"
+  puts "     |     |"
+  puts "  #{brd[7]}  |  #{brd[8]}  |  #{brd[9]}"
+  puts "     |     |"
+  puts ""
+end
+# rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-def initialize_markers
-  new_markers = {}
-  (1..9).each { |num| new_markers[num] = INITIAL_MARKER}
-  new_markers
+def initialize_board
+  new_board = {}
+  (1..9).each { |num| new_board[num] = INITIAL_MARKER }
+  new_board
 end
 
-def empty_squares(markers)
-  markers.keys.select { |num| markers[num] == INITIAL_MARKER}
+def empty_squares(brd)
+  brd.keys.select { |num| brd[num] == INITIAL_MARKER }
 end
 
-def joinor(blank_squares, delimiter1 = ', ', delimiter2 = 'or ')
-  blank_squares[0..blank_squares.size - 2].join(delimiter1) + ' ' + delimiter2 + blank_squares[blank_squares.size-1].to_s
-end
-
-def user_move!(markers)
+def player_move!(brd)
   square = ''
   loop do
-    prompt "Choose a square (#{joinor(empty_squares(markers))}): "
+    prompt "Choose a square (#{joinor(empty_squares(brd))}):"
     square = gets.chomp.to_i
-    break if empty_squares(markers).include?(square)
-    prompt "Sorry, that's not a valid choice!"
+    break if empty_squares(brd).include?(square)
+    prompt "Sorry, that is not a valid choice."
   end
 
-  markers[square] = PLAYER_MARKER
+  brd[square] = PLAYER_MARKER
 end
 
-def find_at_risk_square(markers)
-  at_risk_combinations = WINNING_COMBINATIONS.select do |combination|
-    markers.values_at(*combination).count(PLAYER_MARKER) == 2
-  end
-  at_risk_square = []
-  if !at_risk_combinations.empty?
-    at_risk_combinations.each do |combination|
-      combination.each do |position|
-        if markers[position] == ' '
-          at_risk_square << position
-        end
-      end
-    end
-  end
-  at_risk_square
-
-
-
+def computer_move!(brd)
+  square = empty_squares(brd).sample
+  brd[square] = COMPUTER_MARKER
 end
 
-def computer_move!(markers, at_risk_square)
-  if at_risk_square.empty?
-    square = empty_squares(markers).sample
-  else
-    square = at_risk_square.sample
-  end
-  markers[square] = COMPUTER_MARKER
+def find_danger_square(brd)
+
+def 
+
+def board_full?(brd)
+  empty_squares(brd).empty?
 end
 
-def board_full?(markers)
-  empty_squares(markers).empty?
+def someone_won?(brd)
+  !!detect_winner(brd)
 end
 
-# !! turn expression into a boolean
-# nil becomes false, truthy becomes true
-def someone_won?(markers)
-  !!detect_winner(markers)
-end
-
-# explicit return statement. That's why nil is ignore.
-def detect_winner(markers)
-  WINNING_COMBINATIONS.each do |combination|
-    # binding.pry
-    if markers.values_at(*combination).count(PLAYER_MARKER) == 3
-      return 'You'
-    elsif markers.values_at(*combination).count(COMPUTER_MARKER) == 3
-      return 'Computer'
+def detect_winner(brd)
+  WINNING_LINES.each do |line|
+    if brd.values_at(*line).count(PLAYER_MARKER) == WINNING_COMBO
+      return PLAYER_WIN
+    elsif brd.values_at(*line).count(COMPUTER_MARKER) == WINNING_COMBO
+      return COMPUTER_WIN
     end
   end
   nil
 end
 
-def calculate_score(total_score, winner)
-  total_score[:user] += 1 if winner == 'You'
-  total_score[:computer] +=1 if winner == 'Computer'
+def calculate_score(total_points, win_turn)
+  case win_turn
+  when PLAYER_WIN then total_points[:You] += 1
+  when COMPUTER_WIN then total_points[:Computer] += 1
+  end
+  total_points.values
 end
 
-def display_score(total_score)
-  puts " "
-  prompt "Your score is: #{total_score[:user]}"
-  prompt "Computer score is: #{total_score[:computer]}"
-  puts " "
-  gets.chomp
+def display_score(player_points, computer_points)
+  prompt "Your score is #{player_points}"
+  prompt "Computer score is #{computer_points}"
 end
 
-def grand_winner?(total_score)
-  total_score[:user] == WINNING_SCORE || total_score[:computer] == WINNING_SCORE
+def display_grand_winner(total_points)
+  grand_winner = total_points.key(GRAND_WINNER_SCORE)
+  prompt "Grand Winner is #{grand_winner}" if grand_winner?(total_points)
 end
 
-def display_grand_winner(total_score)
-  prompt "You are the grand winner!" if total_score[:user] == WINNING_SCORE
-  prompt "Computer is the grand winner!" if total_score[:computer] == WINNING_SCORE
+def grand_winner?(total_points)
+  total_points.values.any? { |score| score == GRAND_WINNER_SCORE }
 end
-
 
 loop do
-
-
-  game_round = 1
-  game_score = { :user => 0, :computer => 0 }
-  
-
+  total_score = { You: 0, Computer: 0 }
+  round = 1
   loop do
-    game_markers = initialize_markers
+    board = initialize_board
     loop do
-      display_board(game_round, game_markers)
-      user_move!(game_markers)
-      display_board(game_round, game_markers)
-     
-      break if someone_won?(game_markers) || board_full?(game_markers)
-      at_risk_square = find_at_risk_square(game_markers)
-      p at_risk_square
-      # binding.pry
-      computer_move!(game_markers, at_risk_square)
-      display_board(game_round, game_markers)
-      break if someone_won?(game_markers) || board_full?(game_markers)
+      
+      display_board(board, round)
+      player_move!(board)
+      break if someone_won?(board) || board_full?(board)
+
+      computer_move!(board)
+      break if someone_won?(board) || board_full?(board)
     end
 
-    if someone_won?(game_markers)
-      prompt "#{detect_winner(game_markers)} won!"
+    display_board(board, round)
+
+    winner = detect_winner(board)
+    if someone_won?(board)
+      prompt "#{winner} won!"
     else
-      prompt "It's a tie!"
+      prompt "It is a tie!"
     end
-    calculate_score(game_score, detect_winner(game_markers))
-    display_score(game_score)
+
+    player_score, computer_score = calculate_score(total_score, winner)
+    display_score(player_score, computer_score)
     
-    if grand_winner?(game_score)
-      break
+    loop do
+      prompt "When you are ready, press the 'enter' key to continue."
+      choice = gets.chomp
+      break if choice.empty?()
+      prompt "Sorry, that is not a valid choice."
     end
-    
-    game_round += 1
-   
+    break if grand_winner?(total_score)
+    round += 1
   end
 
-  display_grand_winner(game_score)
-
+  display_grand_winner(total_score)
   prompt "Play again? (y or n)"
   answer = gets.chomp
-  if !answer.downcase.start_with?('y')
-    
-     break
-  end
-
+  break unless answer.downcase.start_with?('y')
 end
 
-prompt "Thanks for playing Tic Tac Toe! Goodbye!"
-
+prompt "Thanks for playing Tic Tac Toe! Good bye!"
