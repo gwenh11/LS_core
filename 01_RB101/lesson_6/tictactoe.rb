@@ -73,7 +73,7 @@ def computer_move!(brd)
 end
 
 def find_danger_square(brd)
-
+  ksdj
 def 
 
 def board_full?(brd)
