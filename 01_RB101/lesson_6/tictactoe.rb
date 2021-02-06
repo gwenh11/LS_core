@@ -1,8 +1,9 @@
 require 'pry'
+VALID_START_CHOICE = %w(player computer choose)
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
-PLAYER_WIN = 'You'
+PLAYER_WIN = 'Player'
 COMPUTER_WIN = 'Computer'
 WINNING_COMBO = 3
 DANGER_COMBO = 2
@@ -16,16 +17,14 @@ def prompt(msg)
 end
 
 def joinor(arr, delimiter1=', ', delimiter2='or')
-  if arr.size < 3
-    return arr.join(" #{delimiter2} ")
-  end
+  return arr.join(" #{delimiter2} ") if arr.size < 3
   arr[-1] = "#{delimiter2} #{arr.last}"
   arr.join(delimiter1)
 end
 
 # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
 def display_board(brd, round_number)
-  system('clear') || system('cls')
+  # system('clear') || system('cls')
   puts "Round #{round_number}"
   puts "You are '#{PLAYER_MARKER}'"
   puts "Computer is '#{COMPUTER_MARKER}'"
@@ -68,13 +67,50 @@ def player_move!(brd)
 end
 
 def computer_move!(brd)
-  square = empty_squares(brd).sample
+  square = nil
+  WINNING_LINES.each do |line|
+    WINNING_LINES.each do |line|
+      square = find_danger_square(line, brd, COMPUTER_MARKER)
+      break if square
+    end
+  end
+
+  if !square
+    WINNING_LINES.each do |line|
+    square = find_danger_square(line, brd, PLAYER_MARKER)
+    break if square
+    end
+  end
+
+  if !square && brd[5] == INITIAL_MARKER
+    square = 5
+  end
+
+  if !square
+    square = empty_squares(brd).sample
+  end
+
   brd[square] = COMPUTER_MARKER
 end
 
-def find_danger_square(brd)
-  ksdj
-def 
+def find_danger_square(winning_line, brd, marker_type)
+  if brd.values_at(*winning_line).count(marker_type) == DANGER_COMBO
+    brd.select do |marker_position, marker|
+      winning_line.include?(marker_position) && marker == INITIAL_MARKER
+    end.keys.first
+  else
+    nil
+  end
+end
+
+def place_piece!(brd, turn)
+  turn == 'player' ? player_move!(brd) : computer_move!(brd)
+
+end
+
+def alternate_player(turn)
+  turn == 'player' ? 'computer' : 'player'
+end
 
 def board_full?(brd)
   empty_squares(brd).empty?
@@ -120,16 +156,31 @@ end
 loop do
   total_score = { You: 0, Computer: 0 }
   round = 1
+
+  current_player = ''
+
+  puts "Pick who to play"
+    start_choice = gets.chomp.downcase
+    if start_choice == 'choose'
+      # binding.pry
+      current_player = VALID_START_CHOICE[0..1].sample
+      prompt "#{current_player} goest first!"
+    else
+      current_player = start_choice
+    end
   loop do
     board = initialize_board
+
     loop do
       
+
+
       display_board(board, round)
-      player_move!(board)
+      place_piece!(board, current_player)
+      current_player = alternate_player(current_player)
+
       break if someone_won?(board) || board_full?(board)
 
-      computer_move!(board)
-      break if someone_won?(board) || board_full?(board)
     end
 
     display_board(board, round)
