@@ -1,19 +1,58 @@
-require 'pry'
-VALID_START_CHOICE = %w(player computer choose)
+require 'yaml'
+MESSAGES = YAML.load_file('tictactoe_bonus_messages.yml')
+
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
-PLAYER_WIN = 'Player'
-COMPUTER_WIN = 'Computer'
-WINNING_COMBO = 3
 DANGER_COMBO = 2
 GRAND_WINNER_SCORE = 2
+PLAYER = 'Player'
+COMPUTER = 'Computer'
+VALID_INPUTS = [PLAYER, COMPUTER, 'Choose']
+VALID_REPLAY = %w(y yes n no)
 WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] +
                 [[1, 4, 7], [2, 5, 8], [3, 6, 9]] +
                 [[1, 5, 9], [3, 5, 7]]
 
-def prompt(msg)
-  puts "=> #{msg}"
+def prompt(key, sub_data='')
+  msg = MESSAGES[key]
+  if sub_data
+    msg_with_sub = format(msg, sub: sub_data)
+    puts "=> #{msg_with_sub}"
+  else
+    puts "=> #{msg}"
+  end
+end
+
+def get_player_input(msg_key, sub_data = '', invalid_msg_key)
+  prompt(msg_key, sub_data)
+  input = ''
+  loop do
+    input = gets.chomp
+    break if valid_player_input?(msg_key, input)
+    prompt(invalid_msg_key)
+  end
+  input
+end
+
+def valid_player_input?(msg_key, input)
+  case msg_key
+  when 'start' then valid_start?(input)
+  when 'square_choice' then valid_square?(input)
+  when 'replay_choice' then valid_replay_choice?(input)
+  end
+end
+
+def valid_start?(input)
+  input.empty?
+end
+
+def valid_square?(input)
+  empty_squares(brd).include?(input)
+end
+
+def valid_replay_choice?(input)
+  VALID_REPLAY.include?(choice.downcase)
 end
 
 def joinor(arr, delimiter1=', ', delimiter2='or')
@@ -55,14 +94,8 @@ def empty_squares(brd)
 end
 
 def player_move!(brd)
-  square = ''
-  loop do
-    prompt "Choose a square (#{joinor(empty_squares(brd))}):"
-    square = gets.chomp.to_i
-    break if empty_squares(brd).include?(square)
-    prompt "Sorry, that is not a valid choice."
-  end
-
+  options = joinor(empty_squares(brd))
+  square = get_player_input('square_choice', options, invalid_square_choice)
   brd[square] = PLAYER_MARKER
 end
 
@@ -93,23 +126,25 @@ def computer_move!(brd)
   brd[square] = COMPUTER_MARKER
 end
 
-def find_danger_square(winning_line, brd, marker_type)
-  if brd.values_at(*winning_line).count(marker_type) == DANGER_COMBO
-    brd.select do |marker_position, marker|
-      winning_line.include?(marker_position) && marker == INITIAL_MARKER
-    end.keys.first
-  else
-    nil
+def find_danger_square(brd, marker_type)
+  WINNING_LINES.each do |line|
+    if brd.values_at(*line).count(marker_type) == DANGER_COMBO
+      brd.select do |marker_position, marker|
+        line.include?(marker_position) && marker == INITIAL_MARKER
+      end.keys.first
+    else
+      nil
+    end
   end
 end
 
 def place_piece!(brd, turn)
-  turn == 'player' ? player_move!(brd) : computer_move!(brd)
+  turn == PLAYER ? player_move!(brd) : computer_move!(brd)
 
 end
 
 def alternate_player(turn)
-  turn == 'player' ? 'computer' : 'player'
+  turn == PLAYER ? COMPUTER : PLAYER
 end
 
 def board_full?(brd)
@@ -122,19 +157,19 @@ end
 
 def detect_winner(brd)
   WINNING_LINES.each do |line|
-    if brd.values_at(*line).count(PLAYER_MARKER) == WINNING_COMBO
+    if brd.values_at(*line).all?(PLAYER_MARKER)
       return PLAYER_WIN
-    elsif brd.values_at(*line).count(COMPUTER_MARKER) == WINNING_COMBO
+    elsif brd.values_at(*line).all?(COMPUTER_MARKER)
       return COMPUTER_WIN
     end
   end
   nil
 end
 
-def calculate_score(total_points, win_turn)
-  case win_turn
-  when PLAYER_WIN then total_points[:You] += 1
-  when COMPUTER_WIN then total_points[:Computer] += 1
+def calculate_score(total_points, winning_turn)
+  case winning_turn
+  when PLAYER then total_points[:You] += 1
+  when COMPUTER then total_points[:Computer] += 1
   end
   total_points.values
 end
