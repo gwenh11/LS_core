@@ -1,0 +1,33 @@
+instructions: |
+  Welcome to Tic Tac Toe Game!
+
+  => You will be playing against the computer for multiple rounds.
+  => Whichever player reaches a score of 5 (five) first is the grand winner.
+
+  => The game is played on a (3 x 3) three by three board. Your marker is 'X'. The computer marker is 'O'. 
+  => The player who succeeds in placing three of their marks in a diagonal, horizontal, or vertical row is the winner.
+  => If all nine squares are filled and there is no winner, it is a tie.
+round: "ROUND #%{sub}"
+player_marker: "You are %{sub}"
+computer_marker: "Computer is %{sub}"
+first_turn: |
+  If you would like to go first, enter 'player'.
+  => If you would like the computer to go first, enter 'computer'.
+  => Otherwise, enter 'choose' to pick a random start.
+invalid_first_turn: "Please enter 'player', 'computer' or 'choose'."
+first_move: "%{sub} goes first!"
+square_choice: "Choose a square (%{sub}):"
+invalid_square_choice: "Sorry. That is not a valid choice!"
+someone_win: "%{sub} won!"
+tie: "It is a tie!"
+player_score: "Your score is %{sub}"
+computer_score: "Computer score is %{sub}"
+grand_winner: "Grand Winner is %{sub}"
+start_round: "When you are ready, press the 'enter' key to continue."
+invalid_start_round: "Press the 'enter' key to continue"
+replay_choice: |
+  Do you want to play again? 
+  => Enter 'y' or 'yes' to continue.
+  => Enter 'n' or 'no' to quit.
+invalid_replay_choice: "Please enter 'y', 'yes', 'n' or 'no'."
+goodbye: "Thank you for playing Tic Tac Toe! Goodbye!"
