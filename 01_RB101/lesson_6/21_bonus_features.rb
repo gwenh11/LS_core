@@ -61,8 +61,9 @@ def display_hand_value(total_card_value)
   puts "Total card value are #{total_card_value} points"
 end
 
-def player_turn(player_hand)
+def player_turn(player_hand, dealer_hand)
   answer = nil
+  player_points = 0
   loop do
     puts ''
     puts 'Hit or Stay?'
@@ -70,14 +71,18 @@ def player_turn(player_hand)
     if answer == 'hit'
       puts "You chose to hit!"
       deal_one_card(player_hand)
-      display_card_hand
-    break if answer == 'stay' || busted?
+      display_card_hand(player_hand, dealer_hand)
+      player_points = total(player_hand)
+      display_hand_value(player_points)
+    end
+    break if answer == 'stay' || busted?(player_points)
   end
 
-  if busted?
+  if busted?(player_points)
     puts "You are busted. You lost the game."
   else
     puts "You chose to stay!"
+  end
 end
 
 def busted?(total_card_value)
@@ -88,12 +93,9 @@ end
 deck = initialize_deck
 player_hand = []
 dealer_hand = []
+player_points = total(player_hand)
 # card_hand << deal_one_card
 deal_initial_cards(player_hand)
 deal_initial_cards(dealer_hand)
-deal_one_card(player_hand)
-deal_one_card(player_hand)
-p player_hand
-# p dealer_hand
 display_card_hand(player_hand, dealer_hand)
-p total(player_hand)
+player_turn(player_hand, dealer_hand)
