@@ -1,7 +1,7 @@
 SUIT_NAMES = { 'H' => 'Hearts', 'D' => 'Diamonds', 'C' => 'Clubs', 'S' => 'Spades'}
 VALUE_NAMES = { 'J' => 'Jack', 'Q' => 'Queen', 'K' => 'King', 'A' => 'Ace' }
 VALUES = ('2'..'10').to_a + VALUE_NAMES.keys
-
+VALID_REPLAY = %w(n no y yes)
 
 
 def initialize_deck
@@ -66,7 +66,7 @@ def player_turn(player_hand, dealer_hand)
   player_points = 0
   loop do
     puts ''
-    puts 'Hit or Stay?'
+    puts 'Hit or stay?'
     answer = gets.chomp.downcase
     if answer == 'hit'
       puts "You chose to hit!"
@@ -80,22 +80,65 @@ def player_turn(player_hand, dealer_hand)
 
   if busted?(player_points)
     puts "You are busted. You lost the game."
+    player_points = nil
   else
     puts "You chose to stay!"
   end
+  player_points
 end
 
 def busted?(total_card_value)
   total_card_value > 21
 end
 
+def dealer_turn(player_hand, dealer_hand)
+  answer = nil
+  dealer_points = total(dealer_hand)
+  loop do
+    break if dealer_points >= 17
+    puts ''
+    puts 'Hit or stay?'
+    puts 'Dealer chose to hit!'
+    deal_one_card(player_hand)
+    display_card_hand(player_hand, dealer_hand)
+    dealer_points = total(dealer_hand)
+    display_hand_value(dealer_points)
+  end
+  puts 'Dealer chose to stay!'
+  dealer_points
+end
 
-deck = initialize_deck
-player_hand = []
-dealer_hand = []
-player_points = total(player_hand)
-# card_hand << deal_one_card
-deal_initial_cards(player_hand)
-deal_initial_cards(dealer_hand)
-display_card_hand(player_hand, dealer_hand)
-player_turn(player_hand, dealer_hand)
+def player_replay
+  puts 'Would you like to play again?'
+  answer = nil
+  loop do
+    answer = gets.chomp.downcase
+    break if VALID_REPLAY.include?(answer)
+    puts 'Sorry. That is not a valid answer!'
+  end
+  answer
+end
+
+loop do
+  deck = initialize_deck
+  player_hand = []
+  dealer_hand = []
+  # player_points = total(player_hand)
+  # card_hand << deal_one_card
+  deal_initial_cards(player_hand)
+  deal_initial_cards(dealer_hand)
+  display_card_hand(player_hand, dealer_hand)
+  player_points = player_turn(player_hand, dealer_hand)
+  if player_points == nil
+    replay_choice = player_replay
+    break if VALID_REPLAY[0, 1].include?(replay_choice)
+  end
+  dealer_points = dealer_turn(player_hand, dealer_hand)
+  if dealer_points > player_points
+    puts 'Dealer won!'
+  else
+    puts 'You won!'
+  end
+  replay_choice = player_replay
+  break if VALID_REPLAY[0, 1].include?(replay_choice)
+end
