@@ -205,7 +205,7 @@ end
 
 def display_grand_winner(total_points)
   grand_winner = total_points.key(GRAND_WINNER_SCORE)
-  prompt('grand_winner', grand_winner) if grand_winner?(total_points)
+  prompt('grand_winner', grand_winner) if grand_winner?(total_points) # conditional in this part is redundant
 end
 
 def grand_winner?(total_points)
