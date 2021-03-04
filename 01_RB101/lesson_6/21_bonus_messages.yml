@@ -1,0 +1,49 @@
+instructions: |
+  Welcome to Twenty-One Card Game!
+
+  => You will be playing against the computer (dealer) for multiple rounds.
+  => Round winner is the one whose total card value is higher than the other player's.
+  => However, a player with a total card value higher than 21 loses the current round.
+  => Whichever player reaches a score of 5 first is the grand winner.
+
+  => Each player is initially dealt two cards. The dealer's cards have one face up.
+  => You have the choice to maintain your hand (stay), and not draw any cards.
+  => You are also allowed to draw additional cards (hit) to improve your hand.
+
+  => Here is how the card value is determined:
+    - The numbers 2 through 10 are worth their face value.
+    - The Jack, Queen, and King are each worth 10.
+    - The Ace can be worth 1 or 11.
+    - If the total value does not exceed 21, each Ace is worth 11.
+    - If the total value exceeds 21, each Ace is worth 1.
+round: "Round #%{sub}"
+press_enter: "Press ENTER to continue."
+hit_or_stay: "Would you like to hit or stay? You can enter 'h' or 's' for short."
+invalid_hit_or_stay: "Sorry, must enter 'h' or 's'."
+player_hit: "You chose to hit!"
+player_current_cards: "Your cards are now: %{sub}"
+player_current_total: "Your total is now: %{sub}"
+player_busted_warning: "Your total is greater than %{sub}..."
+player_stay: "You stayed at %{sub}"
+dealer_turn: "Dealer turn..."
+dealer_hit: "Dealer hits!"
+dealer_current_cards: "Dealer's cards are now: %{sub}"
+dealer_busted_warning: "Dealer's total is greater than %{sub}..."
+dealer_stay: "Dealer stayed at %{sub}"
+player_busted: "You busted! Dealer wins!"
+dealer_busted: "Dealer busted! You win!"
+player: "You win!"
+dealer: "Dealer wins!"
+tie: "It's a tie!"
+dealer_initial_cards: "Dealer has %{sub} and ?"
+dealer_initial_total: "Dealer's total is unknown."
+dealer_all_cards: "Dealer has %{sub}"
+dealer_total: "Dealer's total is %{sub}"
+player_all_cards: "Player has %{sub}"
+player_total: "Player's total is: %{sub}"
+dealer_score: "Dealer's score is %{sub}"
+player_score: "Your score is %{sub}"
+grand_winner: "THE GRAND WINNER IS %{sub}!"
+play_again: "Do you want to play again? (y or n)"
+invalid_play_again: "Sorry, must enter 'y' or 'n'."
+goodbye: "Thank you for playing Twenty-One Card Game! Good bye!"
