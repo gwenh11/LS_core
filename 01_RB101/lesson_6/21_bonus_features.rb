@@ -24,11 +24,11 @@ def clear_screen
 end
 
 def pace_interaction_quick
-  sleep(2)
+  sleep(1)
 end
 
 def pace_interaction_slow
-  sleep(4)
+  sleep(2)
 end
 
 def pause_for_player
@@ -92,8 +92,15 @@ def valid_play_again?(input)
 end
 
 def initialize_deck
+  deck = []
   values = NUMBER_VALUES.to_a + NON_NUMBER_VALUES
-  SUITS.product(values).shuffle
+  # SUITS.product(values).shuffle => nested array of suit and value
+  SUITS.each do |each_suit|
+    values.each do |each_value|
+      deck << { suit: each_suit, value: each_value }
+    end
+  end
+  deck
 end
 
 def deal_one_card(deck, cards)
@@ -103,14 +110,18 @@ end
 def count_cards(card_hand)
   cards = []
   card_hand.each do |card|
-    cards << "#{card[1]} of #{card[0]}"
+    cards << "#{card[:value]} of #{card[:suit]}"
   end
   joinand(cards)
 end
 
 def total(cards)
-  values = cards.map { |card| card[1] }
+  values = cards.map { |card| card[:value] }
+  sum = calculate_initial_sum(values)
+  adjust_for_ace(values, sum)
+end
 
+def calculate_initial_sum(values)
   sum = 0
   values.each do |value|
     sum += if value == 'Ace'
@@ -121,11 +132,13 @@ def total(cards)
              value.to_i
            end
   end
+  sum
+end
 
+def adjust_for_ace(values, sum)
   values.select { |value| value == 'Ace' }.count.times do
     sum -= 10 if sum > WINING_TOTAL
   end
-
   sum
 end
 
