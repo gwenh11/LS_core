@@ -27,7 +27,7 @@ Things to remember:
 # SELECT (Array)
 * On `line #`, we call the `select` method on `var_name`, passing in a block as an argument. The `select` method iterates through the collection, passing each element to the block in turn and assigning it to the local variable `block_var_name`. The block is executed once for each element. `select` evaluates the return value of the block, and if the return value of the block evaluates to `true`, it adds the element to a new array. This new array is the return value of the `select` method. 
 * In this case, within the block:
-    
+  
     * On `line #` ...
 * For example, in the first iteration the block returns ...
   

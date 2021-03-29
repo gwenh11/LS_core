@@ -12,11 +12,6 @@
 # arr2 # => ["A", "B", "C"]
 
 
-n = 10
-
-2.times do |n|
-  p n
-  n = 11
-end
-
-# puts n
+a = %w(a b c)
+a[1] = '-'
+p a
