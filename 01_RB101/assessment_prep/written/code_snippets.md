@@ -667,12 +667,7 @@ t = fix(s)
 
 What values do `s` and `t` have? Why?
 
-On `line 8`, local variable `s` is initialied to the String `'hello'`.
-On `line 9`, we invoke method `fix` and pass local variable `s` to it as an argument. Method `fix` paramter `value` is now pointing to the same object as local variable `s` (`'hello'`. We assign local variable `t` the return value of the method invocation. 
 
-On `line 3-6`, we define method `fix` that takes one parameter `value`. 
-On `line 4`, we invoke method `String#upcase` on the object that local variable `value` references, and reassign `value` to reference a new, upcased string.
-On `line 5`, we invoke a method `String#concat` on the object that local variable `value` references, and pass the String '!' to it as an argument. The method concatenate the String '!' to the string `value` references. Because `concat` is a mutating method, `value` still references the same string object; it just has been mutated.
 
 
 
@@ -705,6 +700,15 @@ t = fix(s)
 ```
 
 What values do `s` and `t` have? Why?
+
+On `line 8`, local variable `s` is initialied to the String `'hello'`.
+On `line 9`, we invoke method `fix` and pass local variable `s` to it as an argument. Method `fix` parameter `value` is now pointing to the same object as local variable `s` (`'hello'`). We assign local variable `t` the return value of the method invocation. 
+
+On `line 3-6`, we define method `fix` that takes one parameter `value`. 
+On `line 4`, we invoke method `String#upcase` on the object that local variable `value` references, and reassign `value` to reference a new, upcased string.
+On `line 5`, we invoke a method `String#concat` on the object that local variable `value` references, and pass the String '!' to it as an argument. The method concatenate the String '!' to the string `value` references. Because `concat` is a mutating method, `value` still references the same string object; it just has been mutated.
+
+The value of `s` is '`hello'` and of `t` is `'HELLO!'`.
 
 
 
@@ -766,6 +770,18 @@ t = fix(s)
 
 What values do `s` and `t` have? Why?
 
+On `line 6`, local variable `s` is initialized to the String `'abc'`.
+
+On `line 7`, we call method `fix`, pass local variable `s` to it as an argument, and assign the local variable `t` the return value. 
+
+On `line 1-4`, we define method `fix` that takes one parameter `value`.
+
+On `line 2`, we call the `Array#[]=` method on the Array object that local variable `value` references to assign an Array element to the String `x`. We pass the Integer `1` within the brackets as an argument, which means the element being assigned is at index `1`. In other words, we assign the element of `value` at index `1` to the String `'x'`.
+
+On `line 3`, we implicitly return the value of `value`.
+
+Both `s` and `t` point to `'axc'`.
+
 
 
 ### Example 6:
@@ -782,7 +798,15 @@ a_method(a)
 p a
 ```
 
+On `line 5`, local variable `a` is initialized to the String `'hello'`.
 
+On `line 6`, we call method `a_method` and pass the local variable `a` to it as an argument. Method parameter `string` now points to the same object as local variable `a`.
+
+On `line 7`, we call method `Kernel#p` and pass `a` to it as an argument. This line outputs and returns `'hello world'`.
+
+On `line 1-3`, we define method `a_method` that takes one parameter `string`
+
+On `line 2`, we call method `String#<<` and pass the String `' world'` to it as an argument. The method concatenates the String `' world'` to the String that local variable `string` references. Since `<<` is a mutating method, the object that `string` points to has been changed. 
 
 
 
@@ -791,11 +815,13 @@ p a
 What does the following code return? What does it output? Why? What concept does it demonstrate?
 
 ```ruby
-arrnum = 3
+num = 3
 num = 2 * num
 ```
 
+On `line `, local variable `num` is initialized to the Integer `3`.
 
+On `line 2`, we call method `Integer#*` and pass local variable `num` to it. This method performs the multiplication between the Integer `2` and the Integer that `num` points to. We reassign `num` the return value of the multiplication. `num` now points to a different Integer (`6`) comparing to before reassignment. 
 
 
 
@@ -808,6 +834,12 @@ a = %w(a b c)
 a[1] = '-'
 p a
 ```
+
+On `line 1`, local variable `a` is initialized to the Array `['a', 'b', 'c']`
+
+On `line 2`, we call the `Array#[]=` method on the Array object that local variable `a` references to assign an Array element to the String `'-'`. We pass the Integer `1` within the brackets as an argument, which means the element being assigned is at index `1`. In other words, we assign the element of `a` at index `1` to the String `'-'`.
+
+On `line 3`, we call method `Kernel#p` and pass `a` to it as an argument. This line outputs and returns `['a', '-', 'c']`.
 
 
 
@@ -823,6 +855,20 @@ add_name(names, 'jim')
 puts names
 ```
 
+On `line 5`, local variable `names` is initialized to the Array `['bob', 'kim']`
+
+On `line 6`, we invoke method `add_name`, and pass the local variable `names` and the String `'kim'` to it as arguments. Method parameter `arr` and `names` now both point to the same Array object (`['bob', 'kim']`). Method parameter `name` now points the string `'jim'`.
+
+On `line 7`, we call method `Kernel#puts` and pass the variable `names` to it as an argument. This line return `nil`, and outputs `bob` and `kim` respectively.
+
+On `line 1-3`, we define method `add_name` that take two parameters `arr` and `name`. Method `add_names` invocation returns the the value of the variable `arr`.
+
+On `line 2`, we create an Array that has a element `name`. When method `add_name` is called, `[name]` becomes `['jim']`. We call method `Array#+` on the array object that variable `arr` references and pass the Array `[name]` to it as an argument. This method adds elements from `arr` to `name` and returns a new Array. We reassign `arr` to the new Array. Variable `arr` now points to a different object comparing to before reassignment. This is why on `line 7` `names` references the same array that it was initialized to `line 5`.
+
+This demonstrates that variables are pointers to physical spaces in memory. Mutating operations can changes the address space in memory and this would be reflected in all of the variables that point to this address space. If the operation is non-mutating, this will cause the variable to point to a new address space. Method `Array#+` and reassignment aren't mutating methods.
+
+This demonstrates object passing. Creating a method definition with a parameter and invoking the method with an argument makes that object passed in as an argument available within the method. 
+
 
 
 ### Example 10:
@@ -837,7 +883,15 @@ add_name(names, 'jim')
 puts names
 ```
 
+On `line 5`, local variable `names` is initialized to the Array `['bob', 'kim']`.
 
+On `line 6`, we invoke method `add_name`, and pass the local variable `names` and the String `'kim'` to it as arguments. Method parameter `arr` and `names` now both point to the same Array object (`['bob', 'kim']`). Method parameter `name` now points the string `'jim'`.
+
+On `line 7`, we call method `Kernel#puts` and pass the variable `names` to it as an argument. This line outputs `['bob', 'kim', 'jim']`
+
+On `line 1-3`, we define method `add_name` that take two parameters `arr` and `name`. Method `add_names` invocation returns the the value of the variable `arr`.
+
+On `line 2`, 
 
 
 
