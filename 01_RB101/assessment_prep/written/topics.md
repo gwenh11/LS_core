@@ -31,7 +31,21 @@ Things to remember:
     * On `line #` ...
 * For example, in the first iteration the block returns ...
   
-  
+
+
+
+My definition:
+
+On `[line #]`, we call the `select` method on the `[collection_type]` collection that `[collection_var]` references and pass in the `do..end` block as an argument. The `select` method iterates through the collection, passing each element to the block in turn as an argument and assigning to the block parameter `[block_parameter]`. The block is executed once for each element. `select` returns a new `[collection_type]` collection based on the block's return value. If it evaluates to true, then the element is selected. If the return value does not evaluate to true, then the element is not selected. Therefore, the new collection has the same or shorter length than the calling object.
+
+
+
+
+
+## Map
+
+On `[line #]`, we call the `map` method on the `[collection_type]` collection that `[collection_var]` references and pass in the `do..end` block as an argument. The `map` method iterates through the collection, passing each element to the block in turn as an argument and assigning to the block parameter `[block_parameter]`. The block is executed once for each element. `map` returns a new `[collection_type]` collection based on the block's return value. Each element is transformed based on the block's return value. Therefore, the new collection has the same length as the calling object.
+
 ### RE-ASSIGNMENT
 * On `line _` the local variable `_` is re-assigned to the `Obj_type` `obj_name`.
 

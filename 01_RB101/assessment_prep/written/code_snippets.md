@@ -1,138 +1,3 @@
-# Code Snippets
-
-line 1 -> I would make the distincition between argument & parameters. Value is a parameter here, not an argument. On line 7 the argument is passed in via the variable s.
-line 2 -> I would also add here that the << operator mutates the caller (value)
-line 3 -> I would say that it reassigns the variable value (instead of just 'assigns')
-
-(From Srdjan's article: https://medium.com/how-i-started-learning-coding-from-scratch/advice-for-109-written-assessment-part-2-594060594f6e)
-
-## Snippet 1:
-
-```ruby
-a = 'hello'
-b = a
-a = 'goodbye'
-```
-
-One `line 1`, local variable `a` is initialized to String `'hello'`. 
-
-On `line 2`, local variable `b` is initialized to the String object that the local variable `a` is referencing. Currently, both local variables `a` and `b` are pointing to the same object. 
-
-On `line 3`, local variable `a` is reassigned to the String `'goodbye'`. The local variable `a` is now pointing to the String `'goodbye'`, but local variable `b` is still pointing to the String `'hello'`.
-
-### Further explanation for `line 1`:
-
-One `line 1`, local variable `a` is initialized and assigned to the String object `'hello'`. Local variable `a` now references the string object `'hello'`.
-
-
-
-## Snippet 2:
-
-```ruby
-def example(str)
-  i = 3
-  loop do
-    puts str
-    i -= 1
-    # this is syntactical sugar for
-    # i = i - 1
-    # which is i = i.(-1)
-    break if i == 0
-  end
-end
-
-example('hello')
-```
-
-on `line 1-8`, method `example` is defined and takes one parameter. On `line 10`, method `example` is called with the String `'hello'` is passed to it as an argument. 
-
-On `line 2`, local variable `i` is initialized to the Integer `3`.
-
-On `line 3`, method `loop` is invoked with the `do..end` block is passed to it as an argument. 
-
-On `line 4`, method `puts` is called with the local variable `str` passed to it as an argument.
-
-On `line 5`, local variable `i` is reassigned to the return value of method call `Integer#-` on a local variable `i` with integer `1` passed to its as an argument.
-
-On `line 6`, method `loop` is broken by the keyword `break` if the value of the object that local variable `i` is referencing is equal to `0`.
-
-This code outputs the String `'hello'` 3 times and returns `nil`. 
-
-The last evaluated expression is returned, since we don't have an explicit `return` inside the method definition. The last evaluated expression is `break if i == 0`, which returns `nil` in this case.
-
-
-
-## Snippet 3 - variable scoping:
-
-```ruby
-a = 4
-# to eliminat the error: b = nil
-
-loop do
-  a = 5
-  b = 3
-  break
-end
-
-puts a
-puts b
-```
-
-This code outputs `5` and raises an error `undefined local variable or method` `b`. 
-
-Method `loop` invocation with the `do..end` block creates an inner scope, within which local variable `b` is initialized to the Integer `3`. Local variable `b` cannot be accessed outside of method `loop` invocation. However, local variable `a` is initialized the Integer 4 outside of method `loop` invocation; therefore, local variable `a` can be accessed inside method `loop` invocation.
-
-whereas a variable initialized in the inner scope created by a block following method invocation (in this case `b`) is not available in the outer scope.
-
-## Snippet 3 - variable scoping:
-
-```ruby
-a = 4
-b = 2
-
-loop do
-  c = 3
-  a = c
-  break
-end
-
-puts a
-puts b
-```
-
-This code outputs `2` and `3` respectively.
-
-On `line 1`, local variable `a` is initialized to the Integer `4`. On `line 4-8`, method `loop` invocation with the `do..end` block passed to it as an argument. The `do..end` block creates an inner scope. Within this scope, local variable `c` is initialized to the Integer `3` (on `line 5`), and local variable `a` is reassigned to the same value as local variable `c` is pointing to (on `line 6`). On `line 10`, `puts` method is called with local variable `a` passed to it as an argument. This output the value of local variable `a`, which is now `3`. Local variable `a` is defined outside of the `loop` method invocation, thus can be accessed inside method `loop` and its value can be reassigned.  
-
-On `line 2`, local variable `b` is initialized to the Integer `2`. On `line 11`, `puts` method is invoked with local variable `b` passed to it as an argument. This outputs `2` to screen.
-
-If `puts c` is added on `line 12`, it will raise an error, as variable `c` is not available in the outer scope (outside of method `loop` invocation).
-
-This demonstrates local variable scoping rules whereby a variable initialized in the outer scope (in this case `a`) is available in the inner scope created by a block following method invocation.  
-
-
-
-## Snippet 4 - variable shadowing:
-
-```ruby
-a = 4
-b = 2
-
-2.times do |a| # to remove variable shadowing, remove parameter 'a'
-  a = 5
-  puts a
-end
-
-puts a
-puts b
-```
-
-This code outputs `5`, `5`, `4` and `2` in this order.
-
-On `line 1`, local variable `a` is initialized to the Integer `4`. On `line 2`, local variable `b` is initialized to the Integer `2`. On `line 4-7`, method `times` is called on Integer `2` and the `do..end` block with one parameter `a` is passed to the method as an argument. On `line 5`, local variable `a`, passed in as a parameter of the `do..end` block, is assigned the Integer `5`. `puts` method is invoked on `line 6` and takes the same local variable `a` as the argument. This code outputs `5` and `5`. On `line 9`,  `puts` method is called and takes the local variable `a` from the outer scope as the argument. `Line 9` outputs `4`. Similarly, `line 10` outputs `2`, because `b` is initialized to the Integer `2` on `line 2`.
-
-
-
 Suggested response format (based on feedback from other students & Srdjan’s blog post):**What does the code output? What are the return values?****Answer the why behind the output/return:** Focus only on the lines of code that deliver the output and return values. **Summarize what the problem demonstrates and why:** This problem demonstrates the concept of local variable scope/etc…This can be at the beginning or end of your answer - personal preference. 
 **Using Markdown: use `backticks` (Markdown formatting) to highlight variable names, methods, and lines you are referring to:** On `line 1` we initialize the local variable…
 **Always aim to answer: What does the following code output and return? Why? What concept does it demonstrate?**`Additional Practice Problems:[Collection Methods from Lesson 4](https://launchschool.com/lessons/85376b6d/assignments/fd13de08)[Ruby Basics: Variable Scope](https://launchschool.com/exercise_sets/ece1c62b)[Ruby Basics: Return](https://launchschool.com/exercise_sets/d6b1fb73)Local 
@@ -575,7 +440,7 @@ On `line 1-3`, we define method `increment` that takes one parameter `x`.
 
 On `line 2`, we invoke method `String#<<` on the object that parameter `x` references and pass the String `b` to it as an argument.
 
-On `line 5`, we intialize local variable `y` to the String `a`.
+On `line 5`, we initialize local variable `y` to the String `a`.
 
 On `line 6`, we invoke method `incremenet` and pass the local variable `y` to it as an argument.
 
@@ -660,30 +525,24 @@ def fix(value)
   value.concat('!')
   value
 end
-
 s = 'hello'
 t = fix(s)
 ```
 
 What values do `s` and `t` have? Why?
 
+- On `line 6`, local variable `s` is initialized to the String `'hello'`.
+- On `line 7`, we invoke method `fix` and pass local variable `s` to it as an argument. Method `fix` parameter `value` is now pointing to the same object as local variable `s` (`'hello'`). We assign local variable `t` the return value of the method invocation. 
+- On `lines 1-4`, we define method `fix` that takes one parameter `value`. 
+- On `line 2`, we invoke method `String#upcase!` on the object that local variable `value` references. Because `upcase!` is a mutating method, the value of `value` has been mutated. The value of `value` is `'HELLO'`. The value of `s` is `'HELLO'`.
+- On `line 3`, we invoke a method `String#concat` on the object that local variable `value` references, and pass the String '!' to it as an argument. The method concatenate the String '!' to the string `value` references. Because `concat` is a mutating method, the value of `value` has been mutated again. The value of `value` is now `'HELLO!'`. The value of `s` is `'HELLO!'`.
+- On `line 4`, the value of `value` is used as the implicit return value for the `fix` method definition. The value of `value` is now `'HELLO!'`. 
+- Both `s` and `t` point to the String `'HELLO!'`.
+- This demonstrates that variables are pointers to physical spaces in memory. Mutating operations changes the address space in memory and this would be reflected in all of the variables that point to this address space. If the operation is non-mutating, this will cause the variable to point to a new address space. 
+
+- This demonstrates object passing. Creating a method definition with a parameter and invoking the method with an argument makes that object passed in as an argument available within the method. 
 
 
-
-
-
-
-Different problem:
-
-On `line 1-3`, we define method `increment` that takes one parameter `x`.
-
-On `line 2`, we invoke method `String#<<` on the object that parameter `x` references and pass the String `b` to it as an argument.
-
-On `line 5`, we intialize local variable `y` to the String `a`.
-
-On `line 6`, we invoke method `incremenet` and pass the local variable `y` to it as an argument.
-
-On `line 8`, we invoke method `Kernel#puts` and pass local variable `y` to it as an argument.
 
 ### Example 2:
 
@@ -701,14 +560,15 @@ t = fix(s)
 
 What values do `s` and `t` have? Why?
 
-On `line 8`, local variable `s` is initialied to the String `'hello'`.
-On `line 9`, we invoke method `fix` and pass local variable `s` to it as an argument. Method `fix` parameter `value` is now pointing to the same object as local variable `s` (`'hello'`). We assign local variable `t` the return value of the method invocation. 
+- On `line 6`, local variable `s` is initialized to the String `'hello'`.
+- On `line 7`, we invoke method `fix` and pass local variable `s` to it as an argument. Method `fix` parameter `value` is now pointing to the same object as local variable `s` (`'hello'`). We assign local variable `t` the return value of the method invocation. 
+- On `lines 1-3`, we define method `fix` that takes one parameter `value`. 
+- On `line 2`, we invoke method `String#upcase` on the object that local variable `value` references, and reassign `value` to reference a new, upcased string.
+- On `line 3`, we invoke a method `String#concat` on the object that local variable `value` references, and pass the String '!' to it as an argument. The method concatenate the String '!' to the string `value` references. Because `concat` is a mutating method, `value` still references the same string object; it just has been mutated.
+- The value of `s` is '`hello'` and of `t` is `'HELLO!'`.
+- This demonstrates that variables are pointers to physical spaces in memory. Mutating operations changes the address space in memory and this would be reflected in all of the variables that point to this address space. If the operation is non-mutating, this will cause the variable to point to a new address space. 
 
-On `line 3-6`, we define method `fix` that takes one parameter `value`. 
-On `line 4`, we invoke method `String#upcase` on the object that local variable `value` references, and reassign `value` to reference a new, upcased string.
-On `line 5`, we invoke a method `String#concat` on the object that local variable `value` references, and pass the String '!' to it as an argument. The method concatenate the String '!' to the string `value` references. Because `concat` is a mutating method, `value` still references the same string object; it just has been mutated.
-
-The value of `s` is '`hello'` and of `t` is `'HELLO!'`.
+- This demonstrates object passing. Creating a method definition with a parameter and invoking the method with an argument makes that object passed in as an argument available within the method. 
 
 
 
@@ -722,12 +582,23 @@ def fix(value)
   value = value.upcase
   value.concat('!')
 end
-
 s = 'hello'
 t = fix(s)
 ```
 
 What values do `s` and `t` have? Why?
+
+- On `line 6`, local variable `s` is initialized to the String `'hello'`.
+- On `line 7`, we invoke method `fix` and pass local variable `s` to it as an argument. Method `fix` parameter `value` is now pointing to the same object as local variable `s` (`'hello'`). We assign local variable `t` the return value of the method invocation. 
+- On `line 3-4`, we define method `fix` that takes one parameter `value`. 
+- On `line 2`, we call method `String#<<` and pass the String `'xyz'` to it as an argument. The method concatenates the String `'xyz'` to the String that local variable `value` references. Since `<<` is a mutating method, the object that `value` points to has been changed. So far, the value of `value` is `'helloxyz'`. The value of `s` is `'helloxyz'`.
+- On `line 3`, we call the `String#upcase` on the value of `value` and reassign variable `value` to the return value of the `upcase` method call. The method capitalizes all the characters in the String of the caller. Variable `value` now points to a different object after reassignment. The value of `value` is now `'HELLOXYZ'`. The value of `s` has the same value as before.
+- On `line 4`, we call the `String#concat` method on the String that variable `value` references and pass the String `'!'` to it as an argument. The method concatenates the String `'!'` to the value of `value`. Because `concat` is a mutating method, `value` still references the same string object; it just has been mutated one more time. This is the only expression in the method definition, so it determines the method's return value, which is the value of `value`. The value of `value` now is `'HELLOXYZ!'`.
+- `s` points to `'helloxyz'` and `t` points to `'HELLOXYZ!'`
+
+- This demonstrates that variables are pointers to physical spaces in memory. Mutating operations changes the address space in memory and this would be reflected in all of the variables that point to this address space. If the operation is non-mutating, this will cause the variable to point to a new address space. 
+
+- This demonstrates object passing. Creating a method definition with a parameter and invoking the method with an argument makes that object passed in as an argument available within the method. 
 
 
 
@@ -747,12 +618,18 @@ t = fix(s)
 
 What values do `s` and `t` have? Why?
 
-On `line 8`, local variable `s` is initialied to the String `'hello'`.
-On `line 9`, we invoke method `fix` and pass local variable `s` to it as an argument. Method `fix` paramter `value` is now pointing to the same object as local variable `s` (`'hello'`. We assign local variable `t` the return value of the method invocation. 
+- On `line 6`, local variable `s` is initialized to the String `'hello'`.
+- On `line 7`, we invoke method `fix` and pass local variable `s` to it as an argument. Method `fix` parameter `value` is now pointing to the same object as local variable `s` (`'hello'`). We assign local variable `t` the return value of the method invocation. 
 
-On `line 3-6`, we define method `fix` that takes one parameter `value`. 
-On `line 4`, we invoke method `String#upcase` on the object that local variable `value` references, and reassign `value` to reference a new, upcased string.
-On `line 5`, we invoke a method `String#concat` on the object that local variable `value` references, and pass the String '!' to it as an argument. The method concatenate the String '!' to the string `value` references. Because `concat` is a mutating method, `value` still references the same string object; it just has been mutated.
+- On `line 3-6`, we define method `fix` that takes one parameter `value`. 
+- On `line 4`, we invoke method `String#upcase!` on the object that local variable `value` references. We  reassign `value` to the return value of the `upcase!` method call. Because `upcase!` is a mutating method, `value` still points to the same string object after reassignment; it just has been mutated.
+- On `line 5`, we invoke a method `String#concat` on the object that local variable `value` references and pass the String '!' to it as an argument. The method concatenate the String '!' to the string `value` references. Because `concat` is a mutating method, `value` still references the same string object; it just has been mutated one more time. This is the only expression in the method definition, so it determines the method's return value, which is the value of `value`.
+- Both `t` and `s` points to `'HELLO!'`.
+- This demonstrates that variables are pointers to physical spaces in memory. Mutating operations changes the address space in memory and this would be reflected in all of the variables that point to this address space. If the operation is non-mutating, this will cause the variable to point to a new address space. 
+
+- This demonstrates object passing. Creating a method definition with a parameter and invoking the method with an argument makes that object passed in as an argument available within the method. 
+
+
 
 ### Example 5:
 
@@ -770,17 +647,20 @@ t = fix(s)
 
 What values do `s` and `t` have? Why?
 
-On `line 6`, local variable `s` is initialized to the String `'abc'`.
+- On `line 6`, local variable `s` is initialized to the String `'abc'`.
 
-On `line 7`, we call method `fix`, pass local variable `s` to it as an argument, and assign the local variable `t` the return value. 
+- On `line 7`, we call method `fix`, pass local variable `s` to it as an argument, and assign the local variable `t` the return value. 
 
-On `line 1-4`, we define method `fix` that takes one parameter `value`.
+- On `line 1-4`, we define method `fix` that takes one parameter `value`.
 
-On `line 2`, we call the `Array#[]=` method on the Array object that local variable `value` references to assign an Array element to the String `x`. We pass the Integer `1` within the brackets as an argument, which means the element being assigned is at index `1`. In other words, we assign the element of `value` at index `1` to the String `'x'`.
+- On `line 2`, we call the `Array#[]=` method on the Array object that local variable `value` references to assign an Array element to the String `x`. We pass the Integer `1` within the brackets as an argument, which means the element being assigned is at index `1`. In other words, we assign the element at index `1` of `value`  to the String `'x'`.
 
-On `line 3`, we implicitly return the value of `value`.
+- On `line 3`, the value of `value` is used as the implicit return value for the `fix` method definition.
 
-Both `s` and `t` point to `'axc'`.
+- Both `s` and `t` point to `'axc'`.
+- This demonstrates that variables are pointers to physical spaces in memory. Mutating operations changes the address space in memory and this would be reflected in all of the variables that point to this address space. If the operation is non-mutating, this will cause the variable to point to a new address space.
+
+- This demonstrates object passing. Creating a method definition with a parameter and invoking the method with an argument makes that object passed in as an argument available within the method. 
 
 
 
@@ -798,15 +678,18 @@ a_method(a)
 p a
 ```
 
-On `line 5`, local variable `a` is initialized to the String `'hello'`.
+- On `line 5`, local variable `a` is initialized to the String `'hello'`.
 
-On `line 6`, we call method `a_method` and pass the local variable `a` to it as an argument. Method parameter `string` now points to the same object as local variable `a`.
+- On `line 6`, we call method `a_method` and pass the local variable `a` to it as an argument. Method parameter `string` now points to the same object as local variable `a`.
 
-On `line 7`, we call method `Kernel#p` and pass `a` to it as an argument. This line outputs and returns `'hello world'`.
+- On `line 7`, we call method `Kernel#p` and pass `a` to it as an argument. This line outputs and returns `'hello world'`.
 
-On `line 1-3`, we define method `a_method` that takes one parameter `string`
+- On `line 1-3`, we define method `a_method` that takes one parameter `string`. 
 
-On `line 2`, we call method `String#<<` and pass the String `' world'` to it as an argument. The method concatenates the String `' world'` to the String that local variable `string` references. Since `<<` is a mutating method, the object that `string` points to has been changed. 
+- On `line 2`, we call method `String#<<` and pass the String `' world'` to it as an argument. The method concatenates the String `' world'` to the String that local variable `string` references. Since `<<` is a mutating method, the object that `string` points to has been changed. This is the only expression in the method definition, so it determines the method's return value, which is the value of `string`.
+- This demonstrates that variables are pointers to physical spaces in memory. Mutating operations changes the address space in memory and this would be reflected in all of the variables that point to this address space. If the operation is non-mutating, this will cause the variable to point to a new address space. 
+
+- This demonstrates object passing. Creating a method definition with a parameter and invoking the method with an argument makes that object passed in as an argument available within the method. 
 
 
 
@@ -819,9 +702,9 @@ num = 3
 num = 2 * num
 ```
 
-On `line `, local variable `num` is initialized to the Integer `3`.
+- On `line `, local variable `num` is initialized to the Integer `3`.
 
-On `line 2`, we call method `Integer#*` and pass local variable `num` to it. This method performs the multiplication between the Integer `2` and the Integer that `num` points to. We reassign `num` the return value of the multiplication. `num` now points to a different Integer (`6`) comparing to before reassignment. 
+- On `line 2`, we call method `Integer#*` and pass local variable `num` to it. This method performs the multiplication between the Integer `2` and the Integer that `num` points to. We reassign `num` the return value of the multiplication. `num` now points to a different Integer (`6`) comparing to before reassignment. 
 
 
 
@@ -835,11 +718,11 @@ a[1] = '-'
 p a
 ```
 
-On `line 1`, local variable `a` is initialized to the Array `['a', 'b', 'c']`
+- On `line 1`, local variable `a` is initialized to the Array `['a', 'b', 'c']`
 
-On `line 2`, we call the `Array#[]=` method on the Array object that local variable `a` references to assign an Array element to the String `'-'`. We pass the Integer `1` within the brackets as an argument, which means the element being assigned is at index `1`. In other words, we assign the element of `a` at index `1` to the String `'-'`.
+- On `line 2`, we call the `Array#[]=` method on the Array object that local variable `a` references to assign an Array element to the String `'-'`. We pass the Integer `1` within the brackets as an argument, which means the element being assigned is at index `1`. In other words, we assign the element at index `1` of  `a` to the String `'-'`.
 
-On `line 3`, we call method `Kernel#p` and pass `a` to it as an argument. This line outputs and returns `['a', '-', 'c']`.
+- On `line 3`, we call method `Kernel#p` and pass `a` to it as an argument. This line outputs and returns `['a', '-', 'c']`.
 
 
 
@@ -855,19 +738,19 @@ add_name(names, 'jim')
 puts names
 ```
 
-On `line 5`, local variable `names` is initialized to the Array `['bob', 'kim']`
+- On `line 5`, local variable `names` is initialized to the Array `['bob', 'kim']`
 
-On `line 6`, we invoke method `add_name`, and pass the local variable `names` and the String `'kim'` to it as arguments. Method parameter `arr` and `names` now both point to the same Array object (`['bob', 'kim']`). Method parameter `name` now points the string `'jim'`.
+- On `line 6`, we invoke method `add_name`, and pass the local variable `names` and the String `'kim'` to it as arguments. Method parameter `arr` and `names` now both point to the same Array object (`['bob', 'kim']`). Method parameter `name` now points the string `'jim'`.
 
-On `line 7`, we call method `Kernel#puts` and pass the variable `names` to it as an argument. This line return `nil`, and outputs `bob` and `kim` respectively.
+- On `line 7`, we call method `Kernel#puts` and pass the variable `names` to it as an argument. This line return `nil`, and outputs `bob` and `kim` respectively.
 
-On `line 1-3`, we define method `add_name` that take two parameters `arr` and `name`. Method `add_names` invocation returns the the value of the variable `arr`.
+- On `line 1-3`, we define method `add_name` that take two parameters `arr` and `name`. 
 
-On `line 2`, we create an Array that has a element `name`. When method `add_name` is called, `[name]` becomes `['jim']`. We call method `Array#+` on the array object that variable `arr` references and pass the Array `[name]` to it as an argument. This method adds elements from `arr` to `name` and returns a new Array. We reassign `arr` to the new Array. Variable `arr` now points to a different object comparing to before reassignment. This is why on `line 7` `names` references the same array that it was initialized to `line 5`.
+- On `line 2`, we create an Array that has a element `name`. When method `add_name` is called, `[name]` becomes `['jim']`. We call method `Array#+` on the array object that variable `arr` references and pass the Array `[name]` to it as an argument. This method adds elements from `arr` to `name` and returns a new Array. We reassign `arr` to the new Array. Variable `arr` now points to a different object comparing to before reassignment. This is why on `line 7` `names` references the same array that it was initialized to `line 5`. This is the only expression in the method definition, so it determines the method's return value, which is the value of `arr`.
 
-This demonstrates that variables are pointers to physical spaces in memory. Mutating operations can changes the address space in memory and this would be reflected in all of the variables that point to this address space. If the operation is non-mutating, this will cause the variable to point to a new address space. Method `Array#+` and reassignment aren't mutating methods.
+- This demonstrates that variables are pointers to physical spaces in memory. Mutating operations changes the address space in memory and this would be reflected in all of the variables that point to this address space. If the operation is non-mutating, this will cause the variable to point to a new address space. Method `Array#+` and reassignment aren't mutating methods.
 
-This demonstrates object passing. Creating a method definition with a parameter and invoking the method with an argument makes that object passed in as an argument available within the method. 
+- This demonstrates object passing. Creating a method definition with a parameter and invoking the method with an argument makes that object passed in as an argument available within the method. 
 
 
 
@@ -883,15 +766,17 @@ add_name(names, 'jim')
 puts names
 ```
 
-On `line 5`, local variable `names` is initialized to the Array `['bob', 'kim']`.
+- On `line 5`, local variable `names` is initialized to the Array `['bob', 'kim']`.
 
-On `line 6`, we invoke method `add_name`, and pass the local variable `names` and the String `'kim'` to it as arguments. Method parameter `arr` and `names` now both point to the same Array object (`['bob', 'kim']`). Method parameter `name` now points the string `'jim'`.
+- On `line 6`, we invoke method `add_name`, and pass the local variable `names` and the String `'kim'` to it as arguments. Method parameter `arr` and `names` now both point to the same Array object (`['bob', 'kim']`). Method parameter `name` now points the string `'jim'`.
 
-On `line 7`, we call method `Kernel#puts` and pass the variable `names` to it as an argument. This line outputs `['bob', 'kim', 'jim']`
+- On `line 7`, we call method `Kernel#puts` and pass the variable `names` to it as an argument. This line outputs `['bob', 'kim', 'jim']`
 
-On `line 1-3`, we define method `add_name` that take two parameters `arr` and `name`. Method `add_names` invocation returns the the value of the variable `arr`.
+- On `line 1-3`, we define method `add_name` that take two parameters `arr` and `name`. Method `add_names` invocation returns the the value of the variable `arr`.
 
-On `line 2`, 
+- On `line 2`, we call method `Array#<<` on the object that `arr` references and pass variable `name` to it as an argument. This method concatenates the variable `name` as an element to the Array `arr` references. Since this is a mutating method, it changes the Array object that `arr` points to. We then reassign variable `arr` the return value of the method call. Because method `<<` does not return a new array, `arr` still points to the same object after reassignment. This is the only expression in the method definition, so it determines the method's return value, which is the value of `arr`.
+
+- This demonstrates that variables are pointers to physical spaces in memory. Mutating operations changes the address space in memory and this would be reflected in all of the variables that point to this address space. If the operation is non-mutating, this will cause the variable to point to a new address space.
 
 
 
@@ -909,6 +794,12 @@ array.select do |num|
 end
 ```
 
+- On `line 1`, local variable `arr` is initialized to the Array  `[1, 2, 3, 4, 5]`.
+- On `line 3`, we invoke the `Array#select` method on the Array that local variable `arr` references. `select` returns a new array collection based on the block's return value. If it evaluates to true, then the element is selected. Otherwise, the element is not selected.
+- On `lines 3-5`, we pass a block to the `select` method call as an argument. The block is executed for every element in the calling object. For each iteration, an element is passed to the block in turn as an argument and assigned to the block parameter `num`.
+- On `line 4`, the right side of the keyword `if` is the conditional for the `if` statement. We call the `Integer#odd?` method on the Integer that local variable `num` references. The method returns the boolean `true` if the value of `num` is an odd integer and `false` otherwise. If the conditional evaluates to `true`, the code `puts num` is executed. Otherwise, nothing is executed, which returns `nil`. As for the code `puts num`, we call the `Kernel#puts` method on the Integer that variable `num` references. It outputs the value of  `num` and returns `nil`. The is the only expression in the block, so it determines the block's return value. The block's return value is `nil`, which is a falsey value for all iterations. Therefore, none of the element in the array of `array` is selected.
+- The code returns the new empty array and outputs `1`, `3`, and `5` respectively.
+
 
 
 ### Example 2:
@@ -919,6 +810,12 @@ What does the following code return? What does it output? Why? What concept does
 arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 arr.select { |n| n.odd? }
 ```
+
+- On `line 1`, local variable `arr` is initialized to the Array  `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
+- On `line 2`, we invoke the `Array#select` method on the Array that local variable `arr` references. `select` returns a new array collection based on the block's return value. If it evaluates to true, then the element is selected. Otherwise, the element is not selected.
+- On `line 2`, we pass a block to the `select` method call as an argument.  It is indicated by the code in between curly braces. The block is executed for every element in the calling object. For each iteration, an element is passed to the block in turn as an argument and assigned to the block parameter `n`.
+- On `line 2`, inside the block, we call the `Integer#odd?` method on the Integer that local variable `n` references. The method returns the boolean `true` if the value of `n` is an odd number. Otherwise, the method returns `false`. This is the only expression in the block, so it determines the block's return value. The block evaluates to `true` when the value of `n` is `1`, `3`, `5`, `7`, and `9` respectively. Therefore, these values from the calling array are selected. The new array has a different size than the calling array.
+- The code returns the new array `[1, 3, 5, 7, 9]`. The block evaluates to `true` when the value of `n` is `1`, `3`, `5`, `7`, and `9` respectively. Therefore, these values from the calling array are selected. The new array has a different size than the calling array.
 
 
 
@@ -935,6 +832,12 @@ end
 p new_array
 ```
 
+- On `line 1`, local variable `arr` is initialized to the Array  `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
+- On `line 3`, local variable `new_array` is assigned to the return value of the `Array#select` method call on the Array that local variable `arr` references. `select` returns a new array collection based on the block's return value. If it evaluates to true, then the element is selected. Otherwise, the element is not selected.
+- On `lines 3-5`, we pass the `do..end` block as an argument the `select` method call. The block is executed for every element in the calling object. For each iteration, an element is passed to the block in turn as an argument and assigned to the block parameter `n`
+- On `line 4`, we call method `Integer#+` on the Integer that local variable `n` references and pass the Integer `1` to it as an argument. The method adds the value of `n` to the Integer `1` and returns a new Integer. This is the only expression in the block, so it determines the block's return value. The block's return value is an Integer, which is a truthy value for all iterations. Therefore, all elements the array of `arr` is selected.
+- On `line 6`, we invoke method `Kernel#p` on the object that variable `new_array` references. This line outputs and returns the new array `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`. 
+
 
 
 ### Example 4:
@@ -950,6 +853,14 @@ new_array = arr.select do |n|
 end
 p new_array
 ```
+
+- On `line 1`, local variable `arr` is initialized to the Array  `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
+- On `line 3`, local variable `new_array` is assigned to the return value of the `Array#select` method call on the Array that local variable `arr` references. `select` returns a new array collection based on the block's return value. If it evaluates to true, then the element is selected. Otherwise, the element is not selected.
+- On `lines 3-5`, we pass the `do..end` block as an argument the `select` method call. The block is executed for every element in the calling object. For each iteration, an element is passed to the block in turn as an argument and assigned to the block parameter `n`
+- On `line 4`, we call method `Integer#+` on the Integer that local variable `n` references and pass the Integer `1` to it as an argument. The method adds the value of `n` to the Integer `1` and returns a new Integer.
+- On `line 5`, we invoke method `Kernel#puts` and pass local variable `n` to it as an argument. This line outputs the value that `n` references and returns `nil`  in every iteration. This is the last expression of the block, so it determines the return value of the block. 
+- The block's return value is `nil` for all iterations, so none of the element the array of `arr` is selected.
+- On `line 7`, we invoke method `Kernel#p` on the object that variable `new_array` references. This line outputs and returns the empty array `[]`. 
 
 
 
@@ -967,6 +878,12 @@ end
 p new_array
 ```
 
+- On `line 1`, local variable `words` is initialized to the Array `["jump", "trip", "laugh", "run", "talk"]`.
+- On `line 3`, local variable `new_array` is assigned to the return value of the `Array#map` method call on the Array that local variable `words` references. `map` returns a new array collection based on the block's return value. Each element is transformed based on the block's return value.
+- On `lines 3-5`, we pass the `do..end` block as an argument the `map` method call. The block is executed for every element in the calling object. For each iteration, an element is passed to the block in turn as an argument and assigned to the block parameter `word`.
+- On `line 4`, we call method `String#start_with?` on the String that local variable `word` references and pass the String `"t"` to it as an argument. It returns the boolean `true` if the caller starts with `"t"`. It returns `false` otherwise. This is the only expression in the block, so it determines the block's return value.
+- On `line 7`, we call `Kernel#p` method on the array that variable `new_array` references. It outputs and returns the new array `[false, true, false, false, true]`.
+
 
 
 ### Example 6:
@@ -978,6 +895,11 @@ arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 arr.each { |n| puts n }
 ```
+
+- On `line 1`, local variable `arr` is initialized to the Array  `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
+- On `line 3`, we call method `Array#each` on the array that local variable `arr` references. `each` returns the calling object.
+- On `line 3`, we pass a block to the `each` method call as an argument.  It is indicated by the code in between curly braces. The block is executed for every element in the calling object. For each iteration, an element is passed to the block in turn as an argument and assigned to the block parameter `n`.
+- On `line 3`, inside the block, we call method `Kernel#puts` on the object that local variable `n` references. This line outputs the value of `n` and returns `nil` for each iteration. The outputs are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, and `10` respectively. 
 
 
 
@@ -994,7 +916,13 @@ end
 p incremented
 ```
 
+- On `line 1`, local variable `arr` is initialized to the Array  `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
 
+- On `line 3`, local variable `incremented` is assigned the return value of the method call `Array#map` on the Array object that local variable `arr` references. `map` returns a new array collection based on the block's return value. Each element is transformed based on the block's return value.
+
+- On `lines 3-5`, we pass in the `do..end` block as an argument to the method `map` call. The block is executed for every element in the calling object. For each iteration, an element is passed to the block in turn as an argument and assigned to the block parameter `n`.
+- On `line 4`, we call method `Integer#+` on the Integer that local variable `n` references and pass the Integer `1` to it as an argument. The method adds the value of `n` to the Integer `1` and returns a new Integer. This is the only expression in the block, so it determines the block's return value.
+- On `line 6`, we invoke method `Kernel#p` on the Array that variable `incremented` references. This line outputs and returns `[2, 3, 4, 5, 6, 7, 8, 9, 10, 11]`.
 
 
 
@@ -1010,6 +938,13 @@ new_array = arr.map do |n|
 end
 p new_array
 ```
+
+- On `line 1`, local variable `arr` is initialized to the Array  `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
+- On `line 3`, local variable `new_arry` is assigned the return value of the method call `Array#map` on the Array object that local variable `arr` references. `map` returns a new array collection based on the block's return value. Each element is transformed based on the block's return value.
+- On `lines 3-6`, we pass in the `do..end` block as an argument to the method `map` call. The block is executed for every element in the calling object. For each iteration, an element is passed to the block in turn as an argument and assigned to the block parameter `n`.
+- On `line 4`, we call the `Integer#>` method on the Integer that local variable `n` references and pass the Integer `1` to it as an argument. The `>` method compares the value of the calling object with the argument. If the value of variable `n` is greater than the Integer `1`, the expression returns the boolean `true`. Otherwise, the expression returns `false`.
+
+- The code returns `[false, true, true, true, true, true, true, true, true, true]`
 
 
 
@@ -1027,7 +962,12 @@ end
 p new_array
 ```
 
-
+- On `line 1`, local variable `arr` is initialized to the Array `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
+- On `line 3`, local variable `new_arry` is assigned the return value of the method call `Array#map` on the Array object that local variable `arr` references. `map` returns a new array collection based on the block's return value. Each element is transformed based on the block's return value.
+- On `lines 3-6`, we pass in the `do..end` block as an argument to the method `map` call. The block is executed for every element in the calling object. Each element is passed to the block in turn as an argument and assigned to the block parameter `n`.
+- On `line 4`, we call the `Integer#>` method on the Integer that local variable `n` references and pass the Integer `1` to it as an argument. The `>` method compares the value of the calling object with the argument. If the value of variable `n` is greater than the Integer `1`, the expression returns the boolean `true`. Otherwise, the expression returns `false`.
+- On `line 5`, we invoke method `Kernel#puts` and pass local variable `n` to it as an argument. This line outputs the value that `n` references and returns `nil`  in every iteration. This is the last expression of the block, which also determines the return value of the block. Therefore, the block's return value is `nil` for all iterations.
+- On `line 7`, we invoke method `Kernel#p` on the object that variable `new_array` references. This line outputs and returns `[nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]`.
 
 
 
@@ -1041,6 +981,11 @@ a = "hello"
 [1, 2, 3].map { |num| a }
 ```
 
+- On `line 1`, local variable `a` is initialized to the String `"hello"`.
+- On `line 3`, we call method `Array#map` on the Array object `[1, 2, 3]`. `map` returns a new array collection based on the block's return value. Each element is transformed based on the block's return value. 
+- On `line 3`, we pass in a block as an argument to the method `map` call. It is indicated by the code in between curly braces. The block is executed for every element in the calling object. For each iteration, an element is passed to the block in turn as an argument and assigned to the block parameter `num`. The return value of the block is determined by what local variable `a` points to. Variable `a` points to the String `"hello"` per `line 1`. Therefore, the block's return value is `"hello"` for all iterations.
+- The code returns `["hello", "hello", "hello"]`.
+
 
 
 ### Example 11:
@@ -1053,9 +998,13 @@ What does the following code return? What does it output? Why? What concept does
 end
 ```
 
+- On `line 1`, we call method `Array#each` on the Array `[1, 2, 3]`. `each` returns the calling object, but it is not used in this case.
+- On `lines 1-3`, we pass the `do..end` block to method `each` call as an argument. The block is executed for every element in the calling object. For each iteration, an element is passed in turn as an argument and assigned to the block parameter `num`.
+- On `line 2`, we call method `Kernel#puts` and pass variable `num` to it as an argument. This line outputs the value that `num` references and returns `nil` in every iteration. The outputs are `1`, `2` and `3` respectively.
 
 
-### Other Collection Methods
+
+## Other Collection Methods
 
 [Link to all examples below](https://launchschool.com/lessons/85376b6d/assignments/d86be6b5)
 
@@ -1067,6 +1016,14 @@ end
 end
 ```
 
+- On `line 1`, we call method `Array#any?` on the Array `[1, 2, 3]`. This method returns a boolean value based on the block's return value. 
+- On `lines 1-3`, we pass the `do...end` block to the method call as an argument. The block is executed for every element in the Array. For each iteration, an element is passed to the block in turn as an argument and assigned to the block parameter `num`.
+- On `line 2`, we call the `Integer#>` method on the Integer that local variable `num` references and pass the Integer `2` to it as an argument. The `>` method compares the value of the calling object with the argument. If the value of variable `num` is greater than the Integer `2`, the expression returns the boolean `true`. Otherwise, the expression returns `false`.
+- This is the only and last line expression in the block, so it determines the return value of the block. 
+- If the block evaluates to `true` for at least one iteration, method `any?` returns `true`. 
+- If the block evaluates to `false` or `nil` for all iterations, method `any?` returns `false`.
+- The block evaluates to `true` when `num` points to `3`, so the code return `true`.
+
 
 
 ### Example 2:
@@ -1077,7 +1034,13 @@ end
 end
 ```
 
-
+- On `line 1`, we call method `Enumerable#any?` on the Hash `{ a: "ant", b: "bear", c: "cat" }`. This method returns a boolean value based on the block's return value. 
+- On `lines 1-3`, we pass the `do...end` block to the method call as an argument. The block is executed for every key-value pair in the Hash. For each iteration, a key-value pair is passed to the block in turn as an argument. The key is assigned the block parameter `key` . The value is assigned to the block parameter `value`.
+- On `line 2`, we call method `String#size` on the String object that local variable `value` references. It returns an Integer that indicates the length of the String. We then call the `Integer#>` method on this Integer and pass the Integer `4` to it as an argument. The `>` method compares the value of the calling object with the argument. If the Integer is greater than the Integer `4`, the expression returns the boolean `true`. Otherwise, the expression returns `false`.
+- This is the only and last line expression in the block, so it determines the return value of the block. 
+- If the block evaluates to `true` for at least one iteration, method `any?` returns `true`. 
+- If the block evaluates to `false` or `nil` for all iterations, method `any?` returns `false`.
+- The block evaluates to `false` for all iterations, so the code return `false`.
 
 
 
@@ -1089,6 +1052,14 @@ end
 end
 ```
 
+- On `line 1`, we call method `Array#all?` on the Array `[1, 2, 3]`. This method returns a boolean value based on the block's return value.
+- On `lines 1-3`, we pass the `do..end` block to the method call as an argument. The block is executed for every element in the Array. For each iteration, an element is passed to the block in turn as an argument and assigned to the block parameter `num`. 
+- On `line 2`, we call the `Integer#>` method on the Integer that local variable `num` references and pass the Integer `2` to it as an argument. The `>` method compares the value of the calling object with the argument. If the value of variable `num` is greater than the Integer `2`, the expression returns the boolean `true`. Otherwise, the expression returns `false`.
+- This is the only and last line expression in the block, so it determines the return value of the block. 
+- If the block evaluates to `true` for iterations, method `all?` returns `true`. 
+- If the block evaluates to `false` or `nil` for at least one iteration, method `all?` returns `false`.
+- The block evaluates to `false` when `num` points to `1` and `2`, so the code return `false`.
+
 
 
 ### Example 4:
@@ -1099,7 +1070,13 @@ end
 end
 ```
 
-
+- On `line 1`, we call method `Enumerable#all?` on the Hash `{ a: "ant", b: "bear", c: "cat" }`. This method returns a boolean value based on the block's return value.
+- On `lines 1-3`, we pass the `do..end` block to the method call as an argument. The block is executed for every key-value pair in the Hash. For each iteration, a key-value pair is passed to the block in turn as an argument. The key assigned to the block parameter `key`. The value is assigned to the block parameter `value`. 
+- On `line 2`, we can method `String#length` on the String object that local variable `value` references. It returns an Integer indicating the length of the String. We then call the `Integer#>=` method on this Integer and pass the Integer `3` to it as an argument. The `>=` method compares the value of the calling object with the argument. If the value of variable `num` is equal or greater than the Integer `3`, the expression returns the boolean `true`. Otherwise, the expression returns `false`.
+- This is the only and last line expression in the block, so it determines the return value of the block. 
+- If the block evaluates to `true` for iterations, method `all?` returns `true`. 
+- If the block evaluates to `false` or `nil` for at least one iteration, method `all?` returns `false`.
+- The block evaluates to `true` for all iterations, so the code returns `true`.
 
 
 
@@ -1111,6 +1088,13 @@ end
 end
 ```
 
+- On `line 1`, we call method `Enumerable#each_with_index` on the array `[1, 2, 3]`. `each_with_index` returns the calling object.
+- On `lines 1-3`, we pass the `do..end` block to the method call as an argument. The block is executed for every element in the calling object. For each iteration, the element is passed to the block in turn and assigned to the block parameter `num`. In addition, the element index value is passed the block parameter `index`. 
+- On `line 2`, we interpolate the String `"The index of is"` with the values that variable `num` and `index` reference. We then pass this String to the method call `Kernel#puts` as an argument. This line outputs the following:
+  - The index of 1 is 0.
+  - The index of 2 is 1.
+  - The index of 3 is 2.
+
 
 
 ### Example 6:
@@ -1121,6 +1105,12 @@ end
 end
 ```
 
+- On `line 1`, we call method `Enumerable#each_with_object` on the Hash  `{a: "ant", b: "bear", c: "cat"}` and pass an Array to it as an argument. The Array is initialized to an empty Array, which is shown as a pair of square brackets inside the parentheses. `each_with_object` later returns the Array that is updated based on the block's return value.
+- On `lines 1-3`, the `do..end` block is also passed to the method call as an argument. The block is executed for every key-value pair in the calling object. For each iteration, an Array referencing the key-value pair is passed to the block in turn as an argument. The first element references the key. The second element references the value. The Array is assigned to the block parameter `pair`. In addition, the empty Array is passed to the block and assigned to the block parameter `array`. A new array element is added to the Array based on the block's return value after each iteration.
+- On `line 2`, we call method `Array#last` on the Array that local variable `pair` references. It returns the last element of the Array. We then call method `Array<<` on the object that variable `array` references and pass this element to it as an argument. The method `<<` mutates the value of `array` and adds the element to it after each iteration. This is the only and last expression in the block, so it will  determine the block's return value.
+
+- This code returns a new Array `["ant", "bear", "cat"]`.
+
 
 
 ### Example 7:
@@ -1130,6 +1120,14 @@ end
   hash[value] = key
 end
 ```
+
+- On `line 1`, we call method `Enumerable#each_with_object` on the Hash `{a: "ant", b: "bear", c: "cat"}` and pass a Hash to it as an argument. The Hash is initialized to an empty Hash, which is shown as a pair of curly braces inside the parentheses. `each_with_object` later returns the Hash that is updated based on the block's return value.
+- On `lines 1-3`, the `do..end` block is also passed to the method call as an argument. The block is executed for every key-value pair in the calling object. For each iteration, a key-value pair is passed to the block in turn as an argument. The key is assigned to the block parameter `key`. The  value is assigned the block parameter `value`. In addition, the empty Hash is passed to the block and assigned to the block parameter `hash`. A new key-value pair is added to the Hash based on the block's return value after each iteration.
+
+- On `line 2`, we call method `Hash#[]=` on the object that local variable `hash` references. The method creates a new key-value pair in the calling object. Local variable `value` is passed to the method as an argument, whose value serves as the key. The value that variable `key` references serves as the value. This is the only and last expression in the block, so it will determine the block's return value.
+
+- The code returns a new Hash `{"ant" => :a, "bear" => :b, "cat" => :c}
+
 
 
 ### Example 8:
@@ -1142,6 +1140,19 @@ end
 p odd 
 p even
 ```
+
+- On `line 1`, we call method `Enumerable#partition` on the Array object `[1, 2, 3]`. The return value is explained as follows:
+  - The `partition` method returns a new array that has two elements and each element is also an array. The first sub-array contains elements from the original collection if the block evaluates to true and the second sub-array contains everything else. 
+  - Local variables `odd` and `even` are parallelly assigned to the elements of the new array. Variable `odd` is assigned to the first sub-array and variable `even` is assigned to the second sub-array.
+
+- On `lines 1-3`, we pass the `do..end` block to the method `partitition` call as an argument. The block is executed for every element in the calling object. For each iteration, an element is passed to the block in turn as an argument and assigned to the block parameter `num`. The  block's return value is used by the method `partitition`.
+
+- On `line 2`, when we call method `Integer#odd?` on the object that local variable `num` references. The method returns true, when variable `num` points to an odd number. The method returns false, when variable `num` points to an even number. The return value of the method `odd?` invocation is used to determine the block's return value.
+
+- On `line 5`, we call method `Kernel#p` on the array object that local variable `odd` references. This line outputs and returns `[1, 3]` for which the block evaluates to true.
+
+- On `line 6`, we call method `Kernel#p` on the array object that local variable `even` references. This line outputs and returns `[2]` for which the block evaluates to false.
+- The return value for the `partition` method call is `[[1, 3], [2]]`.
 
 
 
@@ -1161,6 +1172,15 @@ else
 end
 ```
 
+- On `line 1`, local variable `a` is initialized to the String `"Hello"`.
+
+- On `lines 3-7`, we have an if conditional:
+  - If variable `a` evaluates to true, `line 4` is executed. The code outputs `'Hello is truthy'` and returns `nil`.
+  - If variable `a` evaluates to false, `line 6` is executed. The code outputs `"Hello is falsey"` and returns nil. 
+
+- Because variable `a` references a truthy value (String `"Hello"`), `line 4` is executed. 
+
+
 
 ### Example 2:
 
@@ -1178,3 +1198,13 @@ else
   puts "interview"
 end
 ```
+
+- On `line 4`, local variable `var` is assigned to the return value of the method `test` invocation .
+
+- On `line 1-3`, we define method `test`.
+
+- On `line 2`, we call method `Kernel#puts` and pass the String `"written assessment"` to it as an argument. This is the only and last expression in the method definition. It returns `nil`, Therefore, variable `var` points to `nil` on `line 4`.
+- On `lines 6-10`, we have a if conditional:
+  - If local variable `var` evaluates to true, `line 7` is executed, which outputs  `written assessment` and returns `nil`.
+  - If local variable `var` evaluates to false, `line 9` is executed, which outputs `interview` and returns `nil`.
+- Because local variable `var` points to `nil`, `line 9` is executed. 
