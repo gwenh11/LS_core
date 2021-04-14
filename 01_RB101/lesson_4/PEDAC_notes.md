@@ -42,7 +42,14 @@
 
 ## C: Implementing A Solution In Code
 
-
+- Translating solution algorithm to code
+- Think about algorithm in context of programming language
+  - Language features and constraints
+  - Characteristics of data structures
+  - Built-in functions/methods
+  - Syntax and coding patterns
+- Create test cases
+- Code with intent
 
 
 
@@ -144,12 +151,13 @@ row number: 4 --> sum of integers in row: 68
 1. Create an empty 'rows' array to contain all of the rows
 2. Create a 'row' array and add it to the overall 'rows' array
 3. Repeat step 2 until all the necessary rows have been created
+   - All rows have been created when the length of the 'rows' array is equal to the input integer
 4. Sum the final row
 5. Return the sum
 
 
 
-*Problem: Create a row*
+<u>*Problem: Create a row*</u>
 
 Rules:
 
@@ -158,9 +166,36 @@ Rules:
 - Integers are consecutive even numbers
 - integers in each row form part of an overall larger sequence
 - Rows are of different lengths
-- 
+- Input: the information needed to create the output
+  - The starting integer
+  - Length of the row
+- Output: the row itself: `[8, 10, 12]`
 
 
+
+Examples:
+
+start: 2, length: 1 -->  [2]
+
+start: 4, length: 2 --> [4, 6]
+
+start: 8, length: 3 --> [8, 10, 12]
+
+
+
+Data Structures:
+
+- An array of integers
+
+
+
+Algorithm:
+
+1. Create an empty 'row' array to contain the integers
+2. Add the starting integer
+3. Increment the starting integer by 2 to get to the next integer in the sequence
+4. Repeat steps 2 and 3 until the array has reached the correct length
+5. Return the 'row' array
 
 
 
@@ -194,6 +229,10 @@ end
 p sum_even_number_row(1) == 2
 p sum_even_number_row(2) == 10
 p sum_even_number_row(4) == 68
+
+p create_row(2, 1) == [2]
+p create_row(4, 2) == [4, 6]
+p create_row(8, 3) == [8, 10, 12]
 ```
 
 
