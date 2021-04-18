@@ -1,6 +1,7 @@
 # The PEDAC Process
 
 ## P: Understanding the Problem
+- If any part of the problem is unclear, ask the interviewer to clarify the matter
 - Establish the rules/define the boundaries of the problem. It can be just a summary of the problem in your own words. 
   - 	Assess available information
   - 	Restate explicit requirements
