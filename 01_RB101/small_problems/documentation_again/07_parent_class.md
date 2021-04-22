@@ -2,8 +2,6 @@
 
 Use irb to run the following code:
 
-Copy Code
-
 ```ruby
 s = 'abc'
 puts s.public_methods.inspect

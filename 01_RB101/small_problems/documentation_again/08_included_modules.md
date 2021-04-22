@@ -33,7 +33,7 @@ Some languages have a feature called **multiple inheritance (MI)** - a class can
 
 Ruby uses **mix-in modules** instead. They provide a way of classes of different types to share behaviors without using inheritance. A class can use a mix-in module by using the `include` method. Once included, all the mix-in's methods become available to object of the class. 
 
-One of the most commonly used mix-ins in Ruby is the `Enumerable` module. It provides much of the functionality needed to iterate through collections such as `Array, Hash and Range. 
+One of the most commonly used mix-ins in Ruby is the `Enumerable` module. It provides much of the functionality needed to iterate through collections such as `Array`, `Hash` and `Range`. 
 
 `#min` is part of the `Enumberable` module. 
 

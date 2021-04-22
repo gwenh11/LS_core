@@ -17,10 +17,10 @@ puts digit_list(444) == [4, 4, 4]             # => true
 
 ```ruby
 # assume input number is a possitve integer
-# the digits in the array is the same as in the input number
+# the digits in the array is the same order as in the input number
 # make an empty array digits
-# assign 'current number' to method argument
-# perform module between 'current number' and 10, store remainder
+# assign 'current number' to input number
+# perform modulo between 'current number' and 10, store remainder
 # push the remainder to digit
 # divide number by 10, store the result in 'quotient'
 # assign 'quotient' to 'current number'

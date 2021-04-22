@@ -252,7 +252,23 @@ Any object in Ruby. ex. "Hello", 5, true
 
 and, since this is the last evaluated statement within the block, the return value of the block is therefore _____
 
+#### Positional argument
+`doc/syntax/calling_methods.doc` under `Default Positional Arguments`
 
+Ruby lets you use default arguments in the middle of number of positional arguments. Documentation shows that positional arguments are filled out first, then default arguments are set with any values supplied, and finally, default values are applied to anything remaining. 
+
+```ruby
+def my_method(a, b = 2, c = 3, d)
+  p [a, b, c, d]
+end
+
+my_method(4, 5, 6)
+#=> [4, 5, 3, 6]
+```
+
+First, `4` is assigned to `a`, `6` is assigned to `d`. Only arguments with default values remain. Since `5` has not been assigned, it is given to `b` (Ruby fills in missing arguments from left to right) and `c` uses default value `3`.
+
+In other words, `4`, `5` and `6` are assigned to the **positional arguments** `a`, `b`, and `d`. `5` overrides the default value for `b` and `c` takes the default value.
 
 # Keywords
 
@@ -492,3 +508,49 @@ duplicates with the frozen status.
 #### `freeze`
 
 Only freezes the element called on. If called on a collection each collection object needs to be frozen or else each element can be mutated
+
+
+
+#### `Numeric#divmod`
+
+divmod(numeric) → array
+
+Returns an array containing the quotient and modulus obtained by dividing `num` by `numeric`.
+
+
+
+#### Array#shift
+
+shift → obj or nil
+
+shift(n) → new_ary
+
+Removes the first element of `self` and returns it (shifting all other elements down by one). Returns `nil` if the array is empty.
+
+If a number `n` is given, returns an array of the first `n` elements (or less) just like `array.slice!(0, n)` does. With `ary` containing only the remainder elements, not including what was shifted to `new_ary`. See also [#unshift](https://ruby-doc.org/core-2.7.2/Array.html#method-i-unshift) for the opposite effect.
+
+```Ruby
+args = [ "-m", "-q", "filename" ]
+args.shift     #=> "-m"
+args           #=> ["-q", "filename"]
+
+args = [ "-m", "-q", "filename" ]
+args.shift(2)  #=> ["-m", "-q"]
+args           #=> ["filename"]
+```
+
+
+
+#### Array#unshift
+
+unshift(obj, ...) → ary
+
+prepend(obj, ...) → ary
+
+Prepends objects to the front of `self`, moving other elements upwards. See also [#shift](https://ruby-doc.org/core-2.7.2/Array.html#method-i-shift) for the opposite effect.
+
+```
+a = [ "b", "c", "d" ]
+a.unshift("a")   #=> ["a", "b", "c", "d"]
+a.unshift(1, 2)  #=> [ 1, 2, "a", "b", "c", "d"]
+```

@@ -10,10 +10,10 @@ p value
 
 How would you search this `Array` to find the first element whose value exceeds `8`?
 
-## Array#bsearch
+`Array#bsearch`
 
 bsearch {|x| block } → elem
 
-By using binary search, finds a value from this array which meets the given condition in O(log n) where n is the size of the array
+This signature shows that `#bsearch` takes only one argument - a block - and returns an element of the `Array` to which it is applied. We can also see that the block is required, and that it takes one argument. The text and examples below the signature tell and show us that the block must return `true` or `false` when operating in what is called "find-minimum mode", which is the usual use case.
 
-The usual use case is "find-minimum mode", which is also used in this example. In this mode, the block must return `true` or `false` 
+Putting this all together, we can devise our call to `#bsearch`: we use `a` as the caller, a block of `{ |element| element > 8 }` to find the first element whose value is greater than 8, and we store the return value to a variable named `value`. The value of `value` is then printed, which shows that `#bsearch` found the `11` in `a`.
