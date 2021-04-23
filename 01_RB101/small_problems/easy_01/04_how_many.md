@@ -27,6 +27,7 @@ motorcycle => 2
 **Solution**
 
 ```ruby
+# Solution 1
 # Include solution from further exploration 'suv' == 'SUV'
 # convert all array elements to lower case and reassign the result to the array variable
 # it seems to be a better practice to transform the input array rather than mutate it. It is possible that the input array is referenced elsewhere when it comes to a larger program
@@ -41,6 +42,14 @@ def count_occurrences(array)
 end
 
 count_occurrences(vehicles)
+
+# Solution 2
+def count_occurrences(array)
+  downcase_array = array.map(&:downcase)
+  downcase_array.tally.each { |k, v| puts "#{k} => #{v}" }
+end
+
+count_occurences(vehicles)
 ```
 
 My solution was very close to the LS solution. However, I forgot to output the solution to screen. I need to look at the problem statement more closely. 

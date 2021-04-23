@@ -76,10 +76,10 @@ end
 
 **Further Exploration:**
 
+Modify `stringy` so it takes an additional optional argument that defaults to `1`. If the method is called with this argument set to `0`, the method should return a String of alternating 0s and 1s, but starting with `0` instead of `1`.
+
 ```ruby
 =begin
-Further exploration: add another argument to medthod definition that is the starting value of string. It is defaulted to 1. Assuming it is an integer, not a string. If it is set to 0, the string will start with 0 instead of 1.
-
 --> Code modfication
 - Assign current value as 1, alternate as 0.
 - if the second argument is set to 0, reassign current value as 0, alternate as 1. 

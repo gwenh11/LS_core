@@ -5,12 +5,18 @@ Write a method that takes one argument, a string containing one or more words, a
 Examples:
 
 ```ruby
-# compare to part 1, this problem reverse the order of the word character is the word is 5 or more characters in length
+puts reverse_words('Professional')          # => lanoisseforP
+puts reverse_words('Walk around the block') # => Walk dnuora the kcolb
+puts reverse_words('Launch School')         # => hcnuaL loohcS
+```
+
+
+
+```ruby
+# compare to part 1, this problem reverse the order of the word character if the word is 5 or more characters in length
 # split the input string into array of words
 # iterate through array of words, for each word that is 5 or more character in length
-#    convert to array of characters
-#    reverse the order of array of characters
-#    join the characters
+#    reverse the word if its length is more than 5 characters
 #    if less than 5 characteres, leave the word as is
 # rejoin the array of words by white space
 # method reverse can be used on string

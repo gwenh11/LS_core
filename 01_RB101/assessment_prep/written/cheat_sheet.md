@@ -549,8 +549,34 @@ prepend(obj, ...) → ary
 
 Prepends objects to the front of `self`, moving other elements upwards. See also [#shift](https://ruby-doc.org/core-2.7.2/Array.html#method-i-shift) for the opposite effect.
 
-```
+```Ruby
 a = [ "b", "c", "d" ]
 a.unshift("a")   #=> ["a", "b", "c", "d"]
 a.unshift(1, 2)  #=> [ 1, 2, "a", "b", "c", "d"]
+```
+
+
+
+### Hash#map
+
+**Convert hash values to symbols**:
+
+```ruby
+hash = { bacon: "protein", apple: "fruit" }
+
+hash.map { |k,v| [k, v.to_sym] }.to_h
+
+# {:bacon=>:protein, :apple=>:fruit}
+```
+
+
+
+#### Enumerable#tally
+
+tally → a_hash
+
+Tallies the collection, i.e., counts the occurrences of each element. Returns a hash with the elements of the collection as keys and the corresponding counts as values.
+
+```
+["a", "b", "c", "b"].tally  #=> {"a"=>1, "b"=>2, "c"=>1}
 ```
