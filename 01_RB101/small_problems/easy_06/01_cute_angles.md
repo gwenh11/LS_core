@@ -4,7 +4,15 @@ Write a method that takes a floating point number that represents an angle betwe
 
 Examples:
 
-=begin
+```ruby
+dms(30) == %(30°00'00")
+dms(76.73) == %(76°43'48")
+dms(254.6) == %(254°36'00")
+dms(93.034773) == %(93°02'05")
+dms(0) == %(0°00'00")
+dms(360) == %(360°00'00") || dms(360) == %(0°00'00")
+```
+
 Note: your results may differ slightly depending on how you round values, but should be within a second or two of the results shown.
 
 You should use two digit numbers with leading zeros when formatting the minutes and seconds, e.g., 321°03'07".
@@ -14,11 +22,13 @@ You may use this constant to represent the degree symbol:
 ```ruby
 DEGREE = "\xC2\xB0"
 ```
+**Solution**
 
+**PEDAC**
 Problem: write a method that takes a float number and returns a string 
   - float number is an angle between 0 and 360
   - result string is an angle in degrees, minutes and seconds, plus the symbols
-  
+
 Example:
 N/A
 
@@ -28,9 +38,7 @@ Algorithm:
 - Do the same thing but using the previous quotient. The quotient is the degrees, the remainder is the minutes
 - Convert the degrees, minutes and seconds to string and add the string symbols to get final string format
 
-
-=end
-
+```ruby
 DEGREES_TO_SECONDS = 3600
 DEGREE = "\xC2\xB0"
 
@@ -39,7 +47,7 @@ def dms(input)
   total_minutes, seconds = total_seconds.divmod(60)
   degrees, minutes = total_minutes.divmod(60)
   format("%02d%s%02d'%02d\"", degrees, DEGREE, minutes, seconds)
-  
+
 end
 
 def degree_string_ar(degree)
@@ -74,7 +82,5 @@ def degree_string_ar(degree)
 #   end_str
 # end
 
-
-
-
 p dms(0) #== %(0°00'00")
+```
