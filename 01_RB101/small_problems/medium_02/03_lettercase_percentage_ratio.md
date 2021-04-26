@@ -42,6 +42,64 @@ end
 
 **Solution**
 
+problem:
+input: string
+output: hash
+
+  - lowercase percentage
+  - uppercase percentage
+  - neither percentage
+rules:
+- input string contains at least one character
+- input string contains letters, numbers, special characters and blank space
+- do we count blank spaces as neither? yes
+
+data:
+string
+hash
+array
+
+algorithm:
+- create a constant lowercase letter array 'a' to 'z'
+- do the same thing for uppercase letters 
+  - anything other letters are considered neither
+- initialize a hash with 'lowercase', 'uppercase; and 'neither' as keys and values are 0
+- split input string into arrays of characters
+- iterate through array of characters
+  - if the lowercase constant contain the character
+    - increment the value of 'lowercase' in the hash by 1
+  - if the uppercase constant contain the character
+    -  increment the value of 'uppercase' in the hash by 1
+  - otherwise, increment the value of 'neither' by 1
+- find the size of the string and convert to a float
+- iterate through the hash, transform the value by diving the value by the size and times 100
+- return the new hash
+
+```ruby
+LOWERCASE = ('a'..'z').to_a
+UPPERCASE = ('A'..'Z').to_a
+
+def letter_percentages(str)
+  hash = { lowercase: 0, uppercase: 0, neither: 0 }
+  str.each_char do |char|
+    if LOWERCASE.include?(char)
+      hash[:lowercase] += 1
+    elsif UPPERCASE.include?(char)
+      hash[:uppercase] += 1
+    else
+      hash[:neither] += 1
+    end
+  end
+
+  size = str.size.to_f
+  hash.map do |key, value|
+    [key, (value / size) * 100]
+  end.to_h
+end
+```
+
+
+
 ```ruby
 def letter_percentages(str)
   result = { lowercase: 0, uppercase: 0, neither: 0}
