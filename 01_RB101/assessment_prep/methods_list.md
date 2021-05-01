@@ -1,5 +1,15 @@
 # Array
 
+#### `Array#|`
+
+```ruby
+ary | other_ary → new_ary
+```
+
+Return a new array that is the union of two arrays. The result contains no duplicates.
+
+
+
 #### `Array#reject!`
 
 ```ruby
