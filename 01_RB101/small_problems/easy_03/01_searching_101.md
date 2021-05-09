@@ -40,7 +40,6 @@ The number 18 does not appear in [25, 15, 20, 17, 23].
 ```ruby
 numbers = []
 5.times do |num|
-    num = num + 1
     case num
     when 1
         str = 'st'

@@ -8,10 +8,6 @@ Example:
 multiply(5, 3) == 15
 ```
 
-#### Further Exploration
-
-For fun: what happens if the first argument is an `Array`? What do you think is happening here?
-
 **Solution**
 
 ```ruby
@@ -19,6 +15,10 @@ def multiply(num1, num2)
     num1 * num2
 end
 ```
+
+#### Further Exploration
+
+For fun: what happens if the first argument is an `Array`? What do you think is happening here?
 
 If the first argument is a string, it returns a new string by concatenating the second argument number copies of the first argument string. It behaves similarly if the first argument is an array.
 

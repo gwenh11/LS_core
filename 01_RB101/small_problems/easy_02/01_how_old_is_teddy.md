@@ -8,21 +8,22 @@ Example Output
 Teddy is 69 years old!
 ```
 
-#### Further Exploration
-
-Modify this program to ask for a name, and then print the age for that person. For an extra challenge, use "Teddy" as the name if no name is entered.
-
 **Solution**
 
 ```ruby
+# Solution 1
 # rand is from Kernel module
 age = rand(20..200)
+
+# Solution 2
 age = (20..200).to_a.sample
 
 puts "Teddy is #{rand(20..200)} years old!"
 ```
 
-**Further Exploration**
+#### Further Exploration
+
+Modify this program to ask for a name, and then print the age for that person. For an extra challenge, use "Teddy" as the name if no name is entered.
 
 ```ruby
 puts "What is your name?"

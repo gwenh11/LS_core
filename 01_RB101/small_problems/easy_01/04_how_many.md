@@ -54,7 +54,7 @@ count_occurences(vehicles)
 
 My solution was very close to the LS solution. However, I forgot to output the solution to screen. I need to look at the problem statement more closely. 
 
-**Interesting Solution from Another Student**
+**Other Solutions**
 
 ```ruby
 def count_occurrences(array)

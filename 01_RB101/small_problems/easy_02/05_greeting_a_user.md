@@ -2,18 +2,12 @@
 
 Write a program that will ask for user's name. The program will then greet the user. If the user writes "name!" then the computer yells back to the user.
 
-#### Further Exploration
-
-Try modifying our solution to use `String#chomp!` and `String#chop!`, respectively.
-
 Examples
 
 ```plaintext
 What is your name? Bob
 Hello Bob.
 ```
-
-
 
 ```plaintext
 What is your name? Bob!
@@ -37,7 +31,21 @@ else
 end
 ```
 
-**Solution uses `String#chomp!` and `String#chop!`**
+#### Further Exploration
+
+Try modifying our solution to use `String#chomp!` and `String#chop!`, respectively.
+
+Examples
+
+```plaintext
+What is your name? Bob
+Hello Bob.
+```
+
+```plaintext
+What is your name? Bob!
+HELLO BOB. WHY ARE WE SCREAMING?
+```
 
 ```ruby
 puts "What is your name?"

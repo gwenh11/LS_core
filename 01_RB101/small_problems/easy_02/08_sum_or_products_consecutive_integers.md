@@ -19,14 +19,6 @@ p
 The product of the integers between 1 and 6 is 720.
 ```
 
-#### Further Exploration
-
-The `compute_sum` and `compute_product` methods are simple and should be familiar. A more rubyish way of computing sums and products is with the `Enumerable#inject` method.  `#inject` is a very useful method, but if you've never used it before, it can be difficult to understand.
-
-Take some time to read the documentation for `#inject`. (Note that all `Enumerable` methods can be used on Array.) Try to explain how it works to yourself.
-
-Try to use `#inject` in your solution to this problem.
-
 **Solution**
 
 ```ruby
@@ -72,3 +64,10 @@ end
 puts ">> The #{operation} of the integers between 1 and #{num} is #{result}"
 ```
 
+#### Further Exploration
+
+The `compute_sum` and `compute_product` methods are simple and should be familiar. A more rubyish way of computing sums and products is with the `Enumerable#inject` method.  `#inject` is a very useful method, but if you've never used it before, it can be difficult to understand.
+
+Take some time to read the documentation for `#inject`. (Note that all `Enumerable` methods can be used on Array.) Try to explain how it works to yourself.
+
+Try to use `#inject` in your solution to this problem.

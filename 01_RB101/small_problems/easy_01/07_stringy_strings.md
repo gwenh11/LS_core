@@ -106,7 +106,9 @@ def stringy(pos_integer, start_value=1)
 end
 ```
 
-**Another Student Solution**: This solution uses an array to store 1 and 0. It shortens the code and makes it easier to read. 
+**Other Solutions**
+
+This solution uses an array to store 1 and 0. It shortens the code and makes it easier to read. 
 
 ```ruby
 def stringy(int, first = 1)

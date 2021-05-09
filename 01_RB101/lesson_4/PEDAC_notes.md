@@ -567,8 +567,6 @@ end
 
 At this point, you may want to check that `slice` methods works correctly and that the second argument should be the length of the substring. To do that you can use `puts` method to output the return value of the `slice` method.
 
-Copy Code
-
 ```ruby
 def substrings(str)
   result = []
@@ -581,8 +579,6 @@ substrings("abc") # "ab"
 ```
 
 Next, add a bit more code and test again:
-
-Copy Code
 
 ```ruby
 def substrings(str)

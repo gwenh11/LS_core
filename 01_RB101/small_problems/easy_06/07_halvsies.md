@@ -27,3 +27,22 @@ def halvsies(arr)
   [first_half, second_half]
 end
 ```
+
+**LS Solution**
+
+```ruby
+def halvsies(array)
+  middle = (array.size / 2.0).ceil
+  first_half = array.slice(0, middle)
+  second_half = array.slice(middle, array.size - middle)
+  [first_half, second_half]
+end
+```
+
+#### Further Exploration
+
+Can you explain why our solution divides `array.size` by 2.0 instead of just 2?
+
+Because when `array.size` is an odd number and no evenly divisible by 2, division by 2.0 will produce a float result which can be rounded up with `ceil` method.
+
+This is but one way to solve this problem. What solution did you end up with? Was it similar or entirely different?

@@ -12,7 +12,7 @@ It's 2016. You will retire in 2056.
 You have only 40 years of work to go!
 ```
 
-**Solution**
+**LS Solution**
 
 Use `Time#now` to get the current time and `Time#year` to get the current year.
 

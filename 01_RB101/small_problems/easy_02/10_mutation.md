@@ -10,10 +10,6 @@ array1.each { |value| value.upcase! if value.start_with?('C', 'S') }
 puts array2
 ```
 
-#### Further Exploration
-
-How can this feature of ruby get you in trouble? How can you avoid it?
-
 **Solution**
 
 ```ruby
@@ -28,9 +24,11 @@ Groucho
 Zeppo
 ```
 
-On line 3, `each` loop copies all the references from `array1` to `array2`. When this loop completes, both arrays not only contain the same values, they contain the same String objects. If one of those Strings is modified, that modification will show up in both Arrays.
+On line 3, `each` loop copies all the references from `array1` to `array2`. When this loop completes, both arrays contain the same String objects. If one of those Strings is modified, that modification will show up in both Arrays.
 
-**Further Exploration**
+#### Further Exploration
+
+How can this feature of ruby get you in trouble? How can you avoid it?
 
 The problem is both arrays are modified. To avoid this problem and only to modify `array2`, we can use `#dup`
 

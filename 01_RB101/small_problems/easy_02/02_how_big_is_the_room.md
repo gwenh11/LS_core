@@ -16,10 +16,6 @@ Enter the width of the room in meters:
 The area of the room is 70.0 square meters (753.47 square feet).
 ```
 
-#### Further Exploration
-
-Modify this program to ask for the input measurements in feet, and display the results in square feet, square inches, and square centimeters.
-
 **Solution**
 
 ```ruby
@@ -42,7 +38,9 @@ puts "The area of the room is #{area_meters} square meters " + \
 
 Use a constant to store the conversion factor between square meters and square feet. Use `Float#round` and `Kernel#format` to round numbers to 2 decimal places for readability.
 
-**Further Exploration**
+#### Further Exploration
+
+Modify this program to ask for the input measurements in feet, and display the results in square feet, square inches, and square centimeters.
 
 ```ruby
 SQMETERS_TO_SQFEET = 10.7639
