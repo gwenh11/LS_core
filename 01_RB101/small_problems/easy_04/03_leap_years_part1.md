@@ -20,33 +20,6 @@ leap_year?(100) == false
 leap_year?(400) == true
 ```
 
-#### Further Exploration
-
-The order in which you perform tests for a leap year calculation is important. For what years will `leap_year?`  fail if you rewrite it as:
-
-```ruby
-def leap_year?(year)
-  if year % 100 == 0
-    false
-  elsif year % 400 == 0
-    true
-  else
-    year % 4 == 0
-  end
-end
-# test incorrectly evaluates year divisible by 400 as not leap year
-```
-
-Can you rewrite `leap_year?` to perform its  tests in the opposite order of the above solution?  That is, test  whether the year is divisible by 4 first, then, if necessary, test  whether it is divisible by 100, and finally, if necessary, test whether  it is divisible by 400. Is this solution simpler or more complex than  the original solution?
-
-```ruby
-def leap_year?(year)
-  year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
-end
-```
-
-
-
 **Solution**
 
 ```ruby
@@ -92,3 +65,30 @@ end
 ```
 
 This solution takes this one step at a time by testing for the  least common cases first; years divisible by 400, and years divisible by 100. If the year is anything else, then it is a leap year if it  divisible by 4.
+
+#### Further Exploration
+
+The order in which you perform tests for a leap year calculation is important. For what years will `leap_year?`  fail if you rewrite it as:
+
+```ruby
+def leap_year?(year)
+  if year % 100 == 0
+    false
+  elsif year % 400 == 0
+    true
+  else
+    year % 4 == 0
+  end
+end
+# test incorrectly evaluates year divisible by 400 as not leap year
+```
+
+Can you rewrite `leap_year?` to perform its  tests in the opposite order of the above solution?  That is, test  whether the year is divisible by 4 first, then, if necessary, test  whether it is divisible by 100, and finally, if necessary, test whether  it is divisible by 400. Is this solution simpler or more complex than  the original solution?
+
+```ruby
+def leap_year?(year)
+  year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
+end
+```
+
+

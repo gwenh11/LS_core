@@ -17,31 +17,6 @@ balanced?('What ((is))) up(') == false
 
 Note that balanced pairs must each start with a `(`, not a `)`.
 
-#### Further Exploration
-
-There are a few other characters that should be matching as well. Square brackets and curly brackets normally come in pairs. Quotation marks(single and double) also typically come in pairs and should be balanced. Can you expand this method to take into account those characters?
-
-```ruby
-def balanced?(string)
-  square_brac = 0
-  curly_brac = 0
-  parens = 0
-  string.each_char do |char|
-    square_brac += 1 if char == '['
-    square_brac -= 1 if char == ']'
-    curly_brac += 1 if char == '{'
-    curly_brac -= 1 if char == '}'
-    parens += 1 if char == '('
-    parens -= 1 if char == ')'
-    break if parens < 0 || square_brac < 0 || curly_brac < 0
-  end
-  parens.zero? && square_brac.zero? && curly_brac.zero? && 
-  string.count("'").even? && string.count("\"").even?
-end
-```
-
-
-
 **Solution** 
 
 ```ruby
@@ -75,4 +50,29 @@ def balanced?(string)
   parens.zero?
 end
 ```
+
+#### Further Exploration
+
+There are a few other characters that should be matching as well. Square brackets and curly brackets normally come in pairs. Quotation marks(single and double) also typically come in pairs and should be balanced. Can you expand this method to take into account those characters?
+
+```ruby
+def balanced?(string)
+  square_brac = 0
+  curly_brac = 0
+  parens = 0
+  string.each_char do |char|
+    square_brac += 1 if char == '['
+    square_brac -= 1 if char == ']'
+    curly_brac += 1 if char == '{'
+    curly_brac -= 1 if char == '}'
+    parens += 1 if char == '('
+    parens -= 1 if char == ')'
+    break if parens < 0 || square_brac < 0 || curly_brac < 0
+  end
+  parens.zero? && square_brac.zero? && curly_brac.zero? && 
+  string.count("'").even? && string.count("\"").even?
+end
+```
+
+
 

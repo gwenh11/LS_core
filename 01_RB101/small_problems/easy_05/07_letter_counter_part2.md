@@ -11,10 +11,6 @@ word_sizes("What's up doc?") == { 5 => 1, 2 => 1, 3 => 1 }
 word_sizes('') == {}
 ```
 
-**Further Exploration**
-
-If you haven't encountered String#delete before, take a few minutes to read up on it, and its companion String#count (you need to read about #count to get all of the information you need to understand #delete).
-
 **Solution**
 
 ```ruby
@@ -53,3 +49,7 @@ def word_sizes(words_string)
   counts
 end
 ```
+
+**Further Exploration**
+
+If you haven't encountered String#delete before, take a few minutes to read up on it, and its companion String#count (you need to read about #count to get all of the information you need to understand #delete).

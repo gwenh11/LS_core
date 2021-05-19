@@ -47,7 +47,7 @@ def dms(input)
   total_minutes, seconds = total_seconds.divmod(60)
   degrees, minutes = total_minutes.divmod(60)
   format("%02d%s%02d'%02d\"", degrees, DEGREE, minutes, seconds)
-
+  # format(%(#{degrees}#{DEGREE}%02d'%02d"), minutes, seconds)
 end
 
 def degree_string_ar(degree)
@@ -61,26 +61,71 @@ def degree_string_ar(degree)
   degree_ar[1] = nil
   end
 
-#   degree_ar
-# end
+   degree_ar
+ end
 
-# def dms(degree)
-#   end_str = ''
-#   end_str += sprintf("%i\xC2\xB0", degree_string_ar(degree)[0].to_i)
-#   if degree_string_ar(degree)[1] != nil
-#     degree = degree_string_ar(degree)[1].to_f * 60
-#     end_str += sprintf("%02i'", degree_string_ar(degree)[0].to_i)
-#     if degree_string_ar(degree)[1] != nil
-#       degree = degree_string_ar(degree)[1].to_f * 60
-#       end_str += sprintf("%02i\"", degree.to_i.to_s)
-#     else
-#       end_str += "00\""
-#     end
-#   else
-#     end_str += "00'00\""
-#   end
-#   end_str
-# end
+ def dms(degree)
+   end_str = ''
+   end_str += sprintf("%i\xC2\xB0", degree_string_ar(degree)[0].to_i)
+   if degree_string_ar(degree)[1] != nil
+     degree = degree_string_ar(degree)[1].to_f * 60
+     end_str += sprintf("%02i'", degree_string_ar(degree)[0].to_i)
+     if degree_string_ar(degree)[1] != nil
+       degree = degree_string_ar(degree)[1].to_f * 60
+       end_str += sprintf("%02i\"", degree.to_i.to_s)
+     else
+       end_str += "00\""
+     end
+   else
+     end_str += "00'00\""
+   end
+   end_str
+ end
 
 p dms(0) #== %(0°00'00")
 ```
+
+#### Further Exploration
+
+Our solution returns the following results for inputs outside the range 0-360:
+
+```ruby
+dms(400) == %(400°00'00")
+dms(-40) == %(-40°00'00")
+dms(-420) == %(-420°00'00")
+```
+
+Since degrees are normally restricted to the range 0-360, can you modify the code so it returns a value in the appropriate range when the input is less than 0 or greater than 360?
+
+```ruby
+dms(400) == %(40°00'00")
+dms(-40) == %(320°00'00")
+dms(-420) == %(300°00'00")
+```
+
+```ruby
+DEGREES_TO_SECONDS = 3600
+DEGREE = "\xC2\xB0"
+
+def dms(input)
+  # adjusting input when is outside of 0 through 360 range
+  if input > 360
+    loop do
+      input -= 360
+      break if input <= 360
+    end
+  elsif input < 0
+    loop do
+      input += 360
+      break if input >= 0 && input <= 360
+    end
+  end
+
+  total_seconds = input * DEGREES_TO_SECONDS
+  total_minutes, seconds = total_seconds.divmod(60)
+  degrees, minutes = total_minutes.divmod(60)
+  format("%02d%s%02d'%02d\"", degrees, DEGREE, minutes, seconds)
+  # format(%(#{degrees}#{DEGREE}%02d'%02d"), minutes, seconds)
+end
+```
+

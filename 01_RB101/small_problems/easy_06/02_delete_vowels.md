@@ -1,4 +1,4 @@
-# Delete vowels
+# 2. Delete vowels
 
 Write a method that takes an array of strings, and returns an array of the same string values, except with the vowels (a, e, i, o, u) removed.
 
@@ -93,3 +93,6 @@ def remove_vowels(strings)
 end
 ```
 
+#### Further Exploration
+
+Ruby has all sorts of String methods that could accomplish this task. How did you end up solving this exercise?

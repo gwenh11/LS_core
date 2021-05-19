@@ -10,10 +10,6 @@ friday_13th(1986) == 1
 friday_13th(2019) == 2
 ```
 
-#### Further Exploration
-
-An interesting variation on this problem is to count the number months that have five Fridays. This one is harder than it sounds since you must account for leap years. **...skipping this one**
-
 **Solution**
 
 ```ruby
@@ -48,4 +44,8 @@ def friday_13th(year)
   days.count { |day| day.friday? }
 end
 ```
+
+#### Further Exploration
+
+An interesting variation on this problem is to count the number months that have five Fridays. This one is harder than it sounds since you must account for leap years. **...skipping this one**
 

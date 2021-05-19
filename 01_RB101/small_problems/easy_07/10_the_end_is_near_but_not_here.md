@@ -13,6 +13,14 @@ penultimate('last word') == 'last'
 penultimate('Launch School is great!') == 'is'
 ```
 
+**Solution**
+
+```ruby
+def penultimate(str)
+  str.split[-2]
+end
+```
+
 #### Further Exploration
 
 Our solution ignored a couple of edge cases because we explicitly stated that you didn't have to handle them: strings that contain just one word, and strings that contain no words.
@@ -40,14 +48,6 @@ def penultimate(str)
   elsif length.even?
     "string has an even length, two middle words are '#{temp_str[half - 1]}'  and '#{temp_str[half]}'"
   end
-end
-```
-
-**Solution**
-
-```ruby
-def penultimate(str)
-  str.split[-2]
 end
 ```
 

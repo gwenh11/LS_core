@@ -46,8 +46,6 @@ In the first solution, we define a new array `expanded_list` and then iterate ov
 
 Note that we could use the block parameters to access each element of the subarrays, like this:
 
-Copy Code
-
 ```ruby
 list.each do |fruit, quantity|
   quantity.times { expanded_list << fruit }
@@ -56,23 +54,17 @@ end
 
 The second solution is more compact. We choose to use `map` in order to return a transformation of the array passed in as an argument. Here again we use the block parameters to access each element of the subarrays. We realize that we want to multiply each fruit by the given quantity, and try this:
 
-Copy Code
-
 ```ruby
 fruit * quantity => "applesapplesapples"
 ```
 
 This is not exactly what we want! We are doing string concatenation when in fact we want an array containing the required quantity of each fruit as separate strings. Let's try something else:
 
-Copy Code
-
 ```ruby
 [fruit] * quantity => ["apples", "apples", "apples"]
 ```
 
 Great! We are almost done. We now have an array containing all of our fruits in nested subarrays:
-
-Copy Code
 
 ```ruby
 [["apples", "apples", "apples"], ["orange"], ["bananas", "bananas"]]

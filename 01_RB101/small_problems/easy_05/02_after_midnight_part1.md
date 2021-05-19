@@ -17,17 +17,6 @@ time_of_day(800) == "13:20"
 time_of_day(-4231) == "01:29"
 ```
 
-**Further Exploration**
-
-How would you approach this problem if you were allowed to use ruby's Date and Time classes? Suppose you also needed to consider the day of week? (Assume that delta_minutes is the number of minutes before or after midnight between Saturday and Sunday; in such a method, a delta_minutes value of -4231 would need to produce a return value of Thursday 01:29.)
-
-```ruby
-def time_of_day(delta_minutes)
-  time = Time.new(2020, 12, 20) + delta_minutes * MINUTES_PER_HOUR
-  time.strftime('%A %H:%M')
-end
-```
-
 **Solution**
 
 need the remainder for minutes and hours. 
@@ -71,3 +60,15 @@ end
 - Ensure the time difference is in the range of 0...MINUTES_PER_DAY by using the % operator (it computes the remainder of dividing the left side by the right side)
 - Use divmod to break the time difference down into hours and minutes
 - Format the results with Kernel#format. Each %02d produces a two-digit number with leading zeros as needed.
+
+**Further Exploration**
+
+How would you approach this problem if you were allowed to use ruby's Date and Time classes? Suppose you also needed to consider the day of week? (Assume that delta_minutes is the number of minutes before or after midnight between Saturday and Sunday; in such a method, a delta_minutes value of -4231 would need to produce a return value of Thursday 01:29.)
+
+```ruby
+def time_of_day(delta_minutes)
+  time = Time.new(2020, 12, 20) + delta_minutes * MINUTES_PER_HOUR
+  time.strftime('%A %H:%M')
+end
+```
+

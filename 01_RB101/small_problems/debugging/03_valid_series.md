@@ -19,10 +19,6 @@ p valid_series?([20, 6, 9, 4, 2, 1, 2, 3])        # should return true
 p valid_series?([10, 6, 19, 2, 6, 4])             # should return false
 ```
 
-#### Further Exploration
-
-If you take a close look at `odd_count == 3 ? true : false`, you see that the equality comparison `odd_count == 3` itself returns a Boolean. Is the ternary operator on line 5 really necessary in order to return a Boolean from our method? **The ternary operator on line 5 is not necessary.**
-
 **Solution**
 
 ```ruby
@@ -35,3 +31,8 @@ end
 ```
 
 On line 5 of the original code, `odd_count` is assigned to `3`, which will always be evaluated to a truthy condition in the ternary operator. Therefore, the method returns `true` for all series of numbers that sum to 47 (we have an explicit return `fase` on line 2 when the numbers do not sum up to 47), irrespective of how many odd numbers it contains.
+
+#### Further Exploration
+
+If you take a close look at `odd_count == 3 ? true : false`, you see that the equality comparison `odd_count == 3` itself returns a Boolean. Is the ternary operator on line 5 really necessary in order to return a Boolean from our method? **The ternary operator on line 5 is not necessary.**
+

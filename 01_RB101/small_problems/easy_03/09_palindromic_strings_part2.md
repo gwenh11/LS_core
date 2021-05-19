@@ -13,11 +13,7 @@ real_palindrome?('356a653') == true
 real_palindrome?('123ab321') == false
 ```
 
-### Further Exploration
-
-Read the documentation for `String#delete`, and the closely related `String#count` (you need to read `count` to get all of the information you need for `delete`.)
-
-**Solution**
+**LS Solution**
 
 ```ruby
 # implicit requirement - ignore space between characters/words
@@ -26,6 +22,12 @@ def real_palindrome?(string)
     string == string.reverse
 end
 ```
+
+### Further Exploration
+
+Read the documentation for `String#delete`, and the closely related `String#count` (you need to read `count` to get all of the information you need for `delete`.)
+
+
 
 `String#delete` and `String#count` use the same rules for building the set of characters as arguments.
 

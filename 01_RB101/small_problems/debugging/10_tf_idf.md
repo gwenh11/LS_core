@@ -2,8 +2,6 @@
 
 A friend of yours wants to build a basic search engine and starts reading up on information extraction. He decides to try a simple implementation of TF-IDF, a measure of the information content a term holds for a particular document in a document collection. However, he just started learning to code and somehow his numbers do not match what is expected. He knows you're enrolled in an awesome developer school, so he asks you to have a look.
 
-Copy Code
-
 ```ruby
 # Term frequency - inverse document frequency:
 # A measure of how important a term is to a document in a collection of documents
@@ -77,6 +75,15 @@ puts tfidf("some", document2, documents) # ~ 0.4
 puts tfidf("some", document3, documents) # ~ 0.4
 ```
 
+**Solution**
+
+Attempted to use `pry` to inspect the output at each sub functions. It didn't work very well, but I did discover the problem on line 26. An integer division is passed to `Math.log` , which cause `Math.log` to return an incorrect value. To fix this, we can change it to a float division or convert one of the number to a float. 
+
+```ruby
+Math.log(number_of_documents / number_of_documents_with_term.to_f)
+Math.log(number_of_documents.fdiv(number_of_documents_with_term))
+```
+
 #### Further Exploration
 
 There's still one issue that could get us into trouble when performing division. If you don't see it immediately, remove `document1` from the `documents` collection and check the TF-IDF value of `'quantum'` again. **The problem is division by zero in passed to Math.log method, which caused `Infinity` or `NaN`. This is assuming the number of documents is great than 0. To fix this, we can use an explicit return when term isn't found in any of the docs.**
@@ -88,14 +95,5 @@ def idf(term, documents)
   return 0.0 if number_of_documents_with_term == 0
   Math.log(number_of_documents / number_of_documents_with_term.to_f)
 end
-```
-
-**Solution**
-
-Attempted to use `pry` to inspect the output at each sub functions. It didn't work very well, but I did discover the problem on line 26. An integer division is passed to `Math.log` , which cause `Math.log` to return an incorrect value. To fix this, we can change it to a float division or convert one of the number to a float. 
-
-```ruby
-Math.log(number_of_documents / number_of_documents_with_term.to_f)
-Math.log(number_of_documents.fdiv(number_of_documents_with_term))
 ```
 

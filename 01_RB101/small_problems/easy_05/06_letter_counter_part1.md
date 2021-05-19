@@ -12,11 +12,33 @@ word_sizes("What's up doc?") == { 6 => 1, 2 => 1, 4 => 1 }
 word_sizes('') == {}
 ```
 
+**Solution**
+
+```ruby
+def word_sizes(str)
+  result = {}
+  str_sizes = str.split.map { |char| char.size }
+  str_sizes.each { |size| result[size] = str_sizes.count(size) }
+  result
+end
+```
+
+**LS Solution**
+```ruby
+def word_sizes(words_string)
+  counts = Hash.new(0)
+  words_string.split.each do |word|
+    counts[word.size] += 1
+  end
+  counts
+end
+```
+
 **Further Exploration**
 
 Take some time to read about Hash::new to learn about the different ways to initialize a hash with default values.
 
-new → new_hashclick to toggle source
+new → new_hash
 new(obj) → new_hash
 new {|hash, key| block } → new_hash
 
@@ -39,24 +61,3 @@ h["d"]           #=> "Go Fish: d"
 h.keys           #=> ["c", "d"]
 ```
 
-**Solution**
-
-```ruby
-def word_sizes(str)
-  result = {}
-  str_sizes = str.split.map { |char| char.size }
-  str_sizes.each { |size| result[size] = str_sizes.count(size) }
-  result
-end
-```
-
-**LS Solution**
-```ruby
-def word_sizes(words_string)
-  counts = Hash.new(0)
-  words_string.split.each do |word|
-    counts[word.size] += 1
-  end
-  counts
-end
-```

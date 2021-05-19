@@ -11,10 +11,6 @@ palindromic_number?(22) == true
 palindromic_number?(5) == true
 ```
 
-#### Further Exploration
-
-Suppose your number begins with one or more 0s. Will your method still work?  Why or why not?  Is there any way to address this?
-
 **Solution**
 
 ```ruby
@@ -24,7 +20,9 @@ def palindromic_number?(num)
 end
 ```
 
-**Further Exploration**
+#### Further Exploration
+
+Suppose your number begins with one or more 0s. Will your method still work?  Why or why not?  Is there any way to address this?
 
 Putting a zero in front of a number means that it is octal, and Ruby translates the number to decimal before you can  evaluate it. So, `013` *might* be a palindrome, because in decimal it is `11`.
 

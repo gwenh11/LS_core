@@ -13,24 +13,6 @@ signed_integer_to_string(-123) == '-123'
 signed_integer_to_string(0) == '0'
 ```
 
-**Further Exploration**
-
-Refactor our solution to reduce the 3 integer_to_string calls to just one.
-
-```ruby
-def signed_integer_to_string(number)
-  if number > 0
-    sign = '+'
-  elsif number < 0
-    sign = '-'
-  else
-    sign = ''
-  end
-
-  sign.concat(integer_to_string(number.abs))
-end
-```
-
 **Solution**
 
 create a constant array of digits (as string)
@@ -43,12 +25,12 @@ convert num to string:
   init result string as empty
   create a loop
     find quotient and remainder when divide the absolute lue of number by 10
-    assign quotient as the current number for the next ecution
-    find the value of the digits constant string at mainder as index
+    assign quotient as the current number for the next execution
+    find the value of the digits constant string at remainder as index
     repeat until number equals to 0
   return result
 
-return the concatenattion of sign and result together
+return the concatenation of sign and result together
 
 ```ruby
 DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -85,3 +67,20 @@ def signed_integer_to_string(number)
 end
 ```
 
+**Further Exploration**
+
+Refactor our solution to reduce the 3 integer_to_string calls to just one.
+
+```ruby
+def signed_integer_to_string(number)
+  if number > 0
+    sign = '+'
+  elsif number < 0
+    sign = '-'
+  else
+    sign = ''
+  end
+
+  sign.concat(integer_to_string(number.abs))
+end
+```

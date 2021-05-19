@@ -10,6 +10,14 @@ negative(-3) == -3
 negative(0) == 0      # There's no such thing as -0 in ruby
 ```
 
+**Solution**
+
+```ruby
+def negative(num)
+  num > 0 ? -num : num
+end
+```
+
 #### Further Exploration
 
 There is an even shorter way to write this but it isn't as immediately intuitive.
@@ -29,12 +37,4 @@ This is clearly shorter. However is it superior?
 **By writing the method in a more explicit rather than concise style, we can benefit from the code self-documenting itself.**
 
 **It might not be immediately obvious that `-number.abs` was intentional**
-
-**Solution**
-
-```ruby
-def negative(num)
-  num > 0 ? -num : num
-end
-```
 

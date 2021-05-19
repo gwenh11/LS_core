@@ -12,23 +12,6 @@ word_cap('the javaScript language') == 'The Javascript Language'
 word_cap('this is a "quoted" word') == 'This Is A "quoted" Word'
 ```
 
-#### Further Exploration
-
-Ruby conveniently provides the `String#capitalize` method to capitalize strings. Without that method, how would you solve this problem? Try to come up with at least two solutions.
-
-```ruby
-def word_cap(words)
-  words.split.map do |word|
-    word[0].upcase + word[1..-1].downcase
-  end.join(' ')
-end
-
-def word_cap(words)
-  words.downcase.split.map { |word| word.tr(word[0], word[0].upcase) }.join(' ')
-end
-
-```
-
 **Solution**
 
 problem: 
@@ -81,4 +64,23 @@ def word_cap(words)
   words.split.map(&:capitalize).join(' ')
 end
 ```
+
+#### Further Exploration
+
+Ruby conveniently provides the `String#capitalize` method to capitalize strings. Without that method, how would you solve this problem? Try to come up with at least two solutions.
+
+```ruby
+def word_cap(words)
+  words.split.map do |word|
+    word[0].upcase + word[1..-1].downcase
+  end.join(' ')
+end
+
+def word_cap(words)
+  words.downcase.split.map { |word| word.tr(word[0], word[0].upcase) }.join(' ')
+end
+
+```
+
+
 

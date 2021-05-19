@@ -27,10 +27,9 @@ merge_sort([6, 2, 7, 1, 4]) == [1, 2, 4, 6, 7]
 merge_sort(%w(Sue Pete Alice Tyler Rachel Kim Bonnie)) == %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
 merge_sort([7, 3, 9, 15, 23, 1, 6, 51, 22, 37, 54, 43, 5, 25, 35, 18, 46]) == [1, 3, 5, 6, 7, 9, 15, 18, 22, 23, 25, 35, 37, 43, 46, 51, 54]
 ```
+Hint: Here is a link to some pseudocode and a description of how merge sort works in more detail.
 
-#### Further Exploration
-
-Every recursive algorithm can be reworked as a non-recursive algorithm. Can you write a method that performs a non-recursive merge sort?
+Feel free to use the merge method you wrote in the previous exercise.
 
 **Solution**
 
@@ -79,8 +78,8 @@ After splitting the array into two sub-arrays, we call ourselves recursively, fi
 
 Once we have the sub-array results, we merge them together using our `merge` method. With each merge, we take two small sub-arrays, and return a larger array that contains all of the elements from both sub-arrays. This repeats at each level until we reach the top level. At this point, the final sorted array is returned to the caller.
 
-
-
+```ruby
+# Explanation from Jordan Whristler even though I don't understand
 @counter = 0
 def merge_sort(array)
   p @counter += 1
@@ -121,6 +120,7 @@ end
 
 merge_sort([9, 5, 7, 1, 3, 12]) #== [1, 5, 7, 9]
 
+# Output
 1
 [9, 5, 7, 1, 3, 12]
 2
@@ -148,3 +148,9 @@ merge_sort([9, 5, 7, 1, 3, 12]) #== [1, 5, 7, 9]
 [3, 12]
 [1, 3, 12]
 [1, 3, 5, 7, 9, 12]
+```
+
+#### Further Exploration
+
+Every recursive algorithm can be reworked as a non-recursive algorithm. Can you write a method that performs a non-recursive merge sort?
+

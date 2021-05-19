@@ -22,7 +22,7 @@ triangle(0, 90, 90) == :invalid
 triangle(50, 50, 50) == :invalid
 ```
 
-**Solution**
+**Solution (similar to LS Solution)**
 
 ```ruby
 def triangle(angle1, angle2, angle3)

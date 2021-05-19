@@ -21,18 +21,6 @@ palindromes('knitting cassettes') == [
 ]
 ```
 
-#### Further Exploration
-
-Can you modify this method (and/or its predecessors) to ignore non-alphanumeric characters and case? Alphanumeric characters are alphabetic characters(upper and lowercase) and digits.
-
-```ruby
-def palindromes(str)
-  str.gsub!(/[^a-zA-Z0-9]/, '') # remove non-alphanumerics
-  substrings = substrings(str)
-  substrings.select { |sub| sub == sub.reverse && sub.size > 1 }
-end
-```
-
 **Solution**
 
 ```ruby
@@ -73,3 +61,16 @@ Again, this problem is much easier if you use the method from the previous exerc
 We'll use a helper method here, `palindrome?`, to test whether any given string is a palindrome. Note that we need to verify the size of the string as well as its reversibility.
 
 The main method just calls `substrings` from the previous exercise, and then constructs a list of all of the return values that are palindromic.
+
+#### Further Exploration
+
+Can you modify this method (and/or its predecessors) to ignore non-alphanumeric characters and case? Alphanumeric characters are alphabetic characters(upper and lowercase) and digits.
+
+```ruby
+def palindromes(str)
+  str.gsub!(/[^a-zA-Z0-9]/, '') # remove non-alphanumerics
+  substrings = substrings(str)
+  substrings.select { |sub| sub == sub.reverse && sub.size > 1 }
+end
+```
+

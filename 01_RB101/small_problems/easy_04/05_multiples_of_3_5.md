@@ -13,24 +13,6 @@ multisum(10) == 33
 multisum(1000) == 234168
 ```
 
-#### Further Exploration
-
-Investigate `Enumerable.inject` (also known as `Enumerable.reduce`), How might this method be useful in solving this problem?  (Note that `Enumerable` methods are available when working with Arrays.) Try writing such a solution.  Which is clearer? Which is more succinct?
-
-```ruby
-def multisum(num)
-  (1..num).inject(0) do |sum, value|
-    if value % 3 == 0 || value % 5 == 0
-      sum + value
-    else
-      sum
-    end
-  end
-end
-```
-
-
-
 **Solution**
 
 ```ruby
@@ -48,6 +30,22 @@ end
 ```ruby
 def multisum(int)
   (1..int).select {|num| (num % 3 == 0 || num % 5 == 0)}.inject(:+)
+end
+```
+
+#### Further Exploration
+
+Investigate `Enumerable.inject` (also known as `Enumerable.reduce`), How might this method be useful in solving this problem?  (Note that `Enumerable` methods are available when working with Arrays.) Try writing such a solution.  Which is clearer? Which is more succinct?
+
+```ruby
+def multisum(num)
+  (1..num).inject(0) do |sum, value|
+    if value % 3 == 0 || value % 5 == 0
+      sum + value
+    else
+      sum
+    end
+  end
 end
 ```
 

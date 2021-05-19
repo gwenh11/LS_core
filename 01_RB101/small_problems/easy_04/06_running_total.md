@@ -11,24 +11,6 @@ running_total([3]) == [3]
 running_total([]) == []
 ```
 
-#### Further Exploration
-
-Try solving this problem using `Enumerable#each_with_object` or `Enumerable#inject` (note that `Enumerable` methods can be applied to Arrays).
-
-```ruby
-# can pass [] to inject
-# nil.to_i is 0
-def running_total(arr)
-  arr.inject([]) { |arr, n| arr << (arr.last.to_i + n) }
-end
-
-def running_total(arr)
-  arr.each_with_object([]) { |value, arr| arr << (value + arr.last.to_i)}
-end
-```
-
-
-
 **Solution**
 
 ```ruby
@@ -37,6 +19,27 @@ def running_total(num_arr)
   num_arr.map do |num|
     total += num
   end
+end
+
+def running_total(arr)
+  arr.map.with_index { |_, index| arr[0..index].sum }
+end
+```
+
+#### Further Exploration
+
+Try solving this problem using `Enumerable#each_with_object` or `Enumerable#inject` (note that `Enumerable` methods can be applied to Arrays).
+
+```ruby
+# can pass [] to inject
+# at the first iteration, arr.last returns nil. However, nil.to_i is 0
+# chaining .to_i after arr.last makes this solution works
+def running_total(arr)
+  arr.inject([]) { |arr, n| arr << (arr.last.to_i + n) }
+end
+
+def running_total(arr)
+  arr.each_with_object([]) { |value, arr| arr << (value + arr.last.to_i)}
 end
 ```
 

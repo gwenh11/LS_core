@@ -68,35 +68,6 @@ p new_matrix3 == matrix2
 
 This program should print "true" three times.
 
-#### Further Exploration
-
-Can you modify your solution to perform 90, 180, 270, and 360 degree rotations based on an argument?
-
-```ruby
-def rotate90(matrix)
-  new_line = []
-  result = []
-  line_index = 0
-
-    1.upto(matrix.first.size) do
-      matrix.each do |line|
-        new_line.prepend(line[line_index])
-      end
-      result << new_line
-      line_index += 1
-      new_line = []
-    end
-
-  result
-end
-
-def times90_rotation(matrix, degree_rotation)
-  rotation90_times = degree_rotation / 90
-  rotation90_times.times { matrix = rotate90(matrix) }
-  matrix
-end
-```
-
 **Solution**
 
 ```ruby
@@ -132,6 +103,35 @@ def rotate90(matrix)
     result << new_row.reverse
   end
   result
+end
+```
+
+#### Further Exploration
+
+Can you modify your solution to perform 90, 180, 270, and 360 degree rotations based on an argument?
+
+```ruby
+def rotate90(matrix)
+  new_line = []
+  result = []
+  line_index = 0
+
+    1.upto(matrix.first.size) do
+      matrix.each do |line|
+        new_line.prepend(line[line_index])
+      end
+      result << new_line
+      line_index += 1
+      new_line = []
+    end
+
+  result
+end
+
+def times90_rotation(matrix, degree_rotation)
+  rotation90_times = degree_rotation / 90
+  rotation90_times.times { matrix = rotate90(matrix) }
+  matrix
 end
 ```
 

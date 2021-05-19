@@ -12,12 +12,6 @@ oddities([123]) == [123]
 oddities([]) == []
 ```
 
-#### Further Exploration
-
-Write a companion method that returns the 2nd, 4th, 6th, and so on elements of an array.
-
-Try to solve this exercise in at least 2 additional ways.
-
 **Solution**
 
 ```ruby
@@ -44,6 +38,7 @@ def evens(arr)
   end
 end
 
+# we can use #index because the arary elements are unique. Otherwise, it returns the first index when the value matches (from left to right).
 def evens1(arr)
     arr.select { |value| arr.index(value).odd? }
 end
@@ -51,4 +46,10 @@ end
 def evens2(arr)
     arr.reject { |value| arr.index(value).even? }
 ```
+
+#### Further Exploration
+
+Write a companion method that returns the 2nd, 4th, 6th, and so on elements of an array.
+
+Try to solve this exercise in at least 2 additional ways.
 

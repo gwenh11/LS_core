@@ -9,10 +9,6 @@ square(5) == 25
 square(-8) == 64
 ```
 
-#### Further Exploration
-
-What if we wanted to generalize this method to a "power to the n"  type method: cubed, to the 4th power, to the 5th, etc.  How would we go  about doing so while still using the `multiply` method?
-
 **Solution**
 
 ```ruby
@@ -23,7 +19,9 @@ end
 
 The return value of `multiply` is the result of multiplying  the two arguments we pass to it, so we can simply pass in the same  number twice, which will return the squared value. Our `square` method is implicitly returning the return value from `multiply(n, n)`.
 
-**Further Exploration**
+#### Further Exploration
+
+What if we wanted to generalize this method to a "power to the n"  type method: cubed, to the 4th power, to the 5th, etc.  How would we go  about doing so while still using the `multiply` method?
 
 ```ruby
 def multiply(num1, num2)

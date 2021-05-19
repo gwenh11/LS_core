@@ -35,5 +35,17 @@ def palindrome?(arg)
 
   !check_sames.include?(false)
 end
+
+def palidrome?(str)
+  check = []
+  chars = str.split('')
+  chars.each do |value_forward|
+    chars.reverse_each do |value_backward|
+      check << (value_backward == value_backward)
+    end
+  end
+
+  check.all? { |check_value| check_value == true }
+end
 ```
 

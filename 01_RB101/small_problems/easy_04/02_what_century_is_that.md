@@ -22,7 +22,7 @@ century(11201) == '113th'
 
 ```ruby
 =begin 
-- deterine the century from year - divide year by 100
+- determine the century from year - divide year by 100
     if division is even, century is the quotient
     otherwise, century is the quotient plus 1
 - determine oridnal ending
@@ -75,8 +75,8 @@ end
 # I can practice using explicit return statement more like the one below
 def century_suffix(century)
   return 'th' if [11, 12, 13].include?(century % 100)
+  
   last_digit = century % 10
-
   case last_digit
   when 1 then 'st'
   when 2 then 'nd'

@@ -19,24 +19,6 @@ list == [1, 3, 2]                     # => true
 new_list == [2, 3, 1]                 # => true
 ```
 
-#### Further Exploration
-
-An even shorter solution is possible by using either `inject` or `each_with_object`. Just for fun, read about these methods in the `Enumerable` module documentation, and try using one in your `reverse` method.
-
-```ruby
-def reverse(arr)
-  arr.each_with_object([]) do |value, memo|
-    memo.prepend(value)
-  end
-end
-
-def reverse(arr)
-  arr.inject([]) { |memo, value| memo.unshift(value) }
-end
-```
-
-
-
 **Solution**
 
 ```ruby
@@ -71,7 +53,7 @@ def reverse(array)
 end
 ```
 
-**Student Solution**
+**Other Solutions**
 
 ```ruby
 def reverse!(list)
@@ -84,4 +66,22 @@ def reverse(ary)
   ary.sort {|left, right| ary.index(right) <=> ary.index(left) }
 end
 ```
+
+#### Further Exploration
+
+An even shorter solution is possible by using either `inject` or `each_with_object`. Just for fun, read about these methods in the `Enumerable` module documentation, and try using one in your `reverse` method.
+
+```ruby
+def reverse(arr)
+  arr.each_with_object([]) do |value, memo|
+    memo.prepend(value)
+  end
+end
+
+def reverse(arr)
+  arr.inject([]) { |memo, value| memo.unshift(value) }
+end
+```
+
+
 

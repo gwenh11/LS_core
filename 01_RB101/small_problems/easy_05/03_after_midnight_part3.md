@@ -60,3 +60,8 @@ In the last statement of after_midnight, we need to use `% MINUTES_PER_DAY` to h
 
 before_midnight reuses after_midnight by simply subtracting the return value of after_midnight from MINUTES_PER_DAY. This does have the unfortunate effect of setting delta_minutes to 1440 when we want 0, so the statement after simply fixes that.
 
+#### Further Exploration
+
+How would these methods change if you were allowed to use the `Date` and `Time` classes?
+
+...skipping this for now

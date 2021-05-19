@@ -2,8 +2,6 @@
 
 A 3 x 3 matrix can be represented by an Array of Arrays in which the main Array and all of the sub-Arrays has 3 elements. For example:
 
-Copy Code
-
 ```ruby
 1  5  8
 4  7  2
@@ -50,29 +48,6 @@ new_matrix = transpose(matrix)
 p new_matrix == [[1, 4, 3], [5, 7, 9], [8, 2, 6]]
 p matrix == [[1, 5, 8], [4, 7, 2], [3, 9, 6]]
 ```
-
-#### Further Exploration
-
-Write a `transpose!` method that transposes a matrix in place. The obvious solution is to reuse `transpose` from above, then copy the results back into the array specified by the argument. For this method, don't use this approach; write a method from scratch that does the in-place transpose.
-
-```ruby
-# best I can do at the moment
-def transpose(matrix)
-  0.upto(2) do |column_index|
-    temp = matrix[0][column_index]
-    matrix[0][column_index] = matrix[column_index][0]
-    matrix[column_index][0] = temp
-  end
-
-  temp = matrix[2][1]
-  matrix[2][1] = matrix[1][2]
-  matrix[1][2] = temp
-    
-  matrix
-end
-```
-
-
 
 **Solution**
 
@@ -140,3 +115,26 @@ def transpose(arr)
   end
 end
 ```
+
+#### Further Exploration
+
+Write a `transpose!` method that transposes a matrix in place. The obvious solution is to reuse `transpose` from above, then copy the results back into the array specified by the argument. For this method, don't use this approach; write a method from scratch that does the in-place transpose.
+
+```ruby
+# best I can do at the moment
+def transpose(matrix)
+  0.upto(2) do |column_index|
+    temp = matrix[0][column_index]
+    matrix[0][column_index] = matrix[column_index][0]
+    matrix[column_index][0] = temp
+  end
+
+  temp = matrix[2][1]
+  matrix[2][1] = matrix[1][2]
+  matrix[1][2] = temp
+    
+  matrix
+end
+```
+
+

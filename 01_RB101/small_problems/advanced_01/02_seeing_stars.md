@@ -30,10 +30,6 @@ star(9)
 *   *   *
 ```
 
-#### Further Exploration
-
-What other patterns can you come up with that can be produced in similar ways to the patterns of this exercise? Can you draw a reasonable looking circle? How about a [sine wave](http://www.purplemath.com/modules/grphtrig.htm)? **Skipping this one for now**
-
 **Solution**
 
 ```ruby
@@ -128,3 +124,8 @@ end
 ```
 
 Similar to the Diamonds exercise in Medium section
+
+#### Further Exploration
+
+What other patterns can you come up with that can be produced in similar ways to the patterns of this exercise? Can you draw a reasonable looking circle? How about a [sine wave](http://www.purplemath.com/modules/grphtrig.htm)? **Skipping this one for now**
+

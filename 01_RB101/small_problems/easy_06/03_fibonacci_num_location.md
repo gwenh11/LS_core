@@ -19,12 +19,6 @@ find_fibonacci_index_by_length(10000) == 47847
 
 You may assume that the argument is always greater than or equal to 2.
 
-#### Further Exploration
-
-Fibonacci numbers are sometimes used in demonstrations of how to write recursive methods. Had we tried to use a recursive method, it probably would have resulted in the program running out of stack space. Ruby isn't well equipped to deal with the level of recursion required for a recursive solution.
-
-We'll explore Fibonacci numbers again, along with the usual recursive solutions, later in the Medium exercises.
-
 **Solution**
 
 ```ruby
@@ -101,4 +95,10 @@ def find_fibonacci_index_by_length(number_digits)
   index
 end
 ```
+
+#### Further Exploration
+
+Fibonacci numbers are sometimes used in demonstrations of how to write recursive methods. Had we tried to use a recursive method, it probably would have resulted in the program running out of stack space. Ruby isn't well equipped to deal with the level of recursion required for a recursive solution.
+
+We'll explore Fibonacci numbers again, along with the usual recursive solutions, later in the Medium exercises.
 

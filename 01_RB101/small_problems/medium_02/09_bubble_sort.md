@@ -55,6 +55,31 @@ bubble_sort!(array)
 array == %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
 ```
 
+**Solution**
+
+```ruby
+def bubble_sort!(arr)
+  # outer loop repeats the array iteration until arry is sorted
+  # meaning there are no elements being swapped
+  # we use variable swapped to keep track of this
+  # initialize swapped to false, change it to true when elements are swapped
+  # breaks the loop when swapped is false
+  loop do
+    swapped = false
+    # inner loop checks every pair of consecutive elements and swapp them when necessary
+    0.upto(arr.size - 2) do |index|
+        if arr[index] > arr[index + 1]
+          arr[index], arr[index + 1] = arr[index + 1], arr[index]
+          swapped = true
+        end
+    end
+
+    break unless swapped
+  end
+  arr
+end
+```
+
 #### Further Exploration
 
 Note that we did not use the optimization suggested on the Wiki page that skips looking at tail elements that we know are already sorted. If your solution also skipped this optimization, try modifying your solution so it uses that optimization.
@@ -103,29 +128,4 @@ end
 ```
 
 
-
-**Solution**
-
-```ruby
-def bubble_sort!(arr)
-  # outer loop repeats the array iteration until arry is sorted
-  # meaning there are no elements being swapped
-  # we use variable swapped to keep track of this
-  # initialize swapped to false, change it to true when elements are swapped
-  # breaks the loop when swapped is false
-  loop do
-    swapped = false
-    # inner loop checks every pair of consecutive elements and swapp them when necessary
-    0.upto(arr.size - 2) do |index|
-        if arr[index] > arr[index + 1]
-          arr[index], arr[index + 1] = arr[index + 1], arr[index]
-          swapped = true
-        end
-    end
-
-    break unless swapped
-  end
-  arr
-end
-```
 

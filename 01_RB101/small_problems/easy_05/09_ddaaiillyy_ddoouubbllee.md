@@ -11,16 +11,6 @@ crunch('ggggggggggggggg') == 'g'
 crunch('a') == 'a'
 crunch('') == ''
 ```
-**Further Exploration**
-
-You may have noticed that we continue iterating until index points past the end of the string. As a result, on the last iteration text[index] is the last character in text, while text[index + 1] is nil. Why do we do this? What happens if we stop iterating when index is equal to text.length?
-
-Can you determine why we didn't use String#each_char or String#chars to iterate through the string? How would you update this method to use String#each_char or String#chars?
-
-You can solve this problem using regular expressions (see the Regexp class documentation). For a fun challenge, give this a try with regular expressions. If you haven't already read our book, Introduction to Regular Expressions, you may want to keep it handy if you try this challenge. (**skip since not a focus in RB101**)
-
-Can you think of other solutions besides regular expressions?
-
 **Solution**
 
 ```ruby
@@ -52,6 +42,16 @@ def crunch(text)
   crunch_text
 end
 ```
+**Further Exploration**
+
+You may have noticed that we continue iterating until index points past the end of the string. As a result, on the last iteration `text[index]` is the last character in text, while `text[index + 1]` is `nil`. Why do we do this? What happens if we stop iterating when `index` is equal to `text.length`?
+
+We need the last iteration `text[index]` at the last character in text, so that `text[index] == text[index + 1]` evaluates to `false` and the last character is appended to `crunch_text`. If we stop `index` at the next to last character, we would miss the last character in `crunch_text`. If we stop iterating when `index` is equal to `text.length`, `index` is out of bound. Therefore, both `text[index]` and `text[index + 1]` are `nil`. The expression `text[index] == text[index + 1]` evaluates to `true`. The code for the `unless` statement isn't executed. Ending iteration at `text.length` will not change the value of `crunched_string` comparing to ending iteration at `text.length - 1`.
+
+Can you determine why we didn't use `String#each_char` or `String#chars` to iterate through the string? How would you update this method to use `String#each_char` or `String#chars`?
+
+By using `String#each_char` or `String#chars` , we won't be able to reference the element after the current element during the iteration. Therefore, we can modify it by comparing the current element with the last element in `crunched_string`.
+
 ```ruby
 def crunch(string)
   crunched_string = ''
@@ -61,3 +61,7 @@ def crunch(string)
   crunched_string
 end
 ```
+
+You can solve this problem using regular expressions (see the Regexp class documentation). For a fun challenge, give this a try with regular expressions. If you haven't already read our book, Introduction to Regular Expressions, you may want to keep it handy if you try this challenge. (**skip since not a focus in RB101**)
+
+Can you think of other solutions besides regular expressions?

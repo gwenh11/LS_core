@@ -19,19 +19,7 @@ get_grade(95, 90, 93) == "A"
 get_grade(50, 50, 95) == "D"
 ```
 
-#### Further exploration
-
-How would you handle this if there was a possibility of extra credit grades causing it to exceed 100 points?
-
-**Add the following line to the method**
-
-```ruby
-return 'A' if average > 100
-```
-
-
-
-**Solution**
+**Solution (same as LS)**
 
 ```ruby
 def get_grade(grade1, grade2, grade3)
@@ -46,6 +34,8 @@ def get_grade(grade1, grade2, grade3)
   end
 end
 ```
+
+**LS Solution**
 
 This takes advantage of the fact that the comparison used by the case statement returns true if the range includes the other object (essentially calling `(range).include?(other_object)`.
 
@@ -73,4 +63,16 @@ def get_grade(num1, num2, num3)
   end
 end
 ```
+
+#### Further exploration
+
+How would you handle this if there was a possibility of extra credit grades causing it to exceed 100 points?
+
+**Add the following line to the method**
+
+```ruby
+return 'A' if average > 100
+```
+
+
 

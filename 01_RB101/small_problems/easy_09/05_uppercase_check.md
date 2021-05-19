@@ -13,6 +13,22 @@ uppercase?('4SCORE!') == true
 uppercase?('') == true
 ```
 
+**Solution**
+
+```ruby
+def uppercase?(str)
+  str.chars.all? { |char| char == char.upcase }
+end
+```
+
+**LS Solution**
+
+```ruby
+def uppercase?(string)
+  string == string.upcase
+end
+```
+
 #### Further Exploration
 
 Food for thought: in our examples, we show that `uppercase?` should return `true` if the argument is an empty string. Would it make sense to return `false` instead? Why or why not? **Should return false because empty string or non-letter strings aren't case sensitive**
@@ -25,20 +41,4 @@ end
 ```
 
 
-
-**Solution**
-
-```ruby
-def uppercase?(str)
-  str.chars.all? { |char| char == char.downcase.upcase }
-end
-```
-
-**LS Solution**
-
-```ruby
-def uppercase?(string)
-  string == string.upcase
-end
-```
 

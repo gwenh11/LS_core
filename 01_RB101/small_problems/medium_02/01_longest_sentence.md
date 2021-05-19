@@ -56,12 +56,6 @@ sentences = text.split(/\.|\?|!/)
 
 This statement uses a regular expression (regex). Regex are very useful for string operations, but we don't cover them in any detail until RB130. If you haven't already read our book, [Introduction to Regular Expressions](https://launchschool.com/books/regex), you may do so now, but it isn't necessary - this hint is all you need to know about regex for this problem.
 
-#### Further Exploration
-
-You may have noticed that our solution fails to print the period at the end of the sentence. Can you write a solution that keeps the period printed at the end of each sentence?
-
-What about finding the longest paragraph or longest word? How would we go about solving that problem?
-
 **Solution**
 
 ```ruby
@@ -109,3 +103,10 @@ Next, we use the method `String#split`. The punctuation marks `.`,`!`, and `?` m
 On this third line, we take our array of sentences and use the [Enumerable#max_by](http://ruby-doc.org/core/Enumerable.html#method-i-max_by) method to find the longest one.
 
 We now have the largest sentence. To get the number of words in that sentence, we use the same operations as we did in `max_by`. In this case we call those methods on `largest_sentence` instead.
+
+#### Further Exploration
+
+You may have noticed that our solution fails to print the period at the end of the sentence. Can you write a solution that keeps the period printed at the end of each sentence?
+
+What about finding the longest paragraph or longest word? How would we go about solving that problem?
+

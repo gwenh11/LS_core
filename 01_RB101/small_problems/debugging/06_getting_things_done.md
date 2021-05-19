@@ -19,10 +19,6 @@ p todo # should be: ['coffee with Tom']
 p done # should be: ['apply sunscreen', 'go to the beach', 'study', 'walk the dog']
 ```
 
-#### Further Exploration
-
-What happens if the length of the `from_array` is smaller than `n`?  **`shift` returns the first element removes the element from `from_array`. When the array is empty, `shift`** **returns `nil`, which will be pushed to the `to_array`**
-
 **Solution**
 
 `SystemStackError` is raised in case of stack overflow. In this case, the recursion lacks the base case, which acts as the condition that the execution will stop. In order to know where it needs to return to after finishing each of these calls, Ruby puts each call on a call stack. Since we never stop, this stack keeps growing and growing, until it exceeds its limit. This causes the [`SystemStackError`](https://ruby-doc.org/core/SystemStackError.html) - a real *stack overflow*!
@@ -34,4 +30,8 @@ def move(n, from_array, to_array)
   move(n - 1, from_array, to_array)
 end
 ```
+
+#### Further Exploration
+
+What happens if the length of the `from_array` is smaller than `n`?  **`shift` returns the first element removes the element from `from_array`. When the array is empty, `shift`** **returns `nil`, which will be pushed to the `to_array`**
 

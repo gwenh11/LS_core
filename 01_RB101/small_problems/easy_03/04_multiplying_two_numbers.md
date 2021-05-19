@@ -33,10 +33,6 @@ ary * str     → new_string
 
 repetition with a string argument, equivalent to `array.join(str)`
 
-```r
-
-```
-
 ```ruby
 [1, 2, 3] * ","
 #=> "1,2,3"

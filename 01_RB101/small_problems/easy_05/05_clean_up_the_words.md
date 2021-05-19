@@ -8,6 +8,33 @@ Examples:
 cleanup("---what's my +*& line?") == ' what s my line '
 ```
 
+**Solution**
+
+```ruby
+ALPHABET = ('a'..'z').to_a
+
+def cleanup(str)
+  transformed_chars = str.chars.map do |char|
+    if char == ' ' || ALPHABET.include?(char)
+      char
+    else
+      ' '
+    end
+  end
+
+  transformed_str = transformed_chars.join
+  words = transformed_str.split(' ')
+  phrase = words.join(' ')
+  if !ALPHABET.include?(str[0]) && !ALPHABET.include?(str[-1])
+    ' ' + phrase + ' '
+  elsif !ALPHABET.include?(str[-1])
+    phrase + ' '
+  else
+    ' ' + phrase
+  end
+end
+```
+
 **LS Solution**
 
 ```ruby
@@ -41,5 +68,4 @@ While this first solution is perfectly fine, using regular expressions can somet
 This method is quite simple: using the gsub call, it simply replaces all non-alphabetic characters in text with a space, then squeezes out all of the duplicate spaces. (The squeeze call could be replaced by another gsub call, but squeeze is easier to understand at a glance.)
 
 If you are unfamiliar with regular expressions, the expression /[^a-z]/i is a regular expression that matches any character that is not an uppercase or lowercase letter. **The /i part of this expression is what makes this expression case insensitive.** gsub replaces all characters in text that match the regular expression in the 1st argument with the value in the 2nd argument.
-
 
