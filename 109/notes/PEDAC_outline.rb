@@ -10,27 +10,20 @@ Tips:
 =end
 
 =begin
-**Problem**
-
+>>PROBLEM
 Input:
 Output:
 
 Questions:
 
-
 Rules (Explicit/Implicit):
-
 
 Edge Cases:
 
+>>EXAMPLES
 
-**Examples**
+>>DATA STRUCTURES
 
-
-**Data Structure**
-
-
-**Algorithm**
-
+>>ALGORITHM:
 
 =end
