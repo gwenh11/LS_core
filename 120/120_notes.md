@@ -47,3 +47,75 @@ kitty.name # => Sophie
 Setter methods are created similarly to getter methods. Manually, they look the same except with an added `=` in the name and a parameter:
 
 Like getter methods, setter methods can be invoked on the object.
+
+Modules are typically used to contain methods that may be useful for multiple classes, but not all classes. When you mix a module into a class, you're allowing the class to invoke the contained methods.
+
+In our solution, we create a module named `Walkable` that contains a method named `#walk`. We give `Cat` access to this method by including `Walkable` in the class, like this:
+
+Copy Code
+
+```ruby
+module Walkable
+  def walk
+    puts "Let's go for a walk!"
+  end
+end
+
+class Cat
+  include Walkable
+end
+```
+
+This lets us invoke `#walk` on any instance of `Cat`. In this case, if we invoke `kitty.walk`, then `Let's go for a walk!` will be printed.
+
+When looking at the initial example, the first thing you should notice is the invocation of `#generic_greeting`. It's being invoked on the `Cat` class, not an instance of `Cat`. This indicates that `#generic_greeting` is a class method.
+
+Class methods are defined differently than instance methods. When defining a class method, the method name is prepended with `self`, like this: `self.generic_greeting`. In the solution, `self` refers to the `Cat` class. This means we could also define `#generic_greeting` as `Cat.generic_greeting`. However, `self` is preferred when defining class methods.
+
+Like instance methods, we can place any statement we want inside a class method. In our solution, we place `puts 'Hello! I'm a cat!'` so that `Hello! I'm a cat!` is printed when `#generic_greeting` is invoked.
+
+To invoke class methods, they must be called on the class itself, not an instance of the class. If we invoke a class method on an instance of the class, we'll get a `NoMethodError`:
+
+Copy Code
+
+```ruby
+class Cat
+  def self.generic_greeting
+    puts "Hello! I'm a cat!"
+  end
+end
+
+kitty = Cat.new
+kitty.generic_greeting # => undefined method `generic_greeting' f
+```
+
+In the last two exercises, we used `self` to define class methods and to modify instance variables. `self` is used because it refers to the calling object. This means that, in our solution, invoking `self` is the same as invoking `kitty`.
+
+Copy Code
+
+```ruby
+p kitty.identify # => #<Cat:0x007f932b06dba8 @name="Sophie">
+p kitty          # => #<Cat:0x007f932b06dba8 @name="Sophie">
+```
+
+We use `#p` to print the object so that `#inspect` is called, which lets us view the instance variables and their values along with the object.
+
+There are a few differences between class methods and instance methods, however, most notably, class methods are only associated with the class itself, not any instance of the class. Within class methods, we're restricted from adding data specific to objects of the class, like adding a name to an instance of `Cat`. Think of class methods as generic actions a class may perform, like this:
+
+Copy Code
+
+```ruby
+class Cat
+  def self.speak
+    puts 'Meow!'
+  end
+end
+
+Cat.speak # => Meow!
+```
+
+Protected methods are very similar to private methods. The main difference between them is protected methods allow access between class instances, while private methods don't. If a method is protected, it can't be invoked from outside the class. This allows for controlled access, but wider access between class instances.
+
+A namespace provides a container to hold things like functions, classes and constants as a way to group them together logically and to help avoid conflicts with functions and classes with the same name that have been written by someone else.
+
+In Ruby this is achieved using modules.
