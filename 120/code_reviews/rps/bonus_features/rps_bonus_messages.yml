@@ -1,0 +1,49 @@
+instructions: |
+  Welcome to Rock-Paper-Scissors-Lizard-Spock Game!  
+
+  => You will be playing against the computer for multiple rounds.
+  => Whichever player reaches a score of 5 (five) first is the grand winner.
+
+  => Below are the rules:
+        Scissors cuts Paper
+        Paper covers Rock
+        Rock crushes Lizard
+        Lizard poisons Spock
+        Spock smashes Scissors
+        Scissors decapitate Lizard
+        Lizard eats Paper
+        Paper disproves Spock
+        Spock vaporizes Rock
+        ...and as it always has 
+        Rock crushes Scissors
+start: "When you are ready, press the 'enter' key to continue."
+invalid_start: "Press the 'enter' key to continue."
+round: "ROUND %{sub1}"
+name: "What's your name?"
+invalid_name: "Sorry, must enter a value."
+greeting_user: "Hi %{sub1}!"
+greeting_computer: "You will be playing with %{sub1}"
+choice_letter: |
+  Enter your choice using the following guide:
+      'R' or 'r' for 'Rock'
+      'P' or 'p' for 'Paper'
+      'S' or 's' for 'Scissors'
+      'K' or 'k' for 'Spock'
+      'L' or 'l' for 'Lizard'
+invalid_choice_letter: "Not a valid choice. Try again."
+user_choice: "%{sub1} chose: %{sub2}"
+computer_choice: "%{sub1} chose: %{sub2}"
+user_win: "%{sub1} won!"
+computer_win: "%{sub1} won!"
+tie: "It is a tie!"
+score: "Total Score after %{sub1} Round(s)"
+user_score: "%{sub1}: %{sub2}"
+computer_score: "%{sub1}: %{sub2}"
+user_grand_winner: "%{sub1} are the Grand Winner!"
+computer_grand_winner: "%{sub1} is the Grand Winner!"
+replay_choice: |
+  Do you want to play again? 
+  => Enter 'y' or 'yes' to continue.
+  => Enter 'n' or 'no' to quit.
+invalid_replay_choice: "Please enter 'y', 'yes', 'n' or 'no' (case insensitive)."
+goodbye: "Thank you for playing!"
