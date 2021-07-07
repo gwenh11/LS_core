@@ -22,7 +22,7 @@ round: "ROUND %{sub1}"
 name: "What's your name?"
 invalid_name: "Sorry, must enter a value."
 greeting_user: "Hi %{sub1}!"
-greeting_computer: "You will be playing with %{sub1}"
+greeting_computer: "You will be playing with %{sub1}."
 choice_letter: |
   Enter your choice using the following guide:
       'R' or 'r' for 'Rock'
@@ -36,14 +36,16 @@ computer_choice: "%{sub1} chose: %{sub2}"
 user_win: "%{sub1} won!"
 computer_win: "%{sub1} won!"
 tie: "It is a tie!"
-score: "Total Score after %{sub1} Round(s)"
+score: "Total Score after %{sub1} %{sub2}"
 user_score: "%{sub1}: %{sub2}"
 computer_score: "%{sub1}: %{sub2}"
 user_grand_winner: "%{sub1} are the Grand Winner!"
 computer_grand_winner: "%{sub1} is the Grand Winner!"
+user_past_moves: "%{sub1}'s past moves are: %{sub2}."
+computer_past_moves: "%{sub1}'s past moves are: %{sub2}."
 replay_choice: |
-  Do you want to play again? 
+  Would you like to play again? 
   => Enter 'y' or 'yes' to continue.
   => Enter 'n' or 'no' to quit.
-invalid_replay_choice: "Please enter 'y', 'yes', 'n' or 'no' (case insensitive)."
+invalid_replay_choice: "Please enter 'y', 'yes', 'n' or 'no'."
 goodbye: "Thank you for playing!"
