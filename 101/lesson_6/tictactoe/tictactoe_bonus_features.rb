@@ -139,7 +139,7 @@ end
 def computer_move!(brd)
   square = find_danger_square(brd, COMPUTER_MARKER)
   square = find_danger_square(brd, PLAYER_MARKER) if !square
-  square == 5 if !square && brd[5] == INITIAL_MARKER
+  square = 5 if !square && brd[5] == INITIAL_MARKER
   square = empty_squares(brd).sample if !square
   brd[square] = COMPUTER_MARKER
 end
