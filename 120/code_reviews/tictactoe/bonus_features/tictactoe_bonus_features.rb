@@ -363,14 +363,12 @@ class TTTGame
   def computer_offense_or_defense
     square = board.at_risk_square(computer.marker)
     square = board.at_risk_square(human.marker) if !square
-    5 if !square && board[5] == Square::INITIAL_MARKER
+    square = 5 if !square && board[5] == Square::INITIAL_MARKER
+    square
   end
 
   def computer_moves
     square = computer_offense_or_defense
-    # square = board.at_risk_square(computer.marker)
-    # square = board.at_risk_square(human.marker) if !square
-    # square = 5 if !square && board[5] == Square::INITIAL_MARKER
     square = board.unmarked_keys.sample if !square
     board[square] = computer.marker
   end
