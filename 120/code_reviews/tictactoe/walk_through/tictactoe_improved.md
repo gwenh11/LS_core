@@ -171,10 +171,8 @@ While the code from our initial exploration seems to work, and the classes we cr
 
    Notice that the `Board#draw` method above won't contain any of the extra messages. Instead, we'll leave that in the original `TTTGame#display_board` method, which is below.
 
-   Copy Code
-
    ```ruby
-   class TTTGame
+class TTTGame
      # ... rest of class omitted for brevity
    
      def display_board
@@ -185,7 +183,7 @@ While the code from our initial exploration seems to work, and the classes we cr
      end
    end
    ```
-
+   
    Now, the `TTTGame#display_board` just calls `Board#draw`. Why did we only move the board output to the `Board#draw` method, and not the extra information about the player and computer marker, and the extra `puts ""` before and after the display of the board? The answer has to do with organizing the code.
 
    `Board#draw` shouldn't know anything about player markers or extra padding. It should only be concerned with one thing: drawing the state of the board. You can almost think of this as the board's `to_s` method. It should be generic so that it can be used in a variety of yet unanticipated situations.
