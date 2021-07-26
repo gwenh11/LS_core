@@ -36,27 +36,100 @@ module Inputable
     end
     input
   end
-  
+
   def valid_player_input?(msg_key, input)
     case msg_key
+    when 'read_instructions' then valid_read_instructions?(input)
+    when 'name' then valid_name?(input)
     when 'press_enter' then valid_press_enter?(input)
     when 'hit_or_stay' then valid_hit_or_stay?(input)
     when 'play_again' then valid_play_again?(input)
     end
   end
-  
+
+  def valid_read_instructions?(input)
+    TwentyOne::YES_OR_NO.include?(input.downcase)
+  end
+
+  def valid_name?(input)
+    input.downcase.chars.all? { |char| Participant::LETTERS.include?(char) } &&
+      !input.empty?
+  end
+
   def valid_press_enter?(input)
     input.empty?
   end
-  
+
   def valid_hit_or_stay?(input)
     TwentyOne::GAME_CHOICES.include?(input.downcase)
   end
-  
+
   def valid_play_again?(input)
-    REPLAY_CHOICES.include?(input.downcase)
+    TwentyOne::YES_OR_NO.include?(input.downcase)
+  end
+end
+
+module Displayable
+  def display_instructions
+    puts ""
+    choice = get_player_input('read_instructions', 'invalid_yes_or_no')
+    if choice == 'y' || choice == 'yes'
+      clear_screen
+      prompt('instructions', Score::GRAND_WINNER_SCORE)
+    end
+    pause_game unless choice == 'n' || choice == 'no'
   end
 
+  def display_goodbye
+    prompt('goodbye')
+  end
+
+  def display_initial_hands
+    dealer.display_initial_hand
+    pace_interaction
+    player.display_initial_hand
+  end
+
+  def display_all_hands
+    dealer.display_hand
+    player.display_hand
+  end
+
+  def display_status(participant)
+    if participant.busted?
+      prompt('busted_warning', participant.name, Hand::WINING_TOTAL)
+    else
+      prompt('stay', participant.name, participant.total)
+    end
+  end
+
+  def display_result
+    player_name = player.name
+    dealer_name = dealer.name
+    puts ""
+    case detect_result
+    when :player_busted then prompt('busted', player_name, dealer_name)
+    when :dealer_busted then prompt('busted', dealer_name, player_name)
+    when :player then prompt('win', player_name)
+    when :dealer then prompt('win', dealer_name)
+    when :tie then prompt('tie')
+    end
+  end
+
+  def display_score
+    pace_interaction
+    puts ""
+    prompt('score', dealer.name, dealer.score)
+    prompt('score', player.name, player.score)
+    pause_game unless grand_winner?
+  end
+
+  def display_grand_winner
+    pace_interaction
+    puts ""
+    prompt('grand_winner', dealer.name) if dealer.score.max?
+    prompt('grand_winner', player.name) if player.score.max?
+  end
 end
 
 class Card
@@ -95,6 +168,14 @@ class Deck
   attr_accessor :cards
 
   def initialize
+    reset
+  end
+
+  def deal_one
+    cards.pop
+  end
+
+  def reset
     @cards = []
     Card::SUITS.each do |suit|
       Card::FACES.each do |face|
@@ -102,10 +183,6 @@ class Deck
       end
     end
     cards.shuffle!
-  end
-
-  def deal_one
-    cards.pop
   end
 end
 
@@ -116,7 +193,8 @@ module Hand
   def add_card(new_card)
     cards << new_card
   end
-    
+
+  # rubocop:disable Metrics/MethodLength
   def calculate_initial_sum
     sum = 0
     cards.each do |card|
@@ -130,9 +208,10 @@ module Hand
     end
     sum
   end
+  # rubocop:enable Metrics/MethodLength
 
   def adjust_for_ace(sum)
-    cards.select { |card| card.ace? }.count.times do
+    cards.select(&:ace?).count.times do
       sum -= 10 if sum > WINING_TOTAL
     end
     sum
@@ -152,18 +231,15 @@ module Hand
   end
 
   def display_hand
-    # puts "#{name}'s hand."
+    puts ""
+    prompt('hand', name)
     cards.each { |card| puts "=> #{card}" }
-    puts "#{total}"
+    prompt('total', name, total)
   end
-
-
-
-
 end
 
 class Score
-  GRAND_WINNER_SCORE = 5
+  GRAND_WINNER_SCORE = 2
 
   attr_reader :score
 
@@ -171,7 +247,7 @@ class Score
     @score = 0
   end
 
-  def add
+  def add_one
     @score += 1
   end
 
@@ -185,72 +261,113 @@ class Score
 end
 
 class Participant
+  LETTERS = ('a'..'z')
+
+  include Clearable
   include Promptable
   include Inputable
   include Hand
 
-  attr_accessor :cards
+  attr_accessor :cards, :name
   attr_reader :score
 
   def initialize
-    @cards = []
+    reset_hand
+    set_name
     reset_score
   end
 
   def reset_score
     @score = Score.new
   end
+
+  def reset_hand
+    @cards = []
+  end
 end
 
 class Player < Participant
-  
+  def set_name
+    clear_screen
+    self.name = get_player_input('name', 'invalid_name').capitalize
+    prompt('greeting_player', name)
+  end
 
-  def stay
-
+  def display_initial_hand
+    display_hand
   end
 end
 
 class Dealer < Participant
+  NAMES = %w(R2D2 Hal Chapple Sonny Number5)
 
-
-
+  def set_name
+    self.name = NAMES.sample
+    prompt('greeting_dealer', name)
+  end
 
   def display_initial_hand
-    prompt('dealer_initial_cards', cards.first)
-    prompt('dealer_initial_total')
+    prompt('hand', name)
+    puts "=> Unknown"
+    puts "=> #{cards.first}"
+    prompt('total', name, 'unknown')
   end
 end
 
 class TwentyOne
+  GAME_CHOICES = %w(h hit s stay)
+  YES_OR_NO = %w(y yes n no)
 
-  GAME_CHOICES = %w(h s hit stay)
   include Promptable
   include Inputable
+  include Displayable
 
   attr_accessor :deck, :dealer, :player
 
   def initialize
     @deck = Deck.new
-    @dealer = Dealer.new
     @player = Player.new
+    @dealer = Dealer.new
   end
 
-  def play
-    dealer_cards
-    display_initial_hands
-    player_turn
-    dealer_turn
-    display_result
-
+  def main_game
+    display_instructions
+    loop do
+      play_rounds
+      break unless play_again?
+      reset_deck_and_hands
+      reset_score
+      clear_screen
+    end
+    display_goodbye
   end
 
   private
+
+  # rubocop:disable Metrics/MethodLength
+  def play_rounds
+    loop do
+      clear_screen
+      dealer_cards
+      display_initial_hands
+      player_turn
+      dealer_turn unless player.busted?
+      calculate_score
+      display_result
+      display_score
+      break if grand_winner?
+      reset_deck_and_hands
+    end
+    display_grand_winner
+  end
+  # rubocop:enable Metrics/MethodLength
 
   def clear_screen
     system('clear') || system('cls')
   end
 
   def pause_game
+    puts ""
     get_player_input('press_enter', 'press_enter')
   end
 
@@ -265,75 +382,90 @@ class TwentyOne
     end
   end
 
-  def display_initial_hands
-    puts "Dealer"
-    p dealer
-    dealer.display_initial_hand
-    puts "Player"
-    p player
-    player.display_hand
-  end
-
-
+  # rubocop:disable Metrics/MethodLength
   def player_turn
     choice = nil
     loop do
+      puts ""
       choice = get_player_input('hit_or_stay', 'invalid_hit_or_stay')
       if choice == 'h'
-        prompt('player_hit')
+        prompt('hit', player.name)
         player.add_card(deck.deal_one)
+        pace_interaction
         player.display_hand
-        p player.total
       end
       break if choice == 's' || player.busted?
     end
+    display_status(player)
   end
-  
+  # rubocop:enable Metrics/MethodLength
+
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def dealer_turn
-    prompt('dealer_turn')
+    puts ""
+    prompt('dealer_turn', dealer.name)
+    dealer.display_hand
     loop do
       break if dealer.total >= Hand::DEALER_MIN
-      prompt('dealer_hit')
+      prompt('hit', dealer.name)
       dealer.add_card(deck.deal_one)
-      prompt('dealer_current_cards', player)
-    end
-    display_dealer_status
-  end
-
-  def display_dealer_status
-    pace_interaction
-    if dealer.busted?
-      prompt('dealer_busted_warning', Hand::WINING_TOTAL)
-    else
-      prompt('dealer_stay', dealer.total)
+      pace_interaction
+      dealer.display_hand
     end
     pace_interaction
+    display_status(dealer)
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  def display_result
+  # rubocop:disable Metrics/MethodLength
+  def detect_result
     player_total = player.total
     dealer_total = dealer.total
-
     if player_total > Hand::WINING_TOTAL
-      prompt('player_busted')
+      :player_busted
     elsif dealer_total > Hand::WINING_TOTAL
-      prompt('dealer_busted')
+      :dealer_busted
     elsif dealer_total < player_total
-      prompt('player')
-    elsif player_total < dealer_total
-      prompt('dealer')
+      :player
+    elsif dealer_total > player_total
+      :dealer
     else
-      prompt('tie')
+      :tie
+    end
+  end
+  # rubocop:enable Metrics/MethodLength
+
+  def calculate_score
+    player_score = player.score
+    dealer_score = dealer.score
+    case detect_result
+    when :player_busted then dealer_score.add_one
+    when :dealer_busted then player_score.add_one
+    when :player then player_score.add_one
+    when :dealer then dealer_score.add_one
     end
   end
 
-  # def hit_or_stay!
-  #   answer = get_player_input('hit_or_stay', 'invalid_hit_or_stay')
-  #   if answer.start_with?('h')
-  #     prompt('player_hit')
-  #     self.add_card
-  #     end
-  # end
+  def grand_winner?
+    dealer.score.max? || player.score.max?
+  end
+
+  def play_again?
+    puts ""
+    choice = get_player_input('play_again', 'invalid_yes_or_no')
+    choice == 'y' || choice == 'yes'
+  end
+
+  def reset_deck_and_hands
+    deck.reset
+    dealer.reset_hand
+    player.reset_hand
+  end
+
+  def reset_score
+    dealer.reset_score
+    player.reset_score
+  end
 end
 
-TwentyOne.new.play
+TwentyOne.new.main_game

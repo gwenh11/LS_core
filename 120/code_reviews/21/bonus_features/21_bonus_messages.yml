@@ -1,11 +1,9 @@
+read_instructions: "Would you like to read the instructions?"
+invalid_yes_or_no: "Sorry, must enter 'y' or 'n'."
 instructions: |
   Welcome to Twenty-One Card Game!
 
   => You will be playing against the computer (dealer) for multiple rounds.
-  => Round winner is the one whose total card value is higher than the other player's.
-  => However, a player with a total card value higher than 21 loses the current round.
-  => Whichever player reaches a score of 5 first is the grand winner.
-
   => Each player is initially dealt two cards. The dealer's cards have one face up.
   => You have the choice to maintain your hand (stay), and not draw any cards.
   => You are also allowed to draw additional cards (hit) to improve your hand.
@@ -16,34 +14,28 @@ instructions: |
     - The Ace can be worth 1 or 11.
     - If the total value does not exceed 21, each Ace is worth 11.
     - If the total value exceeds 21, each Ace is worth 1.
-round: "Round #%{sub1}"
+
+  => Round winner is the one whose total card value is higher than the other player's.
+  => However, a player with a total card value higher than 21 loses the current round.
+  => Whichever player reaches a score of %{sub1} first is the grand winner.
 press_enter: "Press ENTER to continue."
-hit_or_stay: "Would you like to hit or stay? You can enter 'h' or 's' for short."
+name: "What's your name?"
+invalid_name: "Sorry, must enter a valid name."
+greeting_player: "Hi %{sub1}!"
+greeting_dealer: "You will be playing with %{sub1}."
+hit_or_stay: "Enter 'h' to hit. Enter 's' to stay."
 invalid_hit_or_stay: "Sorry, must enter 'h' or 's'."
-player_hit: "You chose to hit!"
-player_current_cards: "Your cards are now: %{sub1}"
-player_current_total: "Your total is now: %{sub1}"
-player_busted_warning: "Your total is greater than %{sub1}..."
-player_stay: "You stayed at %{sub1}"
-dealer_turn: "Dealer turn..."
-dealer_hit: "Dealer hits!"
-dealer_current_cards: "Dealer's cards are now: %{sub1}"
-dealer_busted_warning: "Dealer's total is greater than %{sub1}..."
+hit: "%{sub1} chose to hit!"
+hand: "%{sub1}'s' cards are now:"
+total: "%{sub1} total is now: %{sub2}"
+busted_warning: "%{sub1} total is greater than %{sub2}..."
+stay: "%{sub1} stayed at %{sub2}"
+dealer_turn: "%{sub1} turn..."
 dealer_stay: "Dealer stayed at %{sub1}"
-player_busted: "You busted! Dealer wins!"
-dealer_busted: "Dealer busted! You win!"
-player: "You win!"
-dealer: "Dealer wins!"
+busted: "%{sub1} busted! %{sub2} wins!"
+win: "%{sub1} wins!"
 tie: "It's a tie!"
-dealer_initial_cards: "Dealer has %{sub1} and ?"
-dealer_initial_total: "Dealer's total is unknown."
-dealer_all_cards: "Dealer has %{sub1}"
-dealer_total: "Dealer's total is %{sub1}"
-player_all_cards: "Player has %{sub1}"
-player_total: "Player's total is: %{sub1}"
-dealer_score: "Dealer's score is %{sub1}"
-player_score: "Your score is %{sub1}"
-grand_winner: "THE GRAND WINNER IS %{sub1}!"
-play_again: "Do you want to play again? (y or n)"
-invalid_play_again: "Sorry, must enter 'y' or 'n'."
+score: "%{sub1}'s score is %{sub2}"
+grand_winner: "The Grand Winner is %{sub1}!"
+play_again: "Would you like to play again? (y or n)"
 goodbye: "Thank you for playing Twenty-One Card Game! Good bye!"
